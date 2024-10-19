@@ -24,18 +24,22 @@ kiwi,80
       // 要件はdataの金額でソートする。同一金額はdataの記載順で表示する。
       // dataは改行区切りの文字列である
       const printSortedData = (items) => {
-        console.log(items);
+
         const fruits = items.trim("").split("\n").map((line)=>{
             [name,price] = line.split(",")
             return { name, price: Number(price) };
         })
-        console.log(fruits)
+        // console.log(fruits)
         
         const sortedFruits = fruits.sort((a, b) => a.price - b.price);
         // sortedFruits.forEach(fruits=>{
         //     console.log(fruits)
         // })
         console.log("sortFruits: ", sortedFruits)
+
+        sortedFruits.forEach(fruit => {
+        console.log(`${fruit.name},${fruit.price}`);
+    });
     };
 
       printSortedData(data);
