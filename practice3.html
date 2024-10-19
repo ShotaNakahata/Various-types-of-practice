@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 問題: テキストボックスに入力した内容を表示する
+    Webページを作成してください。
+    要件:
+    HTMLページにテキストボックスと「表示」ボタンを作成してください。
+    テキストボックスに何かを入力し、「表示」ボタンをクリックすると、入力した内容が下に表示されるようにしてください。 -->
+
+    <input type="text" placeholder="入力欄" >
+    <button type="submit">表示</button>
+
+    <script>
+        const text =document.createElement("h3")
+        const textbox = document.querySelector("input");
+        const displayText = document.createElement("h3");
+        console.dir(textbox);
+        let inputval="";
+        textbox.addEventListener("input",(e)=>{
+            inputval = (e.target.value)
+            console.log("inputval: ",inputval);
+            // return inputval;
+        });
+        const submitbutton = document.querySelector("button");
+        submitbutton.addEventListener("click",()=>{
+            console.log(inputval);
+            displayText.textContent=inputval;
+            submitbutton.insertAdjacentElement("afterend",displayText);
+
+        })
+        // .addEventListener("")
+    </script>
+</body>
+</html>
