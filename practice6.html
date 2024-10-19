@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="username" placeholder="username" />
+    <p id="usernameError"></p> <!-- エラーメッセージ用 -->
+    
+    <input type="password" id="password" placeholder="password" />
+    <p id="passwordError"></p> <!-- エラーメッセージ用 -->
+    
+    <input type="email" id="email" placeholder="email" />
+    <p id="emailError"></p> <!-- エラーメッセージ用 -->
+    
+    <button id="Register">登録</button>
+
+    <script>
+      let name = "",
+        password = "",
+        email = "";
+      let allInformation = {};
+
+      const usernameBox = document.getElementById("username");
+      const passwordBox = document.getElementById("password");
+      const emailBox = document.getElementById("email");
+      const RegisterButton = document.getElementById("Register");
+
+      const usernameError = document.getElementById("usernameError");
+      const passwordError = document.getElementById("passwordError");
+      const emailError = document.getElementById("emailError");
+
+      // ユーザー名の入力
+      usernameBox.addEventListener("input", (e) => {
+        name = e.target.value;
+        console.log(name); 
+      });
+
+      // パスワードの入力
+      passwordBox.addEventListener("input", (e) => {
+        password = e.target.value;
+        console.log(password); 
+      });
+
+      // メールアドレスの入力
+      emailBox.addEventListener("input", (e) => {
+        email = e.target.value;
+        console.log(email); 
+      });
+
+      // バリデーション処理
+      RegisterButton.addEventListener("click", () => {
+        // エラーメッセージをクリア
+        usernameError.textContent = "";
+        passwordError.textContent = "";
+        emailError.textContent = "";
+
+        let isValid = true; // 全体のバリデーションフラグ
+
+        // ユーザー名のバリデーション
+        if (name.length < 3) {
+          usernameError.textContent = "ユーザー名は3文字以上でなければならない。";
+          isValid = false;
+        }
+
+        // パスワードのバリデーション
+        if (password.length < 8) {
+          passwordError.textContent = "パスワードは8文字以上でなければならない。";
+          isValid = false;
+        }
+
+        // メールアドレスのバリデーション
+        if (!validateEmail(email)) {
+          emailError.textContent = "有効なメールアドレスを入力してください。";
+          isValid = false;
+        }
+
+        // バリデーションがすべて成功した場合
+        if (isValid) {
+          allInformation = { name, password, email };
+          console.log("登録成功", allInformation);
+        }
+      });
+
+      // メールアドレスの形式をチェックする関数
+      function validateEmail(email) {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(email);
+      }
+    </script>
+  </body>
+</html>
