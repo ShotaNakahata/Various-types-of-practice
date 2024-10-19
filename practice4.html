@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 問題:
+    複数のチェックボックスの状態を確認して、選択された項目を表示するWebページを作成してください。
+    要件:
+    3つのチェックボックスを作成してください。それぞれ「りんご」「バナナ」「オレンジ」という名前を持っています。
+    ボタンを押すと、選択されたフルーツの名前を下に表示してください。
+    もし何も選択されていなければ「何も選択されていません」と表示してください。
+    ヒント: チェックボックスの状態はcheckedプロパティを使って確認します。
+    選択された項目を配列に保存し、それを表示する方法を考えてください。 -->
+    <Form>
+        <input type="checkbox" id="apple" name="fruit" value="apple">
+        <label for="apple">apple</label>
+        <input type="checkbox" id="banana" name="fruit" value="banana">
+        <label for="banana">banana</label>
+        <input type="checkbox" id="orange" name="fruit" value="orange">
+        <label for="orange">orange</label>
+    </Form>
+    <h3 id="result">何も選択されていません</h3>
+    <script>
+        const checkboxes = document.querySelectorAll("input[name=fruit]");
+        const result = document.getElementById("result");
+        // console.log("result: ",result);//-----------------console.log()
+
+        checkboxes.forEach(checkbox=>{
+            checkbox.addEventListener("change",updateSelectedBox);
+        })
+
+        function updateSelectedBox(){
+            const selectedboxes = Array.from(checkboxes)
+            .filter(selected=>selected.checked)
+            .map(selected=>selected.value);
+
+            if(selectedboxes.length>0){
+                result.textContent=`${selectedboxes.join(", ")}`
+            }else{
+                result.textContent="何も選択されていません"
+            }
+            console.log("selectedboxes; ",selectedboxes)//-----------------console.log()
+        }
+
+
+
+        console.log("checkboxes: ",checkboxes);//-----------------console.log()
+    </script>
+  </body>
+</html>
