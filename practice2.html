@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- /*
+      問題: ボタンをクリックすると、テキストを表示するWebページを作成してください。
+      要件:
+      HTMLページに「クリックしてください」というボタンを作成してください。
+      ボタンをクリックすると、下に「こんにちは、世界！」というテキストが表示されるようにしてください。
+     */ -->
+     <!-- onclick="display -->
+    <div>
+      <button>クリックしてください</button>
+    </div>
+    <script>
+      const button = document.querySelector("button");
+      const helloWorld = document.createElement("h2")
+      helloWorld.textContent=("こんにちは、世界！")
+      // const helloWorld=("<h1>こんにちは、世界！</h1>")
+      button.addEventListener("click",()=>{
+        console.log("from addeventlistner")
+        console.log(button);
+        button.insertAdjacentElement("afterend",helloWorld)
+      })
+      // console.dir(button);
+    </script>
+  </body>
+</html>
