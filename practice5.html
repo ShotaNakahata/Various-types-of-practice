@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 問題:
+    テキスト入力とボタンでユーザーの名前を表示するWebページを作成してください。
+    要件:
+    ページには、名前を入力するためのテキストボックスと、「表示」ボタンを作成してください。
+    ユーザーが名前を入力し、「表示」ボタンを押すと、入力された名前が下に表示されるようにしてください。
+    もし何も入力されていない状態で「表示」ボタンを押した場合は、「名前を入力してください」と表示してください。
+    ヒント: JavaScriptを使って、input要素からユーザーの入力を取得します。
+    テキストボックスの入力値は、valueプロパティを使って取得できます。
+    addEventListenerを使ってボタンにクリックイベントを設定してください。 -->
+
+    <input type="text" value="" id="textInput" placeholder="名前を入力してください">
+    <button type="button" id="displayButton" >表示</button>
+    <p id="displayText">名前を入力してください</p>
+
+    <script>
+        let inputVal = "";
+        const textInput = document.getElementById("textInput");
+        const displayButton = document.getElementById("displayButton");
+        const displayText = document.getElementById("displayText");
+        textInput.addEventListener("input",(e)=>{
+            console.log("from onChange")//------------console.log("");
+            inputVal = e.target.value
+            console.log("inputVal: ",inputVal)//------------console.log(inputVal)
+        })
+        
+        displayButton.addEventListener("click",()=>{
+            if(inputVal.length>0){
+                displayText.textContent=inputVal;
+            }else{
+                displayText.textContent = "textを入力してください"
+            }
+            
+        });
+        console.log(displayButton.textContent);
+        console.log("textInput: ",textInput); //------------console.log(textInput)
+        console.log("displayButton: ",displayButton); //------------console.log(textInput)
+        console.log("displayText: ",displayText.textContent); //------------console.log(textInput)
+        
+    </script>
+  </body>
+</html>
