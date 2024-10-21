@@ -1,0 +1,11 @@
+{
+    "name": "Tokyo",
+        "weather": [
+            {
+                "description": "曇り"
+            }
+        ],
+            "main": {
+        "temp": 18.5
+    }
+}
