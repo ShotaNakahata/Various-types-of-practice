@@ -1,0 +1,76 @@
+/* 画面幅が768px以下の場合 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* カードを縦並びにする */
+        align-items: center; /* カードを中央に揃える */
+    }
+
+    .card {
+        width: 100%; /* カードの幅を100%にして、画面全体を使う */
+        max-width: 400px; /* カードの最大幅を400pxに制限 */
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+
+}
+.body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.div{
+    flex: auto;
+
+}
+.card{
+    width: 300px;
+    height: 400px;
+    justify-items: center;
+    background-color: aquamarine;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+} 
+.card img{
+    top: 200px;
+    object-fit: cover;
+} 
+.card h3{
+    margin: 20px 0 10px;
+}
+
+.card p {
+    padding: 0 20px;
+    color: #555;
+}
+
+.details-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.details-button:hover {
+    background-color: #2980b9; /* ホバー時のボタンの色変更 */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* カードをホバー時に浮き上がらせる効果 */
+}
