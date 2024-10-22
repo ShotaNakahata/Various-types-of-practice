@@ -1,0 +1,82 @@
+/* グローバルスタイル（必要に応じてリセット） */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションバー全体のスタイル */
+.navbar {
+    height: 70px;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #333333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ロゴのスタイル */
+.logo {
+    font-size: 24px;
+    color: white;
+}
+
+/* メニュー全体のスタイル */
+.menu {
+    display: flex;
+}
+
+/* リンクのスタイル */
+.menu a {
+    font-size: 16px;
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+/* ホバー時のリンクの色 */
+.menu a:hover {
+    color: #f1c40f;
+}
+
+/* ハンバーガーメニューのスタイル */
+.hamburger {
+    display: none; /* 初期は非表示 */
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+/* メディアクエリ：768px以下の画面幅のスタイル */
+@media (max-width: 768px) {
+    .menu {
+        display: none; /* 初期状態でメニューは非表示 */
+        flex-direction: column;
+        width: 100%;
+        background-color: #333333;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        text-align: center;
+    }
+
+    .menu.active {
+        display: flex; /* ハンバーガーメニューがクリックされたときに表示 */
+    }
+
+    .menu a {
+        padding: 10px 0;
+        margin-right: 0;
+    }
+
+    .hamburger {
+        display: flex; /* ハンバーガーメニューを768px以下で表示 */
+    }
+}
