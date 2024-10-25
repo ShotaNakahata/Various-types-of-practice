@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .Box{
+            border: 1px solid black;
+            text-align: center;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 100px  100px 100px ;
+            grid-template-rows:100px  100px 100px 100px ;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="Box">Box1</div>
+        <div class="Box">Box2</div>
+        <div class="Box">Box3</div>
+        <div class="Box " style="grid-column: 1/span 3;">Box4</div>
+    </div>
+</body>
+</html>
