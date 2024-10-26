@@ -23,10 +23,20 @@
     <hr class="bg-info">
     <div class="container" >
         <p>Fromにご記入ください</p>
+
         <form action="" method="post">
             <div class="mb-3">
                 <label for="myName" class="form-label">myName</label>
                 <input type="text" class="form-control" id="myName" placeholder="山田 太郎">
+            </div>
+            <div class="mb-3">
+                <label for="job" class="form-label">ご職業</label>
+                <select name="job" id="job" class="form-select" aria-label="ご職業">
+                    <option selected>Open this select menu</option>
+                    <option value="1">会社員</option>
+                    <option value="2">学生</option>
+                    <option value="3">その他</option>
+                </select>
             </div>
         </form>
     </div>
