@@ -21,16 +21,17 @@
         </div>
     </div>
     <hr class="bg-info">
+
     <div class="container" >
         <p>Fromにご記入ください</p>
 
         <form action="" method="post">
             <div class="mb-3">
-                <label for="myName" class="form-label">myName</label>
+                <label for="myName" class="form-label ">myName<span class="badge rounded-pill bg-danger ms-3">必須</span></label>
                 <input type="text" class="form-control" id="myName" placeholder="山田 太郎">
             </div>
             <div class="mb-3">
-                <label for="job" class="form-label">ご職業</label>
+                <label for="job" class="form-label">ご職業<span class="badge rounded-pill bg-secondary ms-3">任意</span></label>
                 <select name="job" id="job" class="form-select" aria-label="ご職業">
                     <option selected>Open this select menu</option>
                     <option value="1">会社員</option>
@@ -40,7 +41,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="">興味のある分野</label>
+                <label for="">興味のある分野<span class="badge rounded-pill bg-danger ms-3">必須</span></label>
 
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="q1[]" value="HTML" id="HTML" >
@@ -63,7 +64,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="">理解度はどうですか？</label>
+                <label for="">理解度はどうですか？<span class="badge rounded-pill bg-danger ms-3">必須</span></label>
                 <div class="d-sm-flex">
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio"  id="NonSelect" name="understand" checked>
@@ -88,7 +89,7 @@
 
             <div class="mb-3">
                 <div class="mb-3">
-                    <label for="text" class="form-label">感想を入力してください</label>
+                    <label for="text" class="form-label">感想を入力してください<span class="badge rounded-pill bg-secondary ms-3">任意</span></label>
                     <textarea class="form-control" id="text" rows="3"></textarea>
                 </div>
             </div>
