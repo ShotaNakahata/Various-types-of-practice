@@ -1,6 +1,7 @@
 const inputTask = document.getElementById("inputTask");
 const taskForm = document.getElementById("taskForm");
 const taskList = document.getElementById("taskListContainer");
+const nonTask = document.getElementById("nonTask")
 console.log(button);
 
 taskForm.addEventListener("submit", (event) => {
@@ -30,8 +31,13 @@ function addTask(taskText){
 
     taskCard.appendChild(deleteButton);
     taskListContainer.appendChild(taskCard);
+    nonTask.style.display="none"
 }
 
 function deleteTask(taskCard){
     taskCard.remove();
+    const allTaskCard = document.querySelectorAll(".task-card");
+    if(allTaskCard.length===0){
+        nonTask.style.display="flex"
+    }
 }
