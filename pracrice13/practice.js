@@ -1,37 +1,37 @@
 const inputTask = document.getElementById("inputTask");
-const button = document.getElementById("button");
+const taskForm = document.getElementById("taskForm");
 const taskList = document.getElementById("taskListContainer");
-console.log(button)
+console.log(button);
 
+taskForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    addTask(inputTask.value);
+    // inputTask.value = ""; 
+});
 
-button.addEventListener("click",()=>{
-    const card = document.createElement("div");
-    card.id = "card"
-    taskList.appendChild(card);
-    console.log("clicked");
-    const tasktext = inputTask.value;
-    console.log(tasktext);
-    const taskUl= document.createElement("ul")
-    taskUl.className="taskContent";
-    taskUl.id=tasktext;
-    taskUl.textContent=tasktext;
-    card.appendChild(taskUl);
-    const deleteBtn=document.createElement("button")
-    deleteBtn.id =tasktext
-    
-    deleteBtn.className = "btn"
-    deleteBtn.textContent = "delete"
-    deleteBtn.addEventListener("click",deleteFn)
-    // deleteBtn.textContent = deleteBtn.id
-    console.dir(deleteBtn)
-    taskUl.after(deleteBtn);
-    
-})
+function addTask(taskText){
+    if(!taskText)return;
 
-function deleteFn(event){
-    console.log("from deleteFn")
-    const btn = event.target;
-    card = btn.closest("#card")
-    console.log(card)
-    card.remove();
+    // タスクカードの作成
+    const taskCard = document.createElement("div");
+    taskCard.classList.add("task-card");
+
+     // タスク内容の表示
+    const taskContent = document.createElement("p");
+    taskContent.classList.add("task-content");
+    taskContent.textContent = taskText;
+    taskCard.appendChild(taskContent);
+
+    // 削除ボタンの作成
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-btn");
+    deleteButton.textContent = "削除";
+    deleteButton.addEventListener("click", () => deleteTask(taskCard));
+
+    taskCard.appendChild(deleteButton);
+    taskListContainer.appendChild(taskCard);
+}
+
+function deleteTask(taskCard){
+    taskCard.remove();
 }
