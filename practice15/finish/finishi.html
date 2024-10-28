@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .dropdown {
+        position: relative;
+        width: 200px;
+        margin: 20px 0;
+      }
+
+      .dropdown-box {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+      }
+
+      .arrow {
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #000;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 110%;
+        left: 0;
+        width: 100%;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+
+      .dropdown.active .dropdown-content {
+        display: block;
+      }
+
+      .dropdown-content label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .selected-items {
+        font-size: 14px;
+        color: #333;
+      }
+
+      select {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <!-- Existing select element -->
+      <select id="mySelect1" multiple>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+
+      
+      <!-- To check if it works correctly even when there are multiple select elements -->
+      <select id="mySelect2" multiple>
+          <option value="1">Option A</option>
+          <option value="2">Option B</option>
+          <option value="3">Option C</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script type="module">
+     
+       // Manage all the multiple select elements with selectedItems.
+       let selectedItems = [];
+
+       // // Retrieve all select elements
+       document.querySelectorAll("select").forEach((selectElement) => {
+           selectedItems[selectElement.id] = [];
+           // console.log("selectElement",selectElement);
+           createCustomDropDown(selectElement);
+        });
+
+        /*
+        In the createCustomDropDown function, 
+        we'll progressively add the necessary elements to the Dropdown container.
+        */
+       function createCustomDropDown(selectElement) {
+           const dropdown = document.createElement("div"); 
+           dropdown.classList.add("dropdown");
+           const dropdownBox = document.createElement("div");
+           dropdownBox.classList.add("dropdown-box");
+           dropdownBox.innerHTML =
+           '<span class="selected-items">Please select</span><div class="arrow"></div>';
+           dropdown.appendChild(dropdownBox);
+           const dropdownContent = document.createElement("div");
+           dropdownContent.classList.add("dropdown-content");
+           
+           //Processing each option element within the select element.
+           Array.from(selectElement.options).forEach((option) => {
+               const label = document.createElement("label");
+               const checkbox = document.createElement("input");
+               checkbox.type = "checkbox";
+               checkbox.value = option.value;
+               label.appendChild(checkbox);
+               //   console.log("option.textContent: ", option.textContent);
+               label.appendChild(document.createTextNode(option.textContent));
+               dropdownContent.appendChild(label);
+               
+               // Synchronize the checkbox with the <select> element's selection state
+                checkbox.addEventListener("change", function () {
+                    option.selected = this.checked;
+                    updateSelectedItems(dropdownBox, selectElement);
+                });
+            });
+            
+            dropdown.appendChild(dropdownContent);
+            selectElement.insertAdjacentElement("afterend", dropdown);
+            selectElement.style.display = "none";
+            
+            dropdownBox.addEventListener("click", function () {
+                dropdown.classList.toggle("active");
+            });
+            
+            // Receive and update when the user selects a checkbox
+            function updateSelectedItems(dropdownBox, selectElement) {
+                const selected = Array.from(selectElement.selectedOptions).map(
+                    (option) => option.textContent
+                );
+                console.log(selected);
+                
+                // Display the content when an item is selected, and show the default when not selected
+                dropdownBox.querySelector(".selected-items").textContent =
+                selected.length > 0 ? selected.join(", ") : "Please Select";
+                selectedItems[selectElement.id] = selected;
+            }
+        }
+        
+        const form = document.getElementById("form");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const allSelectedItems = Object.values(selectedItems).flat();
+            alert("Submit Successful with " + allSelectedItems.join(", "));
+            // console.log(selectedItems);
+        });
+        </script>
+  </body>
+</html>
