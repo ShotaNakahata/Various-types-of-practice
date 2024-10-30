@@ -8,17 +8,39 @@
 // 設定オブジェクトを引数で受け取り、柔軟にルールを設定できるようにする。
 // 出力結果は、指定した範囲の各数について、対応する文字列または数字を出力する。
 
-function forLoop({start,end,fizz,Buzz}){
-    for(let i = start; i<=end; i++){
-        let output = (i%fizz===0?"Fizz":"")+(i%Buzz===0?"Buzz":"");
-        console.log(output||i);
+
+//自作
+// function forLoop({start,end,fizz,Buzz}){
+//     for(let i = start; i<=end; i++){
+//         let output = (i%fizz===0?"Fizz":"")+(i%Buzz===0?"Buzz":"");
+//         console.log(output||i);
+//     }
+// }
+// forLoop({
+//     start:1,
+//     end:100,
+//     fizz:3,
+//     Buzz:5
+// })
+
+//回答版
+function flexibleFizzBuzz({ start, end, rules }) {
+    for (let i = start; i <= end; i++) {
+        let output =""
+        for ([multiple, text] of Object.entries(rules)) {
+            if (i % multiple === 0) {
+                output += text;
+            }
+        }
+        console.log(output||i)
     }
 }
-
-forLoop({
-    start:1,
-    end:100,
-    fizz:3,
-    Buzz:5
-})
-
+flexibleFizzBuzz({
+    start: 1,
+    end: 100,
+    rules: {
+        3: "Fizz",
+        5: "Buzz",
+        7: "Bazz" // 任意に追加可能
+    }
+});
