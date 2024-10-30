@@ -3,25 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="select.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
+    <title>Custom Dropdown</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="select.js" defer></script>
   </head>
   <body>
-    <form action="" id="form">
-      <select>
-        <option>Option 1</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
+    <form id="form">
+      <!-- Existing select element -->
+      <select id="mySelect1" multiple>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
       </select>
 
-      <select>
+      <!-- To check if it works correctly even when there are multiple select elements -->
+      <select id="mySelect2" multiple>
         <option value="1">Option A</option>
         <option value="2">Option B</option>
         <option value="3">Option C</option>
       </select>
-
-      <button type="button" id="showSelected">Show Selected Items</button>
+      <button type="submit">Submit</button>
     </form>
+
+
+
+    
   </body>
 </html>

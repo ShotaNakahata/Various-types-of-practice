@@ -1,66 +1,54 @@
-const selectElements = document.querySelectorAll("select");
-console.log(selectElements);
+let selectedItems = {};
 
-selectElements.forEach((selectElement)=>{
-    selectElement.setAttribute("multiple","")
-    console.log(selectElement.multiple);
-    
+// 全ての <select> 要素を取得し、選択されたアイテムを管理する
+document.querySelectorAll("select").forEach((selectElement) => {
+    selectedItems[selectElement.id] = [];
+    console.log("selectedItems", selectedItems);
     createCustomDropDown(selectElement);
-})
+});
 
 function createCustomDropDown(selectElement) {
-    // ドロップダウン全体のコンテナ
-    const dropDownBox = document.createElement("div");
-    dropDownBox.classList.add("dropDownBox");
+    const dropdown = document.createElement("div");
+    dropdown.classList.add("dropdown");
 
-    // 選択された項目の表示エリア
-    const selectedItems = document.createElement("span");
-    selectedItems.classList.add("selected-items");
-    selectedItems.textContent = "Please select"; // 初期メッセージ
-    dropDownBox.appendChild(selectedItems);
+    const dropdownBox = document.createElement("div");
+    dropdownBox.classList.add("dropdown-box"); // class名が "dropdownBox" ではなく "dropdown-box" です
+    dropdownBox.innerHTML = '<span class="selected-items">Please Select</span><div class="arrow"></div>';
+    dropdown.appendChild(dropdownBox);
 
-    // 選択肢リストのコンテナ
     const dropdownContent = document.createElement("div");
-    dropdownContent.classList.add("dropdownContent");
+    dropdownContent.classList.add("dropdown-content");
 
-    // `<select>` 内の各 `<option>` 要素に対応するチェックボックスとラベルを作成
+    // selectElement.options に修正
     Array.from(selectElement.options).forEach((option) => {
         const label = document.createElement("label");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.value = option.value || option.textContent;
-
-        // ラベルにチェックボックスとテキストを追加
+        checkbox.addEventListener("change",()=>{
+            option.selected = checkbox.checked;
+            updateSelectedItems(dropdownBox,selectElement)
+        })
+        
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(option.textContent));
         dropdownContent.appendChild(label);
-
-        checkbox.addEventListener("change",()=>{
-            option.selected = checkbox.checked;
-            console.log(option.selected);
-            updateSelectedItems(selectedItems, selectElement);
-        })
     });
 
-    // ドロップダウンボックスに選択リストを追加
-    dropDownBox.appendChild(dropdownContent);
+    dropdown.appendChild(dropdownContent);
 
-    // 元の select 要素の直後にドロップダウンボックスを挿入
-    selectElement.insertAdjacentElement("afterend", dropDownBox);
-
-    // 元の select 要素は非表示
-    selectElement.style.display = "none";
-
-    dropDownBox.addEventListener("click",()=>{
-        dropDownBox.classList.toggle("active");
-    })
+    // "after" を "afterend" に修正
+    selectElement.insertAdjacentElement("afterend", dropdown);
+    selectElement.style.display = "none"; // 元の select を非表示に
 }
 
-function updateSelectedItems(selectedItems, selectElement) {
-    const selectedOptions = Array.from(selectElement.selectedOptions).map(
-        (option) => option.textContent
-    );
-    selectedItems.textContent = selectedOptions.length > 0 
-        ? selectedOptions.join(", ") 
-        : "Please select"; // 選択なしの場合の表示
+function updateSelectedItems(dropdownBox, selectElement){
+    const selected  = Array.from(selectElement.selectedOptions).map(
+        (option)=>option.textContent
+    )
+    dropdownBox.querySelector(".selected-items").textContent = 
+        selected.length > 0 ? selected.join(", ") : "Please Select";
+
+    // 選択された項目を selectedItems オブジェクトに保存
+    selectedItems[selectElement.id] = selected;
 }
