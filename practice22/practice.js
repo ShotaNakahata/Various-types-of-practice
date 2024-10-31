@@ -24,9 +24,20 @@ function doubleValues(arr) {
 // 配列 [10, 20, 30, 40] の各要素に1を加え、新しい配列を返す関数 incrementByOne(arr) を作成してください。
 
 function incrementByOne(arr) {
-    const output= arr.map(number=>number+1)
+    const output = arr.map(number => number + 1)
     return output
-  }
-  
-  console.log(incrementByOne([10, 20, 30, 40])); // [11, 21, 31, 41]
-  
+}
+
+//   console.log(incrementByOne([10, 20, 30, 40])); // [11, 21, 31, 41]
+
+// 問題 3: 名前の大文字変換
+// 目的: mapで文字列を操作する方法を練習する。
+
+// 文字列の配列 ["alice", "bob", "charlie"] を受け取り、
+// 各名前をすべて大文字に変換した新しい配列を返す関数 toUpperNames(arr) を作成してください。
+
+function toUpperNames(arr) {
+    return arr.map(name=>name.toUpperCase())
+}
+
+console.log(toUpperNames(["alice", "bob", "charlie"])); // ["ALICE", "BOB", "CHARLIE"]
