@@ -37,7 +37,21 @@ function incrementByOne(arr) {
 // 各名前をすべて大文字に変換した新しい配列を返す関数 toUpperNames(arr) を作成してください。
 
 function toUpperNames(arr) {
-    return arr.map(name=>name.toUpperCase())
+    return arr.map(name => name.toUpperCase())
 }
 
-console.log(toUpperNames(["alice", "bob", "charlie"])); // ["ALICE", "BOB", "CHARLIE"]
+// console.log(toUpperNames(["alice", "bob", "charlie"])); // ["ALICE", "BOB", "CHARLIE"]
+
+
+const people = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 35 }
+];
+
+function getAges(arr) {
+    return arr.map(Onepeaple=>Onepeaple.age)
+}
+
+console.log(getAges(people));
+// [25, 30, 35]
