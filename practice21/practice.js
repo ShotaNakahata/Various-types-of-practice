@@ -14,3 +14,27 @@ function sumArray(numbers){
 }
 
 sumArray(numbers); // 100
+
+// 問題2: 配列内の文字列の出現回数カウント
+// 目的: reduce()を用いて、各要素の出現回数をオブジェクトに集計する方法を学びます。
+
+// 課題内容
+// 果物の名前が入った配列 fruits が与えられています。
+// 各果物が何回出現しているかをカウントし、オブジェクトで返す関数
+// countFruits(fruits) を実装してください。
+
+const fruits = ["apple", "banana", "orange", "apple", "banana", "apple"];
+
+function countFruits(fruits) {
+    const countFruits = {}
+    const output =fruits.reduce((acc,frut)=>{
+        if(acc[frut]){
+            acc[frut]+=1
+        }else{
+            acc[frut] = 1
+        }
+        return acc
+    },countFruits)
+    console.log(output);
+}
+countFruits(fruits); // 出力例: { apple: 3, banana: 2, orange: 1 }
