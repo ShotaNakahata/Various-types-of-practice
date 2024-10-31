@@ -15,4 +15,18 @@ function doubleValues(arr) {
     return output
 }
 
-console.log(doubleValues([1, 2, 3, 4, 5])); // [2, 4, 6, 8, 10]
+// console.log(doubleValues([1, 2, 3, 4, 5])); // [2, 4, 6, 8, 10]
+
+
+// 問題 2: 配列の各要素に1を加える
+// 目的: mapを使って配列の各要素を変更する方法を練習する。
+
+// 配列 [10, 20, 30, 40] の各要素に1を加え、新しい配列を返す関数 incrementByOne(arr) を作成してください。
+
+function incrementByOne(arr) {
+    const output= arr.map(number=>number+1)
+    return output
+  }
+  
+  console.log(incrementByOne([10, 20, 30, 40])); // [11, 21, 31, 41]
+  
