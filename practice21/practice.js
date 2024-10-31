@@ -125,12 +125,11 @@ function mergeSalesData(salesData) {
             acc[Data.id] = { ...Data };
         } return acc
     },{})
-    console.log(output)
+    console.log(output);
 }
 
+// mergeSalesData(salesData);
 
-
-mergeSalesData(salesData);
 // 出力例: [
 //   { id: 1, product: "Apple", totalSales: 300 },
 //   { id: 2, product: "Banana", totalSales: 150 },
