@@ -61,3 +61,32 @@ function calculateTotal(cart) {
     console.log(output)
 }
 calculateTotal(cart); // 300
+
+// 問題4: 複雑なオブジェクトのネストを持つ配列のデータ変換
+// 目的: ネストされたデータを扱い、reduce()でキーごとに集計する方法を学びます。
+
+// 課題内容
+// 次のようなユーザー情報の配列 users が与えられています。
+// この配列を基に、各都市ごとに年齢の合計を計算する関数 sumAgeByCity(users) を実装してください。
+
+const users = [
+    { name: "Alice", city: "Tokyo", age: 25 },
+    { name: "Bob", city: "Osaka", age: 30 },
+    { name: "Charlie", city: "Tokyo", age: 35 },
+    { name: "David", city: "Osaka", age: 40 }
+];
+
+function sumAgeByCity(users) {
+    const AgeByCity = {}
+    const output = users.reduce((acc, user) => {
+        if (acc[user.city]) {
+            acc[user.city] += user.age
+        } else {
+            acc[user.city] = user.age
+        }
+        return acc
+    },AgeByCity)
+    console.log(output)
+}
+sumAgeByCity(users);
+// 出力例: { Tokyo: 60, Osaka: 70 }
