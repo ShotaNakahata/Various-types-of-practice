@@ -118,13 +118,13 @@ const salesData = [
 
 function mergeSalesData(salesData) {
     const flattenedData = salesData.flat();
-    const output =flattenedData.reduce((acc, Data) => {
-        if (acc[Data.id]){
+    const output = flattenedData.reduce((acc, Data) => {
+        if (acc[Data.id]) {
             acc[Data.id].totalSales += Data.totalSales
-        }else{
+        } else {
             acc[Data.id] = { ...Data };
         } return acc
-    },{})
+    }, {})
     console.log(output);
 }
 
@@ -135,3 +135,36 @@ function mergeSalesData(salesData) {
 //   { id: 2, product: "Banana", totalSales: 150 },
 //   { id: 3, product: "Orange", totalSales: 300 }
 // ]
+
+
+// 問題6: 商品リストから特定条件の統計情報を抽出
+// 目的: reduce() を使ってデータのフィルタリングと集計を同時に行い、条件付きで集計する方法を学びます。
+
+// 課題内容
+// 次のような商品データの配列 products が与えられています。
+// この配列を基に、在庫がある商品の価格の合計と平均価格を計算する関数 
+// calculateInStockStats(products) を作成してください。
+
+const products = [
+    { name: "Laptop", price: 1200, inStock: true },
+    { name: "Phone", price: 800, inStock: false },
+    { name: "Tablet", price: 600, inStock: true },
+    { name: "Monitor", price: 300, inStock: true },
+    { name: "Keyboard", price: 100, inStock: false }
+];
+function calculateInStockStats(products) {
+    const inital = {totalInStockPrice:0,averageInStockPrice:0,count:0}
+    const isStockTrue = products.filter(product => product.inStock);
+    const output =isStockTrue.reduce((acc,product)=>{
+        acc.count += 1;
+        acc.totalInStockPrice += product.price;
+        acc.averageInStockPrice = parseFloat((acc.totalInStockPrice/acc.count).toFixed(1))
+        return acc
+    },inital)
+    delete output.count
+    console.log(output)
+}
+calculateInStockStats(products);
+// 出力例: { totalInStockPrice: 2100, averageInStockPrice: 700 }
+
+
