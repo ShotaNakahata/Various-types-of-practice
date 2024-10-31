@@ -13,7 +13,7 @@ function sumArray(numbers) {
     console.log(sum)
 }
 
-sumArray(numbers); // 100
+// sumArray(numbers); // 100
 
 // 問題2: 配列内の文字列の出現回数カウント
 // 目的: reduce()を用いて、各要素の出現回数をオブジェクトに集計する方法を学びます。
@@ -37,7 +37,7 @@ function countFruits(fruits) {
     }, countFruits)
     console.log(output);
 }
-countFruits(fruits); // 出力例: { apple: 3, banana: 2, orange: 1 }
+// countFruits(fruits); // 出力例: { apple: 3, banana: 2, orange: 1 }
 
 // 問題3: 配列内のオブジェクトの特定プロパティを集計
 // 目的: 配列内のオブジェクトのデータを集計し、特定のプロパティの合計を取得する方法を学びます。
@@ -60,7 +60,7 @@ function calculateTotal(cart) {
     }, 0)
     console.log(output)
 }
-calculateTotal(cart); // 300
+// calculateTotal(cart); // 300
 
 // 問題4: 複雑なオブジェクトのネストを持つ配列のデータ変換
 // 目的: ネストされたデータを扱い、reduce()でキーごとに集計する方法を学びます。
@@ -85,8 +85,54 @@ function sumAgeByCity(users) {
             acc[user.city] = user.age
         }
         return acc
-    },AgeByCity)
+    }, AgeByCity)
     console.log(output)
 }
-sumAgeByCity(users);
+// sumAgeByCity(users);
+
 // 出力例: { Tokyo: 60, Osaka: 70 }
+
+
+// 問題5: 複数の配列から重複を除きつつ、特定のプロパティで集計
+// 目的: 複数のデータを1つにまとめ、重複するキーを持つオブジェクトをまとめて集計する練習です。
+
+// 課題内容
+// 異なる日の売上データが、それぞれの配列に分かれているとします。これらを1つにまとめ、
+// 重複するidを持つ商品の totalSales を合計して返す関数 mergeSalesData(salesData) を作成してください。
+const salesData = [
+    [
+        { id: 1, product: "Apple", totalSales: 100 },
+        { id: 2, product: "Banana", totalSales: 150 }
+    ],
+    [
+        { id: 1, product: "Apple", totalSales: 200 },
+        { id: 3, product: "Orange", totalSales: 300 }
+    ]
+];
+// flattenedData[
+//     { id: 1, product: 'Apple', totalSales: 100 },
+//     { id: 2, product: 'Banana', totalSales: 150 },
+//     { id: 1, product: 'Apple', totalSales: 200 },
+//     { id: 3, product: 'Orange', totalSales: 300 }
+// ]
+
+function mergeSalesData(salesData) {
+    const flattenedData = salesData.flat();
+    const output =flattenedData.reduce((acc, Data) => {
+        if (acc[Data.id]){
+            acc[Data.id].totalSales += Data.totalSales
+        }else{
+            acc[Data.id] = { ...Data };
+        } return acc
+    },{})
+    console.log(output)
+}
+
+
+
+mergeSalesData(salesData);
+// 出力例: [
+//   { id: 1, product: "Apple", totalSales: 300 },
+//   { id: 2, product: "Banana", totalSales: 150 },
+//   { id: 3, product: "Orange", totalSales: 300 }
+// ]
