@@ -27,17 +27,83 @@
 // 奇数を見つけた場合は、その数をodds配列に追加します。
 // ループが終わった後、evensとoddsの2つの配列を含むオブジェクトを返します。
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function classifyNumbers(arr) {
-    let i = 0;
-    let output = { evens: [], odd: [] }
-    while (i < arr.length) {
-        (arr[i] % 2 === 0 ? output.evens.push(arr[i]) : output.odd.push(arr[i]))
-        i++;
-    }
-    return output
+// function classifyNumbers(arr) {
+//     let i = 0;
+//     let output = { evens: [], odd: [] }
+//     while (i < arr.length) {
+//         (arr[i] % 2 === 0 ? output.evens.push(arr[i]) : output.odd.push(arr[i]))
+//         i++;
+//     }
+//     return output
+// }
+
+// console.log(classifyNumbers(numbers));
+// 出力例: { evens: [2, 4, 6, 8, 10], odds: [1, 3, 5, 7, 9] }
+
+
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// function classifyNumbers(arr) {
+//     let output = { evens: [], odd: [] }
+//     arr.forEach(number=>{
+//         (number%2===0?output.evens.push(number):output.odd.push(number))
+//     })
+//     return output
+// }
+
+// console.log(classifyNumbers(numbers));
+
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// function classifyNumbers(arr) {
+//     return {
+//         evens: arr.filter(number=>number%2===0),
+//         odd: arr.filter(number=>number%2!==0)
+//     }
+// }
+
+// console.log(classifyNumbers(numbers));
+
+
+// 要件
+// 各要素が3の倍数の場合は、threes配列に追加する。
+// 各要素が5の倍数の場合は、fives配列に追加する。
+// 各要素が**3と5の公倍数（15の倍数）**の場合は、両方に追加せず、別のfifteenMultiples配列に追加する。
+// 集計
+
+// threes、fives、fifteenMultiples配列のそれぞれの合計を計算し、結果オブジェクトとして返す。
+
+// const numbers = [1, 3, 5, 9, 10, 12, 15, 18, 20, 30, 33];
+
+// function classifyAndSummarize(arr) {
+//     let i = 0
+//     let output = { threes: [], fives: [], fifteenMultiples: [] }
+//     while (i < arr.length) {
+//         arr[i] % 15 === 0 ? output.fifteenMultiples.push(arr[i]):
+//         arr[i] % 3 === 0 ? output.threes.push(arr[i]):
+//         arr[i] % 5 === 0 ? output.fives.push(arr[i]):null;
+
+//         i++;
+//     }
+//     return output;
+// }
+
+
+// console.log(classifyAndSummarize(numbers));
+
+const numbers = [1, 3, 5, 9, 10, 12, 15, 18, 20, 30, 33];
+
+function classifyAndSummarize(arr) {
+        const fifteenMultiples = arr.filter(number => number % 15 === 0);
+        const threes= arr.filter(number => number % 3 === 0 && !fifteenMultiples.includes(number));
+        const fives= arr.filter(number => number % 5 === 0&& !fifteenMultiples.includes(number));
+
+        return{
+            fifteenMultiples,threes,fives
+        }
 }
 
-console.log(classifyNumbers(numbers));
-// 出力例: { evens: [2, 4, 6, 8, 10], odds: [1, 3, 5, 7, 9] }
+
+console.log(classifyAndSummarize(numbers));
