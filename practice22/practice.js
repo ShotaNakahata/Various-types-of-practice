@@ -50,8 +50,49 @@ const people = [
 ];
 
 function getAges(arr) {
-    return arr.map(Onepeaple=>Onepeaple.age)
+    return arr.map(Onepeaple => Onepeaple.age)
 }
 
-console.log(getAges(people));
+// console.log(getAges(people));
 // [25, 30, 35]
+
+
+// 問題 5: 商品価格を税金込みで表示
+// 目的: 配列の数値に対して計算を行い、新しい配列を作成する練習です。
+
+// 以下の定数 prices には商品の価格が格納されています。
+// この配列の各価格に消費税（10%）を加えた新しい配列を返す関数 applyTax(arr) を作成してください。
+
+const prices = [100, 200, 300];
+
+function applyTax(arr) {
+    return arr.map(price => {
+        const priceTax = parseFloat((price * 1.1).toFixed())
+        return priceTax
+    })
+}
+
+// console.log(applyTax(prices)); 
+// [110, 220, 330]
+
+
+// 問題 6: フルネームの作成
+// 目的: mapでオブジェクトの複数のプロパティを組み合わせ、新しい配列を作成する練習です。
+
+// 以下の定数 users には、各人のfirstNameとlastNameが格納されています。
+// これらを組み合わせ、各人のフルネーム（例: "John Doe"）を新しい配列として返す関数 getFullNames(arr) を作成してください。
+const users = [
+    { firstName: "John", lastName: "Doe" },
+    { firstName: "Jane", lastName: "Smith" },
+    { firstName: "Emily", lastName: "Jones" }
+];
+
+function getFullNames(arr) {
+    return arr.map(user=>{
+        user = user.firstName+ " " +user.lastName
+        return user
+    })
+}
+
+console.log(getFullNames(users));
+// ["John Doe", "Jane Smith", "Emily Jones"]
