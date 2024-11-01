@@ -89,9 +89,9 @@ const users = [
 
 function getFullNames(arr) {
     return arr.map(user=>{
-        user = user.firstName+ " " +user.lastName
-        return user
-    })
+        return `${user.firstName} ${user.lastName}`}
+    
+    )
 }
 
 console.log(getFullNames(users));
