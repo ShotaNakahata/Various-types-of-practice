@@ -110,17 +110,34 @@ function getFullNames(arr) {
 // 各要素が奇数の場合は3倍にする
 
 
-const numbers = [1, 2, 3, 4, 5];
+// const numbers = [1, 2, 3, 4, 5];
 
-function conditionalMultiply(arr) {
+// function conditionalMultiply(arr) {
+//     // return arr.map(number => {
+//     //     if (number % 2 === 0) {
+//     //         return number * 2
+//     //     } else {
+//     //         return number * 3
+//     //     }
+//     // })
+//     return arr.map(number => {
+//         return (number % 2 === 0 ? number * 2 : number * 3)
+//     })
+// }
+
+// console.log(conditionalMultiply(numbers));
+// [3, 4, 9, 8, 15]
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
+
+function multipleConditions(arr) {
     return arr.map(number => {
-        if (number % 2 === 0) {
-            return number * 2
-        } else {
-            return number * 3
-        }
-    })
+        const output=  (number % 6 === 0 ? "TwoThree" :
+            number % 2 === 0 ? "Two" :
+                number % 3 === 0 ? "Three" :
+                    number)
+        console.log(output)
+    });
 }
 
-console.log(conditionalMultiply(numbers));
-// [3, 4, 9, 8, 15]
+multipleConditions(numbers);
