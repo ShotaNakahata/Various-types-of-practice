@@ -88,11 +88,39 @@ const users = [
 ];
 
 function getFullNames(arr) {
-    return arr.map(user=>{
-        return `${user.firstName} ${user.lastName}`}
-    
+    return arr.map(user => {
+        return `${user.firstName} ${user.lastName}`
+    }
+
     )
 }
 
-console.log(getFullNames(users));
+// console.log(getFullNames(users));
 // ["John Doe", "Jane Smith", "Emily Jones"]
+
+
+
+// 問題 7: 条件に基づく数値の計算
+// 目的: mapと条件分岐を使って、各要素を条件に基づいて変更する方法を練習します。
+
+// 以下の定数 numbers には数値が格納されています。
+// この配列の各要素を、以下のルールに基づいて変換し、新しい配列を返す関数 conditionalMultiply(arr) を作成してください。
+
+// 各要素が偶数の場合は2倍にする
+// 各要素が奇数の場合は3倍にする
+
+
+const numbers = [1, 2, 3, 4, 5];
+
+function conditionalMultiply(arr) {
+    return arr.map(number => {
+        if (number % 2 === 0) {
+            return number * 2
+        } else {
+            return number * 3
+        }
+    })
+}
+
+console.log(conditionalMultiply(numbers));
+// [3, 4, 9, 8, 15]
