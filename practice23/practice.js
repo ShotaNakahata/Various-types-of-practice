@@ -122,29 +122,52 @@
 // 割引が適用された価格を使用して、合計金額を計算します。
 // 合計金額をオブジェクト { totalCost, discountedPrices } として返します。
 
+// const products = [
+//     { name: "Shampoo", price: 500, quantity: 2 },
+//     { name: "Soap", price: 200, quantity: 3 },
+//     { name: "Toothpaste", price: 300, quantity: 1 }
+// ];
+// function calculateTotalCost(products) {
+//     let i = 0
+//     let output = { totalCost: 0, discountedPrices: [] }
+//     while (i < products.length) {
+//         const product = products[i]
+//         let finalprice;
+
+//         if (product.quantity >= 3) {
+//             finalprice =product.price * 0.8
+//         } else {
+//             finalprice = product.price
+//         }
+
+//         output.totalCost += finalprice*product.quantity;
+//         output.discountedPrices.push(finalprice*product.quantity)
+//         i++
+//     }
+//     return output
+// }
+
+// console.log(calculateTotalCost(products));
+// 出力例: { totalCost: 1400, discountedPrices: [1000, 480, 300] }
+
+
 const products = [
     { name: "Shampoo", price: 500, quantity: 2 },
     { name: "Soap", price: 200, quantity: 3 },
     { name: "Toothpaste", price: 300, quantity: 1 }
 ];
+
 function calculateTotalCost(products) {
-    let i = 0
-    let output = { totalCost: 0, discountedPrices: [] }
-    while (i < products.length) {
-        const product = products[i]
-        let finalprice;
+    const discountedPrices = products.map(product=>{
+        const pricePerUnit = (product.quantity>=3?product.price*0.8:product.price);
+        return pricePerUnit*product.quantity;
+    })
 
-        if (product.quantity >= 3) {
-            finalprice =product.price * 0.8
-        } else {
-            finalprice = product.price
-        }
+    const totalCost = discountedPrices.reduce((sum,price)=>{
+        return sum+=price
+    },0);
 
-        output.totalCost += finalprice*product.quantity;
-        output.discountedPrices.push(finalprice*product.quantity)
-        i++
-    }
-    return output
+    return{totalCost,discountedPrices}
 }
 
 console.log(calculateTotalCost(products));
