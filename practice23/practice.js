@@ -151,24 +151,59 @@
 // 出力例: { totalCost: 1400, discountedPrices: [1000, 480, 300] }
 
 
-const products = [
-    { name: "Shampoo", price: 500, quantity: 2 },
-    { name: "Soap", price: 200, quantity: 3 },
-    { name: "Toothpaste", price: 300, quantity: 1 }
+// const products = [
+//     { name: "Shampoo", price: 500, quantity: 2 },
+//     { name: "Soap", price: 200, quantity: 3 },
+//     { name: "Toothpaste", price: 300, quantity: 1 }
+// ];
+
+// function calculateTotalCost(products) {
+//     const discountedPrices = products.map(product=>{
+//         const pricePerUnit = (product.quantity>=3?product.price*0.8:product.price);
+//         return pricePerUnit*product.quantity;
+//     })
+
+//     const totalCost = discountedPrices.reduce((sum,price)=>{
+//         return sum+=price
+//     },0);
+
+//     return{totalCost,discountedPrices}
+// }
+
+// console.log(calculateTotalCost(products));
+// 出力例: { totalCost: 1400, discountedPrices: [1000, 480, 300] }
+
+
+// 問題 10: カートの数量・合計金額と在庫確認
+// 以下のcart配列には、各商品のname、price、quantity、そしてinStockという在庫情報が格納されています。
+// 条件に従ってカートの合計金額と在庫状態をチェックする関数calculateCartSummary(cart)を作成してください。
+
+// 条件
+// カートの合計金額を計算し、カートに追加されているすべての商品を含む合計金額を出力します。
+// 在庫切れの商品がある場合、その商品名をまとめて配列として返します。
+// 合計金額と在庫切れの商品名の配列を含むオブジェクトを返してください。
+
+const cart = [
+    { name: "Shampoo", price: 500, quantity: 2, inStock: true },
+    { name: "Soap", price: 200, quantity: 3, inStock: false },
+    { name: "Toothpaste", price: 300, quantity: 1, inStock: true },
+    { name: "Lotion", price: 1000, quantity: 1, inStock: false }
 ];
+function calculateCartSummary(cart) {
+    const totalCost = cart.reduce((acc,product)=>acc += (product.price * product.quantity),0)
 
-function calculateTotalCost(products) {
-    const discountedPrices = products.map(product=>{
-        const pricePerUnit = (product.quantity>=3?product.price*0.8:product.price);
-        return pricePerUnit*product.quantity;
-    })
+    const outOfStock= cart
+    .filter(product=>!product.inStock)
+    .map(product=>product.name)
 
-    const totalCost = discountedPrices.reduce((sum,price)=>{
-        return sum+=price
-    },0);
-
-    return{totalCost,discountedPrices}
+    return {totalCost,outOfStock}
 }
 
-console.log(calculateTotalCost(products));
-// 出力例: { totalCost: 1400, discountedPrices: [1000, 480, 300] }
+console.log(calculateCartSummary(cart));
+// 出力例: { totalCost: 2200, outOfStock: ["Soap", "Lotion"] }
+
+
+// cart.map(product => {
+//     totalCost += (product.proce * product.quantity)
+//     return totalCost
+// }
