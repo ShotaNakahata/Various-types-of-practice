@@ -183,23 +183,23 @@
 // 在庫切れの商品がある場合、その商品名をまとめて配列として返します。
 // 合計金額と在庫切れの商品名の配列を含むオブジェクトを返してください。
 
-const cart = [
-    { name: "Shampoo", price: 500, quantity: 2, inStock: true },
-    { name: "Soap", price: 200, quantity: 3, inStock: false },
-    { name: "Toothpaste", price: 300, quantity: 1, inStock: true },
-    { name: "Lotion", price: 1000, quantity: 1, inStock: false }
-];
-function calculateCartSummary(cart) {
-    const totalCost = cart.reduce((acc,product)=>acc += (product.price * product.quantity),0)
+// const cart = [
+//     { name: "Shampoo", price: 500, quantity: 2, inStock: true },
+//     { name: "Soap", price: 200, quantity: 3, inStock: false },
+//     { name: "Toothpaste", price: 300, quantity: 1, inStock: true },
+//     { name: "Lotion", price: 1000, quantity: 1, inStock: false }
+// ];
+// function calculateCartSummary(cart) {
+//     const totalCost = cart.reduce((acc,product)=>acc += (product.price * product.quantity),0)
 
-    const outOfStock= cart
-    .filter(product=>!product.inStock)
-    .map(product=>product.name)
+//     const outOfStock= cart
+//     .filter(product=>!product.inStock)
+//     .map(product=>product.name)
 
-    return {totalCost,outOfStock}
-}
+//     return {totalCost,outOfStock}
+// }
 
-console.log(calculateCartSummary(cart));
+// console.log(calculateCartSummary(cart));
 // 出力例: { totalCost: 2200, outOfStock: ["Soap", "Lotion"] }
 
 
@@ -207,3 +207,40 @@ console.log(calculateCartSummary(cart));
 //     totalCost += (product.proce * product.quantity)
 //     return totalCost
 // }
+
+
+// 問題 11: 生徒の成績集計
+// 以下のstudents配列には、生徒の名前と各教科の点数が格納されています。
+// 各生徒の合計点、平均点、そして「合格」または「不合格」を判定し、結果をまとめて返す関数calculateResults(students)を作成してください。
+
+// 条件
+// 合計点と平均点の計算
+// 各生徒のtotal（合計点）とaverage（平均点）を計算し、それぞれのオブジェクトに追加してください。
+// 合格/不合格の判定
+
+// 平均点が60点以上であれば「合格」、それ未満なら「不合格」として、statusプロパティに「Pass」または「Fail」を追加してください。
+// 結果をオブジェクトの配列として返す
+// 各生徒の名前、合計点、平均点、合否を含むオブジェクトの配列を返してください。
+
+
+const students = [
+    { name: "Alice", scores: { math: 80, english: 75, science: 60 } },
+    { name: "Bob", scores: { math: 50, english: 55, science: 70 } },
+    { name: "Charlie", scores: { math: 90, english: 95, science: 85 } }
+];
+
+function calculateResults(students) {
+    return students.map(student=>{
+        const scores = Object.values(student.scores)
+        const total = scores.reduce((acc,score)=>acc+score,0);
+        const average = (total/scores.length).toFixed();
+        return {name:student.name,total,average}
+    });
+}
+
+console.log(calculateResults(students));
+// 出力例: [
+//   { name: "Alice", total: 215, average: 71.67, status: "Pass" },
+//   { name: "Bob", total: 175, average: 58.33, status: "Fail" },
+//   { name: "Charlie", total: 270, average: 90, status: "Pass" }
+// ]
