@@ -422,21 +422,21 @@
 // この配列を、タイトルのアルファベット順（昇順）で並べ替え、
 // 同じタイトルの本がある場合は著者名のアルファベット順でさらに並べ替える関数sortBooksを作成してください。
 
-const books = [
-    { title: "A", author: "A" },
-    { title: "B", author: "B" },
-    { title: "A", author: "C" },
-    { title: "C", author: "D" },
-    { title: "B", author: "E" }
-];
-function sortBooks(books) {
-    return [...books].sort((a,b)=>(a.title.localeCompare(b.title)!==0?
-    a.title.localeCompare(b.title):
-    a.author.localeCompare(b.author)
-))
-}
+// const books = [
+//     { title: "A", author: "A" },
+//     { title: "B", author: "B" },
+//     { title: "A", author: "C" },
+//     { title: "C", author: "D" },
+//     { title: "B", author: "E" }
+// ];
+// function sortBooks(books) {
+//     return [...books].sort((a,b)=>(a.title.localeCompare(b.title)!==0?
+//     a.title.localeCompare(b.title):
+//     a.author.localeCompare(b.author)
+// ))
+// }
 
-console.log(sortBooks(books));
+// console.log(sortBooks(books));
 // 出力例:
 // [
 //   { title: "CSS Fundamentals", author: "Alice Smith" },
@@ -444,4 +444,43 @@ console.log(sortBooks(books));
 //   { title: "HTML Basics", author: "Bob Brown" },
 //   { title: "JavaScript Essentials", author: "Jane Doe" },
 //   { title: "JavaScript Essentials", author: "A" }
+// ]
+
+
+// 応用問題: 複数条件でのイベントの並べ替え
+// 以下のevents配列には、イベントのname（名前）、date（開催日）、priority（優先度）が含まれています。
+// この配列を使って、複数の条件で並べ替える関数sortEventsを作成してください。
+
+// 要件
+// 優先度の高い順（priorityの値が小さい順）で並べ替えます。
+// 優先度が同じ場合は開催日が近い順（dateが早い順）で並べ替えます。
+// 優先度と開催日が同じ場合はイベント名のアルファベット順で並べ替えます。
+// ソートされたイベントの配列を返してください。
+
+const events = [
+    { name: "Event A", date: "2024-05-01", priority: 2 },
+    { name: "Event B", date: "2024-04-15", priority: 1 },
+    { name: "Event C", date: "2024-05-10", priority: 2 },
+    { name: "Event D", date: "2024-03-20", priority: 3 },
+    { name: "Event E", date: "2024-04-01", priority: 1 }
+];
+
+// console.log(parseInt((events[1].date).replace(/-/g, "")));
+
+function sortEvents(events) {
+    return [...events].sort((a, b) => a.priority - b.priority !== 0 ?
+        a.priority - b.priority :
+        parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, ""))!==0?
+        parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, "")):
+        a.name - b.name)
+}
+
+console.log(sortEvents(events));
+// 出力例:
+// [
+//   { name: "Event B", date: "2024-04-15", priority: 1 },
+//   { name: "Event E", date: "2024-04-01", priority: 1 },
+//   { name: "Event A", date: "2024-05-01", priority: 2 },
+//   { name: "Event C", date: "2024-05-10", priority: 2 },
+//   { name: "Event D", date: "2024-03-20", priority: 3 }
 // ]
