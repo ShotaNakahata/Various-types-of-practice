@@ -410,18 +410,60 @@
 //   { name: "Alice", age: 25, grade: 88 }
 // ]
 
-const students = [
-    { name: "Alice", age: 25, grade: 88 },
-    { name: "Bob", age: 22, grade: 92 },
-    { name: "Charlie", age: 23, grade: 90 },
-    { name: "David", age: 22, grade: 85 }
-];
+// const students = [
+//     { name: "Alice", age: 25, grade: 88 },
+//     { name: "Bob", age: 22, grade: 92 },
+//     { name: "Charlie", age: 23, grade: 90 },
+//     { name: "David", age: 22, grade: 85 }
+// ];
 
-function sortStudents(students, sortCriteria) {
-    return [...students].sort((a, b) => {
+// function sortStudents(students, sortCriteria) {
+//     return [...students].sort((a, b) => {
+//         sortCriteria.reduce((acc, criterion) => {
+//             if(acc!==0)return acc;
+//             const { key, order } = criterion;
+//             const diff = (order === "asc" ? a[key] - b[key] : b[key] - a[key])
+//             return diff
+//         },0)
+//     })
+// }
+
+// const criteria = [
+//     { key: "age", order: "asc" },
+//     { key: "grade", order: "desc" }
+// ];
+
+// console.log(sortStudents(students, criteria));
+
+// ---------------------------------------------------------------------------------------------------------
+// 問題：商品の在庫管理リストの動的ソート
+// 以下のproducts配列には、name（商品名）、price（価格）、quantity（在庫数）、rating（評価）が含まれています。
+// この配列を、指定されたソート基準に従って並べ替える関数sortProductsを作成してください。
+
+// 要件
+// ソート基準を動的に指定
+
+// ソート基準と順序は、オブジェクトの配列で指定します。
+// 例：[{ key: "price", order: "asc" }, { key: "rating", order: "desc" }]のように、
+// keyがソート対象のプロパティ、orderが並べ替えの順序（ascで昇順、descで降順）です。
+// ソート基準の数に制限はありません。
+// ソートの挙動
+
+// すべての基準を順に適用し、1つ目の基準で並び替えが確定しない場合は、次の基準でソートします。
+// ---------------------------------------------------------------------------------------------------------
+const products = [
+    { name: "Laptop", price: 1200, quantity: 4, rating: 4.5 },
+    { name: "Phone", price: 800, quantity: 10, rating: 4.7 },
+    { name: "Tablet", price: 600, quantity: 2, rating: 4.2 },
+    { name: "Monitor", price: 300, quantity: 8, rating: 3.9 },
+    { name: "Keyboard", price: 100, quantity: 15, rating: 4.0 }
+];
+function sortProducts(products, sortCriteria) {
+    return [...products].sort((a, b) => {
         sortCriteria.reduce((acc, criterion) => {
-            if(acc!==0)return acc;
-            const { key, order } = criterion;
+            if(acc!==0) return acc;
+            const key = criterion.key;
+            const order = criterion.order;
             const diff = (order === "asc" ? a[key] - b[key] : b[key] - a[key])
             return diff
         },0)
@@ -429,8 +471,9 @@ function sortStudents(students, sortCriteria) {
 }
 
 const criteria = [
-    { key: "age", order: "asc" },
-    { key: "grade", order: "desc" }
+    { key: "price", order: "asc" },
+    { key: "quantity", order: "desc" }
 ];
 
-console.log(sortStudents(students, criteria));
+console.log(sortProducts(products, criteria));
+// 出力例: 価格が低い順で並び替え、同じ価格の場合は在庫数の多い順
