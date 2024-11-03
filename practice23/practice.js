@@ -287,19 +287,19 @@
 // **年齢が高い順（降順）**で人々を並べ替えた配列も作成してください。
 // それぞれの結果をオブジェクトとして返してください。
 
-const people = [
-    { name: "Alice", age: 30 },
-    { name: "Bob", age: 20 },
-    { name: "Charlie", age: 25 },
-    { name: "David", age: 35 }
-];
-function sortPeopleByAge(people) {
-    const ascending = [...people].sort((a,b)=>a.age-b.age);
-    const descending = [...people].sort((a,b)=>b.age-a.age);
-    return {ascending,descending}
-}
+// const people = [
+//     { name: "Alice", age: 30 },
+//     { name: "Bob", age: 20 },
+//     { name: "Charlie", age: 25 },
+//     { name: "David", age: 35 }
+// ];
+// function sortPeopleByAge(people) {
+//     const ascending = [...people].sort((a,b)=>a.age-b.age);
+//     const descending = [...people].sort((a,b)=>b.age-a.age);
+//     return {ascending,descending}
+// }
 
-console.log(sortPeopleByAge(people));
+// console.log(sortPeopleByAge(people));
 // 出力例:
 // {
 //   ascending: [
@@ -317,3 +317,70 @@ console.log(sortPeopleByAge(people));
 // }
 
 
+// 問題 2: 商品リストの価格順ソート
+// 以下のproducts配列には、商品のnameとpriceが含まれています。
+// この配列を元に、価格の昇順と価格の降順で商品を並べ替える関数sortProductsByPriceを作成してください。
+
+// 要件
+// **価格が低い順（昇順）**で並べ替えた配列ascendingを作成してください。
+// **価格が高い順（降順）**で並べ替えた配列descendingを作成してください。
+// それぞれの結果をオブジェクトとして返してください。
+
+// const products = [
+//     { name: "Laptop", price: 1000 },
+//     { name: "Phone", price: 800 },
+//     { name: "Tablet", price: 600 },
+//     { name: "Monitor", price: 300 }
+// ];
+// function sortProductsByPrice(products) {
+//     const ascending = [...products].sort((a, b) => a.price - b.price);
+//     const descending = [...products].sort((a, b) => b.price - a.price);
+//     return { ascending, descending }
+// }
+
+// console.log(sortProductsByPrice(products));
+// 出力例:
+// {
+//   ascending: [
+//     { name: "Monitor", price: 300 },
+//     { name: "Tablet", price: 600 },
+//     { name: "Phone", price: 800 },
+//     { name: "Laptop", price: 1000 }
+//   ],
+//   descending: [
+//     { name: "Laptop", price: 1000 },
+//     { name: "Phone", price: 800 },
+//     { name: "Tablet", price: 600 },
+//     { name: "Monitor", price: 300 }
+//   ]
+// }
+
+
+const products = [
+    { name: "A", price: 1000 },
+    { name: "C", price: 800 },
+    { name: "B", price: 600 },
+    { name: "D", price: 300 }
+];
+function sortProductsByName(products) {
+    const ascending = [...products].sort((a,b)=>a.name.localeCompare(b.name));
+    const descending = [...products].sort((a,b)=>b.name.localeCompare(a.name))
+    return {ascending,descending}
+}
+
+console.log(sortProductsByName(products));
+// 出力例:
+// {
+//   ascending: [
+//     { name: "Laptop", price: 1000 },
+//     { name: "Monitor", price: 300 },
+//     { name: "Phone", price: 800 },
+//     { name: "Tablet", price: 600 }
+//   ],
+//   descending: [
+//     { name: "Tablet", price: 600 },
+//     { name: "Phone", price: 800 },
+//     { name: "Monitor", price: 300 },
+//     { name: "Laptop", price: 1000 }
+//   ]
+// }
