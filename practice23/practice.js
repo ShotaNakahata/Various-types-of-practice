@@ -356,19 +356,19 @@
 // }
 
 
-const products = [
-    { name: "A", price: 1000 },
-    { name: "C", price: 800 },
-    { name: "B", price: 600 },
-    { name: "D", price: 300 }
-];
-function sortProductsByName(products) {
-    const ascending = [...products].sort((a,b)=>a.name.localeCompare(b.name));
-    const descending = [...products].sort((a,b)=>b.name.localeCompare(a.name))
-    return {ascending,descending}
-}
+// const products = [
+//     { name: "A", price: 1000 },
+//     { name: "C", price: 800 },
+//     { name: "B", price: 600 },
+//     { name: "D", price: 300 }
+// ];
+// function sortProductsByName(products) {
+//     const ascending = [...products].sort((a,b)=>a.name.localeCompare(b.name));
+//     const descending = [...products].sort((a,b)=>b.name.localeCompare(a.name))
+//     return {ascending,descending}
+// }
 
-console.log(sortProductsByName(products));
+// console.log(sortProductsByName(products));
 // 出力例:
 // {
 //   ascending: [
@@ -384,3 +384,35 @@ console.log(sortProductsByName(products));
 //     { name: "Laptop", price: 1000 }
 //   ]
 // }
+
+
+// 問題: 商品リストの複数条件ソート
+// 以下のproducts配列には、商品のname、price、およびrating（評価）が含まれています。
+// 複数の条件を基に並べ替える関数sortProductsを作成してください。
+
+// 要件
+// 価格が高い順に並べ替え、同じ価格の場合には評価の高い順で並べ替えてください。
+// ソート後の配列を返してください。
+
+const products = [
+    { name: "Product A", price: 1000, rating: 4.5 },
+    { name: "Product B", price: 1000, rating: 4.7 },
+    { name: "Product C", price: 800, rating: 4.8 },
+    { name: "Product D", price: 800, rating: 4.2 },
+    { name: "Product E", price: 600, rating: 4.0 }
+];
+function sortProducts(products) {
+    return [...products].sort((a, b) => (b.price - a.price !== 0 ? b.price - a.price :
+        b.rating - a.rating
+    ));
+}
+
+console.log(sortProducts(products));
+// 出力例:
+// [
+//   { name: "Product B", price: 1000, rating: 4.7 },
+//   { name: "Product A", price: 1000, rating: 4.5 },
+//   { name: "Product C", price: 800, rating: 4.8 },
+//   { name: "Product D", price: 800, rating: 4.2 },
+//   { name: "Product E", price: 600, rating: 4.0 }
+// ]
