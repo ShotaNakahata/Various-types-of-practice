@@ -246,6 +246,22 @@
 //   { name: "Charlie", total: 270, average: 90, status: "Pass" }
 // ]
 
+// const products = [
+//     { name: "Laptop", stock: 5 },
+//     { name: "Phone", stock: 0 },
+//     { name: "Tablet", stock: 2 },
+//     { name: "Monitor", stock: 1 }
+// ];
+// function isStockAvailable(products) {
+//     const productsStock = products.map(product=>product.stock);
+//     const someInStock = productsStock.some(stock => stock >= 1);
+//     const allInStock = productsStock.every(stock => stock >= 1);
+//     return { someInStock, allInStock }
+// }
+
+// console.log(isStockAvailable(products));
+// 出力例: { someInStock: true, allInStock: false }
+
 const products = [
     { name: "Laptop", stock: 5 },
     { name: "Phone", stock: 0 },
@@ -253,11 +269,11 @@ const products = [
     { name: "Monitor", stock: 1 }
 ];
 function isStockAvailable(products) {
-    const productsStock = products.map(product=>product.stock);
-    const someInStock = productsStock.some(stock => stock >= 1);
-    const allInStock = productsStock.every(stock => stock >= 1);
-    return { someInStock, allInStock }
+    const someInStock = products.some(product=>product.stock>=1);
+    const allInStock = products.every(product=>product.stock>=1);
+    return {someInStock,allInStock}
 }
 
 console.log(isStockAvailable(products));
 // 出力例: { someInStock: true, allInStock: false }
+
