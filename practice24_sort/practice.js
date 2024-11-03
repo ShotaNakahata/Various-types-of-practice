@@ -322,21 +322,21 @@
 
 // ソート済みのタスクの配列を返してください。
 // ---------------------------------------------------------------------------------------------------------
-const tasks = [
-    { description: "Submit project report", priority: 2, dueDate: "2024-04-15" },
-    { description: "Prepare for presentation", priority: 1, dueDate: "2024-04-10" },
-    { description: "Client meeting", priority: 3, dueDate: "2024-03-20" },
-    { description: "Code review", priority: 2, dueDate: "2024-04-01" },
-    { description: "Update documentation", priority: 1, dueDate: "2024-04-05" }
-];
-function sortTasks(tasks) {
-    return [...tasks].sort((a,b)=>(
-        a.priority-b.priority!==0
-        ?a.priority-b.priority
-        :new Date(a.dueDate)-new Date(b.dueDate)))
-}
+// const tasks = [
+//     { description: "Submit project report", priority: 2, dueDate: "2024-04-15" },
+//     { description: "Prepare for presentation", priority: 1, dueDate: "2024-04-10" },
+//     { description: "Client meeting", priority: 3, dueDate: "2024-03-20" },
+//     { description: "Code review", priority: 2, dueDate: "2024-04-01" },
+//     { description: "Update documentation", priority: 1, dueDate: "2024-04-05" }
+// ];
+// function sortTasks(tasks) {
+//     return [...tasks].sort((a,b)=>(
+//         a.priority-b.priority!==0
+//         ?a.priority-b.priority
+//         :new Date(a.dueDate)-new Date(b.dueDate)))
+// }
 
-console.log(sortTasks(tasks));
+// console.log(sortTasks(tasks));
 // 出力例:
 // [
 //   { description: "Update documentation", priority: 1, dueDate: "2024-04-05" },
@@ -344,4 +344,68 @@ console.log(sortTasks(tasks));
 //   { description: "Code review", priority: 2, dueDate: "2024-04-01" },
 //   { description: "Submit project report", priority: 2, dueDate: "2024-04-15" },
 //   { description: "Client meeting", priority: 3, dueDate: "2024-03-20" }
+// ]
+
+
+// ---------------------------------------------------------------------------------------------------------
+// 問題：柔軟なソート関数を作成
+// 以下のstudents配列には、name（名前）、age（年齢）、およびgrade（成績）が含まれています。
+// この配列を、引数で指定された順序に従って並べ替える関数sortStudentsを作成してください。
+
+// 要件
+// ソート基準を動的に指定
+
+// ソート基準と順序は、オブジェクトの配列で指定します。
+// 例：[{ key: "age", order: "asc" }, { key: "grade", order: "desc" }]のように、
+// keyがソート対象のプロパティ、orderが並べ替えの順序（ascで昇順、descで降順）です。
+// 引数として渡される条件の数は可変です。
+// 可変条件でのソート
+
+// 渡されたソート基準の配列を基に、指定されたプロパティに従って順序を決めてソートを行います。
+// ---------------------------------------------------------------------------------------------------------
+
+const students = [
+    { name: "Alice", age: 25, grade: 88 },
+    { name: "Bob", age: 22, grade: 92 },
+    { name: "Charlie", age: 23, grade: 90 },
+    { name: "David", age: 22, grade: 85 }
+];
+
+function sortStudents(students, sortCriteria) {
+    return [...students].sort((a, b) => {
+        const firstKey = sortCriteria[0].key;
+        const firstOrder = sortCriteria[0].order;
+        const firstDiff = (firstOrder === "asc" ? a[firstKey] - b[firstKey] : b[firstKey] - a[firstKey]);
+
+        if (firstDiff !== 0) {
+            return firstDiff;
+        } else {
+            const secondKey = sortCriteria[1].key;
+            const secondOrder = sortCriteria[1].order;
+            const secondDiff = (secondOrder === "asc" ? a[secondKey] - b[secondKey] : b[secondKey] - a[secondKey]);
+            return secondDiff;
+        }
+    });
+}
+
+const criteria = [
+    { key: "age", order: "asc" },
+    { key: "grade", order: "desc" }
+];
+
+console.log(sortStudents(students, criteria));
+// 出力例:
+// [
+//   { name: "David", age: 22, grade: 85 },
+//   { name: "Bob", age: 22, grade: 92 },
+//   { name: "Charlie", age: 23, grade: 90 },
+//   { name: "Alice", age: 25, grade: 88 }
+// ]
+
+// 出力例（ageが昇順、同年齢はgradeで降順）:
+// [
+//   { name: "David", age: 22, grade: 85 },
+//   { name: "Bob", age: 22, grade: 92 },
+//   { name: "Charlie", age: 23, grade: 90 },
+//   { name: "Alice", age: 25, grade: 88 }
 // ]
