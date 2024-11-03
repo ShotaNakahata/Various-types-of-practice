@@ -451,29 +451,99 @@
 
 // すべての基準を順に適用し、1つ目の基準で並び替えが確定しない場合は、次の基準でソートします。
 // ---------------------------------------------------------------------------------------------------------
-const products = [
-    { name: "Laptop", price: 1200, quantity: 4, rating: 4.5 },
-    { name: "Phone", price: 800, quantity: 10, rating: 4.7 },
-    { name: "Tablet", price: 600, quantity: 2, rating: 4.2 },
-    { name: "Monitor", price: 300, quantity: 8, rating: 3.9 },
-    { name: "Keyboard", price: 100, quantity: 15, rating: 4.0 }
+// const products = [
+//     { name: "Laptop", price: 1200, quantity: 4, rating: 4.5 },
+//     { name: "Phone", price: 800, quantity: 10, rating: 4.7 },
+//     { name: "Tablet", price: 600, quantity: 2, rating: 4.2 },
+//     { name: "Monitor", price: 300, quantity: 8, rating: 3.9 },
+//     { name: "Keyboard", price: 100, quantity: 15, rating: 4.0 }
+// ];
+// function sortProducts(products, sortCriteria) {
+//     return [...products].sort((a, b) => {
+//         sortCriteria.reduce((acc, criterion) => {
+//             if(acc!==0) return acc;
+//             const key = criterion.key;
+//             const order = criterion.order;
+//             const diff = (order === "asc" ? a[key] - b[key] : b[key] - a[key])
+//             return diff
+//         },0)
+//     })
+// }
+
+// const criteria = [
+//     { key: "price", order: "asc" },
+//     { key: "quantity", order: "desc" }
+// ];
+
+// console.log(sortProducts(products, criteria));
+// 出力例: 価格が低い順で並び替え、同じ価格の場合は在庫数の多い順
+
+// ---------------------------------------------------------------------------------------------------------
+// 問題：柔軟な並び替えとデータ変換
+// 以下のbooks配列には、各オブジェクトにtitle（タイトル）、author（著者）、year（出版年）、rating（評価）が含まれています。
+// この配列を、ユーザーが指定する不確定な数の条件に基づいて並び替え、さらに特定のプロパティだけを抽出する関数を作成してください。
+
+// 要件
+// ソート基準を動的に指定
+
+// ソート基準はオブジェクトの配列として渡され、各オブジェクトはkey（ソート対象のプロパティ）
+// とorder（ascまたはdescで、昇順・降順）を持ちます。
+// 例：[{ key: "year", order: "asc" }, { key: "rating", order: "desc" }]
+// 抽出するプロパティも動的に指定
+
+// 返すオブジェクトには、ユーザーが指定するプロパティのみを含めます。指定がない場合、すべてのプロパティを返します。
+// 例：["title", "year"]が指定された場合、titleとyearだけを含むオブジェクトを返します。
+// 関数の引数
+
+// books: ソートと変換対象の配列
+// sortCriteria: ソートの基準となる条件の配列
+// properties: 抽出するプロパティの配列（オプション）
+// ---------------------------------------------------------------------------------------------------------
+
+const books = [
+    { title: "Book A", author: "Author X", year: 2005, rating: 4.2 },
+    { title: "Book B", author: "Author Y", year: 2010, rating: 4.8 },
+    { title: "Book C", author: "Author X", year: 2005, rating: 4.7 },
+    { title: "Book D", author: "Author Z", year: 2003, rating: 3.9 }
 ];
-function sortProducts(products, sortCriteria) {
-    return [...products].sort((a, b) => {
-        sortCriteria.reduce((acc, criterion) => {
-            if(acc!==0) return acc;
-            const key = criterion.key;
-            const order = criterion.order;
-            const diff = (order === "asc" ? a[key] - b[key] : b[key] - a[key])
-            return diff
-        },0)
+
+const sortCriteria = [
+    { key: "year", order: "asc" },
+    { key: "rating", order: "desc" }
+];
+
+const properties = ["title", "year"];
+
+function sortAndExtract(books, sortCriteria, properties = null) {
+    const def = [...books].sort((a, b) => {
+        return sortCriteria.reduce((acc, criterion) => {
+            if (acc !== 0) return acc;
+            // const key = criterion.key;
+            // const order = criterion.order;
+            const { key, order } = criterion
+            const output = (order === "asc" ? a[key] - b[key] : b[key] - a[key]);
+            return output
+        }, 0)
     })
+    // const book= { title: "Book D", author: "Author Z", year: 2003, rating: 3.9 }
+    return def.map(book => {
+        // const prop =const properties = ["title", "year"];
+        return properties.reduce((acc, prop) => {
+            // acc[title]=book[title]
+            // {title:"Book D"}
+            acc[prop] = book[prop]
+            return acc;
+        }, {})
+
+    })
+
 }
 
-const criteria = [
-    { key: "price", order: "asc" },
-    { key: "quantity", order: "desc" }
-];
-
-console.log(sortProducts(products, criteria));
-// 出力例: 価格が低い順で並び替え、同じ価格の場合は在庫数の多い順
+console.log(sortAndExtract(books, sortCriteria, properties));
+// 期待する出力例:
+// [
+//   { title: "Book D", year: 2003 },
+//   { title: "Book A", year: 2005 },
+//   { title: "Book C", year: 2005 },
+//   { title: "Book B", year: 2010 }
+// ]
