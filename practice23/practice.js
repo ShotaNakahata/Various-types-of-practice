@@ -486,23 +486,27 @@
 //   { name: "Event D", date: "2024-03-20", priority: 3 }
 // ]
 
-const events = [
-    { name: "Event A", date: "2024-05-01", priority: 2 },
-    { name: "Event B", date: "2024-04-15", priority: 1 },
-    { name: "Event C", date: "2024-05-10", priority: 2 },
-    { name: "Event D", date: "2024-03-20", priority: 3 },
-    { name: "Event E", date: "2024-04-01", priority: 1 }
-];
+// const events = [
+//     { name: "Event A", date: "2024-05-01", priority: 2 },
+//     { name: "Event B", date: "2024-04-15", priority: 1 },
+//     { name: "Event C", date: "2024-05-10", priority: 2 },
+//     { name: "Event D", date: "2024-03-20", priority: 3 },
+//     { name: "Event E", date: "2024-04-01", priority: 1 }
+// ];
 
-// console.log(parseInt((events[1].date).replace(/-/g, "")));
+// // console.log(parseInt((events[1].date).replace(/-/g, "")));
 
-function sortEvents(events) {
-    return [...events].sort((a, b) => a.priority - b.priority !== 0 
-    ?a.priority - b.priority 
-    :new Date(a.date) - new Date(b.date)!==0
-                ?new Date(a.date) - new Date(b.date)
-                :a.name.localeCompare(b.name)
-    )
-}
+// function sortEvents(events) {
+//     return [...events].sort((a, b) => a.priority - b.priority !== 0 
+//     ?a.priority - b.priority 
+//     :new Date(a.date) - new Date(b.date)!==0
+//                 ?new Date(a.date) - new Date(b.date)
+//                 :a.name.localeCompare(b.name)
+//     )
+// }
 
-console.log(sortEvents(events));
+// console.log(sortEvents(events));
+
+// const now = new Date()
+// console.log(now.toLocaleString("ja-JP"))
+
