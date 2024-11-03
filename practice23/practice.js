@@ -223,25 +223,41 @@
 // 各生徒の名前、合計点、平均点、合否を含むオブジェクトの配列を返してください。
 
 
-const students = [
-    { name: "Alice", scores: { math: 80, english: 75, science: 60 } },
-    { name: "Bob", scores: { math: 50, english: 55, science: 70 } },
-    { name: "Charlie", scores: { math: 90, english: 95, science: 85 } }
-];
+// const students = [
+//     { name: "Alice", scores: { math: 80, english: 75, science: 60 } },
+//     { name: "Bob", scores: { math: 50, english: 55, science: 70 } },
+//     { name: "Charlie", scores: { math: 90, english: 95, science: 85 } }
+// ];
 
-function calculateResults(students) {
-    return students.map(student=>{
-        const scores = Object.values(student.scores)
-        const total = scores.reduce((acc,score)=>acc+score,0);
-        const average = parseFloat((total/scores.length).toFixed());
-        const status = (average>=60?"Pass":"Fail")
-        return {name:student.name,total,average,status}
-    });
-}
+// function calculateResults(students) {
+//     return students.map(student=>{
+//         const scores = Object.values(student.scores)
+//         const total = scores.reduce((acc,score)=>acc+score,0);
+//         const average = parseFloat((total/scores.length).toFixed());
+//         const status = (average>=60?"Pass":"Fail")
+//         return {name:student.name,total,average,status}
+//     });
+// }
 
-console.log(calculateResults(students));
+// console.log(calculateResults(students));
 // 出力例: [
 //   { name: "Alice", total: 215, average: 71.67, status: "Pass" },
 //   { name: "Bob", total: 175, average: 58.33, status: "Fail" },
 //   { name: "Charlie", total: 270, average: 90, status: "Pass" }
 // ]
+
+const products = [
+    { name: "Laptop", stock: 5 },
+    { name: "Phone", stock: 0 },
+    { name: "Tablet", stock: 2 },
+    { name: "Monitor", stock: 1 }
+];
+function isStockAvailable(products) {
+    const productsStock = products.map(product=>product.stock);
+    const someInStock = productsStock.some(stock => stock >= 1);
+    const allInStock = productsStock.every(stock => stock >= 1);
+    return { someInStock, allInStock }
+}
+
+console.log(isStockAvailable(products));
+// 出力例: { someInStock: true, allInStock: false }
