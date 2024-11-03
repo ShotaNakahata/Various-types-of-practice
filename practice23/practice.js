@@ -394,20 +394,20 @@
 // 価格が高い順に並べ替え、同じ価格の場合には評価の高い順で並べ替えてください。
 // ソート後の配列を返してください。
 
-const products = [
-    { name: "Product A", price: 1000, rating: 4.5 },
-    { name: "Product B", price: 1000, rating: 4.7 },
-    { name: "Product C", price: 800, rating: 4.8 },
-    { name: "Product D", price: 800, rating: 4.2 },
-    { name: "Product E", price: 600, rating: 4.0 }
-];
-function sortProducts(products) {
-    return [...products].sort((a, b) => (b.price - a.price !== 0 ? b.price - a.price :
-        b.rating - a.rating
-    ));
-}
+// const products = [
+//     { name: "Product A", price: 1000, rating: 4.5 },
+//     { name: "Product B", price: 1000, rating: 4.7 },
+//     { name: "Product C", price: 800, rating: 4.8 },
+//     { name: "Product D", price: 800, rating: 4.2 },
+//     { name: "Product E", price: 600, rating: 4.0 }
+// ];
+// function sortProducts(products) {
+//     return [...products].sort((a, b) => (b.price - a.price !== 0 ? b.price - a.price :
+//         b.rating - a.rating
+//     ));
+// }
 
-console.log(sortProducts(products));
+// console.log(sortProducts(products));
 // 出力例:
 // [
 //   { name: "Product B", price: 1000, rating: 4.7 },
@@ -415,4 +415,33 @@ console.log(sortProducts(products));
 //   { name: "Product C", price: 800, rating: 4.8 },
 //   { name: "Product D", price: 800, rating: 4.2 },
 //   { name: "Product E", price: 600, rating: 4.0 }
+// ]
+
+// 問題: 本のタイトルと著者名でのソート
+// 以下のbooks配列には、title（タイトル）とauthor（著者）が含まれています。
+// この配列を、タイトルのアルファベット順（昇順）で並べ替え、
+// 同じタイトルの本がある場合は著者名のアルファベット順でさらに並べ替える関数sortBooksを作成してください。
+
+const books = [
+    { title: "A", author: "A" },
+    { title: "B", author: "B" },
+    { title: "A", author: "C" },
+    { title: "C", author: "D" },
+    { title: "B", author: "E" }
+];
+function sortBooks(books) {
+    return [...books].sort((a,b)=>(a.title.localeCompare(b.title)!==0?
+    a.title.localeCompare(b.title):
+    a.author.localeCompare(b.author)
+))
+}
+
+console.log(sortBooks(books));
+// 出力例:
+// [
+//   { title: "CSS Fundamentals", author: "Alice Smith" },
+//   { title: "CSS Fundamentals", author: "Charlie White" },
+//   { title: "HTML Basics", author: "Bob Brown" },
+//   { title: "JavaScript Essentials", author: "Jane Doe" },
+//   { title: "JavaScript Essentials", author: "A" }
 // ]
