@@ -262,18 +262,58 @@
 // console.log(isStockAvailable(products));
 // 出力例: { someInStock: true, allInStock: false }
 
-const products = [
-    { name: "Laptop", stock: 5 },
-    { name: "Phone", stock: 0 },
-    { name: "Tablet", stock: 2 },
-    { name: "Monitor", stock: 1 }
+// const products = [
+//     { name: "Laptop", stock: 5 },
+//     { name: "Phone", stock: 0 },
+//     { name: "Tablet", stock: 2 },
+//     { name: "Monitor", stock: 1 }
+// ];
+// function isStockAvailable(products) {
+//     const someInStock = products.some(product=>product.stock>=1);
+//     const allInStock = products.every(product=>product.stock>=1);
+//     return {someInStock,allInStock}
+// }
+
+// console.log(isStockAvailable(products));
+// 出力例: { someInStock: true, allInStock: false }
+
+
+// 問題 1: 年齢順のソート
+// 以下のpeople配列には、複数の人の名前と年齢が格納されています。
+// この情報をもとに、年齢の昇順と降順でソートした配列をそれぞれ作成する関数sortPeopleByAgeを作成してください。
+
+// 要件
+// **年齢が若い順（昇順）**で人々を並べ替えた配列を作成してください。
+// **年齢が高い順（降順）**で人々を並べ替えた配列も作成してください。
+// それぞれの結果をオブジェクトとして返してください。
+
+const people = [
+    { name: "Alice", age: 30 },
+    { name: "Bob", age: 20 },
+    { name: "Charlie", age: 25 },
+    { name: "David", age: 35 }
 ];
-function isStockAvailable(products) {
-    const someInStock = products.some(product=>product.stock>=1);
-    const allInStock = products.every(product=>product.stock>=1);
-    return {someInStock,allInStock}
+function sortPeopleByAge(people) {
+    const ascending = [...people].sort((a,b)=>a.age-b.age);
+    const descending = [...people].sort((a,b)=>b.age-a.age);
+    return {ascending,descending}
 }
 
-console.log(isStockAvailable(products));
-// 出力例: { someInStock: true, allInStock: false }
+console.log(sortPeopleByAge(people));
+// 出力例:
+// {
+//   ascending: [
+//     { name: "Bob", age: 20 },
+//     { name: "Charlie", age: 25 },
+//     { name: "Alice", age: 30 },
+//     { name: "David", age: 35 }
+//   ],
+//   descending: [
+//     { name: "David", age: 35 },
+//     { name: "Alice", age: 30 },
+//     { name: "Charlie", age: 25 },
+//     { name: "Bob", age: 20 }
+//   ]
+// }
+
 
