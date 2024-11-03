@@ -457,6 +457,35 @@
 // 優先度と開催日が同じ場合はイベント名のアルファベット順で並べ替えます。
 // ソートされたイベントの配列を返してください。
 
+// const events = [
+//     { name: "Event A", date: "2024-05-01", priority: 2 },
+//     { name: "Event B", date: "2024-04-15", priority: 1 },
+//     { name: "Event C", date: "2024-05-10", priority: 2 },
+//     { name: "Event D", date: "2024-03-20", priority: 3 },
+//     { name: "Event E", date: "2024-04-01", priority: 1 }
+// ];
+
+// // console.log(parseInt((events[1].date).replace(/-/g, "")));
+
+// function sortEvents(events) {
+//     return [...events].sort((a, b) => a.priority - b.priority !== 0 
+//     ?a.priority - b.priority 
+//     :parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, ""))!==0
+//                 ?parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, ""))
+//                 :a.name.localeCompare(b.name)
+//     )
+// }
+
+// console.log(sortEvents(events));
+// 出力例:
+// [
+//   { name: "Event B", date: "2024-04-15", priority: 1 },
+//   { name: "Event E", date: "2024-04-01", priority: 1 },
+//   { name: "Event A", date: "2024-05-01", priority: 2 },
+//   { name: "Event C", date: "2024-05-10", priority: 2 },
+//   { name: "Event D", date: "2024-03-20", priority: 3 }
+// ]
+
 const events = [
     { name: "Event A", date: "2024-05-01", priority: 2 },
     { name: "Event B", date: "2024-04-15", priority: 1 },
@@ -468,19 +497,12 @@ const events = [
 // console.log(parseInt((events[1].date).replace(/-/g, "")));
 
 function sortEvents(events) {
-    return [...events].sort((a, b) => a.priority - b.priority !== 0 ?
-        a.priority - b.priority :
-        parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, ""))!==0?
-        parseInt(a.date.replace(/-/g, "")) - parseInt(b.date.replace(/-/g, "")):
-        a.name - b.name)
+    return [...events].sort((a, b) => a.priority - b.priority !== 0 
+    ?a.priority - b.priority 
+    :new Date(a.date) - new Date(b.date)!==0
+                ?new Date(a.date) - new Date(b.date)
+                :a.name.localeCompare(b.name)
+    )
 }
 
 console.log(sortEvents(events));
-// 出力例:
-// [
-//   { name: "Event B", date: "2024-04-15", priority: 1 },
-//   { name: "Event E", date: "2024-04-01", priority: 1 },
-//   { name: "Event A", date: "2024-05-01", priority: 2 },
-//   { name: "Event C", date: "2024-05-10", priority: 2 },
-//   { name: "Event D", date: "2024-03-20", priority: 3 }
-// ]
