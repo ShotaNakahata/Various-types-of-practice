@@ -276,26 +276,26 @@
 // ]
 
 //crean版
-const products = [
-    { name: "Laptop", price: 1200, rating: 4.5, category: "Electronics" },
-    { name: "Phone", price: 800, rating: 4.7, category: "Electronics" },
-    { name: "Tablet", price: 600, rating: 4.2, category: "Electronics" },
-    { name: "Monitor", price: 300, rating: 3.9, category: "Electronics" },
-    { name: "Keyboard", price: 100, rating: 4.0, category: "Accessories" }
-];
-function sortProducts(products, primary, order = "asc", secondary = null) {
-    return products.sort((a, b) => {
-        const primaryDiff = (order === "asc" ? a[primary] - b[primary] : b[primary] - a[primary]);
-        if(primaryDiff !== 0) return primaryDiff;
+// const products = [
+//     { name: "Laptop", price: 1200, rating: 4.5, category: "Electronics" },
+//     { name: "Phone", price: 800, rating: 4.7, category: "Electronics" },
+//     { name: "Tablet", price: 600, rating: 4.2, category: "Electronics" },
+//     { name: "Monitor", price: 300, rating: 3.9, category: "Electronics" },
+//     { name: "Keyboard", price: 100, rating: 4.0, category: "Accessories" }
+// ];
+// function sortProducts(products, primary, order = "asc", secondary = null) {
+//     return products.sort((a, b) => {
+//         const primaryDiff = (order === "asc" ? a[primary] - b[primary] : b[primary] - a[primary]);
+//         if(primaryDiff !== 0) return primaryDiff;
 
-        if(secondary){
-            return (order === "asc" ? a[secondary] - b[secondary] : b[secondary] - a[secondary]);
-        }
-        return 0;
-    })
-}
+//         if(secondary){
+//             return (order === "asc" ? a[secondary] - b[secondary] : b[secondary] - a[secondary]);
+//         }
+//         return 0;
+//     })
+// }
 
-console.log(sortProducts(products, "price", "asc", "rating"));
+// console.log(sortProducts(products, "price", "asc", "rating"));
 // 出力:
 // [
 //   { name: "Keyboard", price: 100, rating: 4.0 },
@@ -303,4 +303,45 @@ console.log(sortProducts(products, "price", "asc", "rating"));
 //   { name: "Tablet", price: 600, rating: 4.2 },
 //   { name: "Phone", price: 800, rating: 4.7 },
 //   { name: "Laptop", price: 1200, rating: 4.5 }
+// ]
+
+
+// ---------------------------------------------------------------------------------------------------------
+// 応用問題：タスクの優先度と期日でのソート
+// 以下のtasks配列には、description（タスク内容）、priority（優先度）、dueDate（期日）が含まれています。この配列を、優先度と期日を基準にソートする関数sortTasksを作成してください。
+
+// 要件
+// 優先度でのソート：
+
+// 優先度が高い順（数値が小さいものが先）に並べ替えます。
+// 例えば、優先度が1は最高、3は最低とします。
+// 期日でのソート：
+
+// 優先度が同じタスクがある場合、期日が早い順（古い日付が先）に並べ替えます。
+// 結果の表示：
+
+// ソート済みのタスクの配列を返してください。
+// ---------------------------------------------------------------------------------------------------------
+const tasks = [
+    { description: "Submit project report", priority: 2, dueDate: "2024-04-15" },
+    { description: "Prepare for presentation", priority: 1, dueDate: "2024-04-10" },
+    { description: "Client meeting", priority: 3, dueDate: "2024-03-20" },
+    { description: "Code review", priority: 2, dueDate: "2024-04-01" },
+    { description: "Update documentation", priority: 1, dueDate: "2024-04-05" }
+];
+function sortTasks(tasks) {
+    return [...tasks].sort((a,b)=>(
+        a.priority-b.priority!==0
+        ?a.priority-b.priority
+        :new Date(a.dueDate)-new Date(b.dueDate)))
+}
+
+console.log(sortTasks(tasks));
+// 出力例:
+// [
+//   { description: "Update documentation", priority: 1, dueDate: "2024-04-05" },
+//   { description: "Prepare for presentation", priority: 1, dueDate: "2024-04-10" },
+//   { description: "Code review", priority: 2, dueDate: "2024-04-01" },
+//   { description: "Submit project report", priority: 2, dueDate: "2024-04-15" },
+//   { description: "Client meeting", priority: 3, dueDate: "2024-03-20" }
 // ]
