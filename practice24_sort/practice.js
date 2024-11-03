@@ -364,36 +364,36 @@
 // 渡されたソート基準の配列を基に、指定されたプロパティに従って順序を決めてソートを行います。
 // ---------------------------------------------------------------------------------------------------------
 
-const students = [
-    { name: "Alice", age: 25, grade: 88 },
-    { name: "Bob", age: 22, grade: 92 },
-    { name: "Charlie", age: 23, grade: 90 },
-    { name: "David", age: 22, grade: 85 }
-];
+// const students = [
+//     { name: "Alice", age: 25, grade: 88 },
+//     { name: "Bob", age: 22, grade: 92 },
+//     { name: "Charlie", age: 23, grade: 90 },
+//     { name: "David", age: 22, grade: 85 }
+// ];
 
-function sortStudents(students, sortCriteria) {
-    return [...students].sort((a, b) => {
-        const firstKey = sortCriteria[0].key;
-        const firstOrder = sortCriteria[0].order;
-        const firstDiff = (firstOrder === "asc" ? a[firstKey] - b[firstKey] : b[firstKey] - a[firstKey]);
+// function sortStudents(students, sortCriteria) {
+//     return [...students].sort((a, b) => {
+//         const firstKey = sortCriteria[0].key;
+//         const firstOrder = sortCriteria[0].order;
+//         const firstDiff = (firstOrder === "asc" ? a[firstKey] - b[firstKey] : b[firstKey] - a[firstKey]);
 
-        if (firstDiff !== 0) {
-            return firstDiff;
-        } else {
-            const secondKey = sortCriteria[1].key;
-            const secondOrder = sortCriteria[1].order;
-            const secondDiff = (secondOrder === "asc" ? a[secondKey] - b[secondKey] : b[secondKey] - a[secondKey]);
-            return secondDiff;
-        }
-    });
-}
+//         if (firstDiff !== 0) {
+//             return firstDiff;
+//         } else {
+//             const secondKey = sortCriteria[1].key;
+//             const secondOrder = sortCriteria[1].order;
+//             const secondDiff = (secondOrder === "asc" ? a[secondKey] - b[secondKey] : b[secondKey] - a[secondKey]);
+//             return secondDiff;
+//         }
+//     });
+// }
 
-const criteria = [
-    { key: "age", order: "asc" },
-    { key: "grade", order: "desc" }
-];
+// const criteria = [
+//     { key: "age", order: "asc" },
+//     { key: "grade", order: "desc" }
+// ];
 
-console.log(sortStudents(students, criteria));
+// console.log(sortStudents(students, criteria));
 // 出力例:
 // [
 //   { name: "David", age: 22, grade: 85 },
@@ -409,3 +409,28 @@ console.log(sortStudents(students, criteria));
 //   { name: "Charlie", age: 23, grade: 90 },
 //   { name: "Alice", age: 25, grade: 88 }
 // ]
+
+const students = [
+    { name: "Alice", age: 25, grade: 88 },
+    { name: "Bob", age: 22, grade: 92 },
+    { name: "Charlie", age: 23, grade: 90 },
+    { name: "David", age: 22, grade: 85 }
+];
+
+function sortStudents(students, sortCriteria) {
+    return [...students].sort((a, b) => {
+        sortCriteria.reduce((acc, criterion) => {
+            if(acc!==0)return acc;
+            const { key, order } = criterion;
+            const diff = (order === "asc" ? a[key] - b[key] : b[key] - a[key])
+            return diff
+        },0)
+    })
+}
+
+const criteria = [
+    { key: "age", order: "asc" },
+    { key: "grade", order: "desc" }
+];
+
+console.log(sortStudents(students, criteria));
