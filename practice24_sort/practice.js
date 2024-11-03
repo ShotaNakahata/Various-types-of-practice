@@ -232,7 +232,7 @@
 // console.log(now.toLocaleString("ja-JP"))
 
 
-// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------
 // 応用問題：商品リストの動的条件ソート
 // この問題では、指定された条件に基づいて商品リストを並べ替える機能を作成します。
 
@@ -246,27 +246,57 @@
 // primary：メインのソート基準（例：price、rating、nameなど）
 // order：ソートの順序（asc：昇順、desc：降順）
 // secondary（任意）：メインの基準が同じ場合に使うセカンダリのソート基準（例：ratingなど）
-// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------
+// const products = [
+//     { name: "Laptop", price: 1200, rating: 4.5, category: "Electronics" },
+//     { name: "Phone", price: 800, rating: 4.7, category: "Electronics" },
+//     { name: "Tablet", price: 300, rating: 4.2, category: "Electronics" },
+//     { name: "Monitor", price: 300, rating: 3.9, category: "Electronics" },
+//     { name: "Keyboard", price: 100, rating: 4.0, category: "Accessories" }
+// ];
+// function sortProducts(products, primary, order = "asc", secondary = null) {
+//     return products.sort((a,b)=>((order === "asc" 
+//         ?a[primary]-b[primary]
+//         :b[primary]-a[primary]))!==0
+//         ?(order === "asc" 
+//             ?a[primary]-b[primary]
+//             :b[primary]-a[primary])
+//         :((order === "asc")?a[secondary]-b[secondary]
+//         :b[secondary]-a[secondary]))
+// }
+
+// console.log(sortProducts(products, "price", "asc", "rating"));
+// 出力例: 価格が低い順で並び替え、同じ価格の場合は評価の高い順
+// [
+//   { name: "Keyboard", price: 100, rating: 4.0 },
+//   { name: "Monitor", price: 300, rating: 3.9 },
+//   { name: "Tablet", price: 600, rating: 4.2 },
+//   { name: "Phone", price: 800, rating: 4.7 },
+//   { name: "Laptop", price: 1200, rating: 4.5 }
+// ]
+
+//crean版
 const products = [
     { name: "Laptop", price: 1200, rating: 4.5, category: "Electronics" },
     { name: "Phone", price: 800, rating: 4.7, category: "Electronics" },
-    { name: "Tablet", price: 300, rating: 4.2, category: "Electronics" },
+    { name: "Tablet", price: 600, rating: 4.2, category: "Electronics" },
     { name: "Monitor", price: 300, rating: 3.9, category: "Electronics" },
     { name: "Keyboard", price: 100, rating: 4.0, category: "Accessories" }
 ];
 function sortProducts(products, primary, order = "asc", secondary = null) {
-    return products.sort((a,b)=>((order === "asc" 
-        ?a[primary]-b[primary]
-        :b[primary]-a[primary]))!==0
-        ?(order === "asc" 
-            ?a[primary]-b[primary]
-            :b[primary]-a[primary])
-        :((order === "asc")?a[secondary]-b[secondary]
-        :b[secondary]-a[secondary]))
+    return products.sort((a, b) => {
+        const primaryDiff = (order === "asc" ? a[primary] - b[primary] : b[primary] - a[primary]);
+        if(primaryDiff !== 0) return primaryDiff;
+
+        if(secondary){
+            return (order === "asc" ? a[secondary] - b[secondary] : b[secondary] - a[secondary]);
+        }
+        return 0;
+    })
 }
 
 console.log(sortProducts(products, "price", "asc", "rating"));
-// 出力例: 価格が低い順で並び替え、同じ価格の場合は評価の高い順
+// 出力:
 // [
 //   { name: "Keyboard", price: 100, rating: 4.0 },
 //   { name: "Monitor", price: 300, rating: 3.9 },
