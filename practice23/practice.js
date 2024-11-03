@@ -233,8 +233,9 @@ function calculateResults(students) {
     return students.map(student=>{
         const scores = Object.values(student.scores)
         const total = scores.reduce((acc,score)=>acc+score,0);
-        const average = (total/scores.length).toFixed();
-        return {name:student.name,total,average}
+        const average = parseFloat((total/scores.length).toFixed());
+        const status = (average>=60?"Pass":"Fail")
+        return {name:student.name,total,average,status}
     });
 }
 
