@@ -23,20 +23,45 @@ const products = [
     { name: "Smartphone", category: "Electronics", price: 800, rating: 4.8, inStock: true }
 ];
 
-const initialCount = {categoryCounts:{}};
+const initialStats = {
+    categoryCounts: {},
+    totalInStockPrice: 0,
+    totalRating: 0,
+    count: 0,
+    averageRating:0
+}
 
-const categoryCounts = products.reduce((acc,product)=>{
+const stats = products.reduce((acc, product) => {
     const category = product.category;
-    acc.categoryCounts[category] = (acc.categoryCounts[category]||0)+1;
-    return acc
-},initialCount)
+    acc.categoryCounts[category] = (acc.categoryCounts[category] || 0) + 1;
 
-console.log(categoryCounts); 
+    if (product.inStock) {
+        acc.totalInStockPrice += product.price;
+    }
 
-// function aggregateProductData(products){
-//     products.reduce((accumulator,product)=>{
+    acc.totalRating += product.rating;
+    acc.count += 1;
+    acc.totalRating = parseFloat(acc.totalRating.toFixed(5));
+    acc.averageRating = parseFloat((acc.totalRating / acc.count).toFixed(1));
+    return acc;
+}, initialStats);
 
-//     },)
-// }
 
-// aggregateProductData(products)
+console.log(stats);
+
+
+
+
+
+
+
+
+// const initialCount = {categoryCounts:{}};
+
+// const categoryCounts = products.reduce((acc,product)=>{
+//     const category = product.category;
+//     acc.categoryCounts[category] = (acc.categoryCounts[category]||0)+1;
+//     return acc
+// },initialCount)
+
+// console.log(categoryCounts); 
