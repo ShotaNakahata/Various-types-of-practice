@@ -145,6 +145,7 @@ const storeSalesData = [
         store: "Store B",
         products: [
             { name: "Laptop", quantity: 2, unitPrice: 1200 },
+            { name: "Laptop", quantity: 2, unitPrice: 1200 },
             { name: "Tablet", quantity: 3, unitPrice: 400 }
         ]
     },
@@ -165,15 +166,35 @@ const storeSalesData = [
 ];
 
 function calculateSalesByStore(storeSalesData) {
-    const result = storeSalesData.slice().reduce((acc, data) => {
-        const sumPrice = data.products.reduce((acc, product) => {
-            acc[product.name] = product.quantity * product.unitPrice
-            return acc
-        }, {})
-        acc[data.store] = sumPrice
-        return acc
-    }, {})
-    return result
+    return storeSalesData.slice().reduce((acc, data) => {
+        // 各店舗ごとに商品の売上金額を計算
+        const sumPrice = data.products.reduce((productAcc, product) => {
+            // 既に商品が存在すれば売上金額を加算、なければ新規作成
+            if (productAcc[product.name]) {
+                productAcc[product.name] += product.quantity * product.unitPrice;
+            } else {
+                productAcc[product.name] = product.quantity * product.unitPrice;
+            }
+            return productAcc;
+        }, {});
+
+        // 店舗名をキーとして結果を格納
+        if (acc[data.store]) {
+            // 既存の店舗があれば商品の売上を追加
+            for (const [product, sales] of Object.entries(sumPrice)) {
+                if (acc[data.store][product]) {
+                    acc[data.store][product] += sales;
+                } else {
+                    acc[data.store][product] = sales;
+                }
+            }
+        } else {
+            // 新しい店舗の場合はそのまま追加
+            acc[data.store] = sumPrice;
+        }
+        return acc;
+    }, {});
 }
+
 console.log(calculateSalesByStore(storeSalesData))
 // ------------------------------------------------------------------------------------------------------
