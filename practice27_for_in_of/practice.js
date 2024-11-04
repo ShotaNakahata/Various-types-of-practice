@@ -79,17 +79,15 @@
 
 // 課題
 // 次の配列numberGroupsには、複数の配列がネストされています。for...ofを使って、すべての数値を1つずつ出力してください。
-const numberGroups = [
-    [1, 2, 3],
-    [4, 5],
-    [6, 7, 8, 9]
-];
+// const numberGroups = [
+//     [1, 2, 3],
+//     [4, 5],
+//     [6, 7, 8, 9]
+// ];
 
-for(let numberGroup of numberGroups){
-    for(let nunber of numberGroup){
-        console.log(nunber)
-    }
-}
+// for(let number of numberGroups.flat()){
+//     console.log(number)
+// }
 
 // output
 // 1
@@ -103,6 +101,30 @@ for(let numberGroup of numberGroups){
 // 9
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 5：オブジェクトの配列をループ（for...of + for...in）
+// 目的: for...ofとfor...inを組み合わせて、配列内のオブジェクトを処理する方法を学びます。
+
+// 課題
+// 次の配列usersには、複数のユーザー情報が格納されています。for...ofとfor...inを使って、
+// 各ユーザーの情報（キーと値）を「キー: 値」の形式で出力してください。
+const users = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 35 }
+];
+for(let user of users){
+    for(let key in user){
+        console.log(`${key}:${user[key]}`)
+    }
+}
+// output
+// name: Alice
+// age: 25
+// name: Bob
+// age: 30
+// name: Charlie
+// age: 35
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
