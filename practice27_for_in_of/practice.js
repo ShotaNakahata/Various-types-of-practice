@@ -12,7 +12,7 @@ const user = {
 
 function outputKeyAndValue(user){
     for(let key in user){
-        console.log(key,":",user[key])
+        console.log(`${key}:${user[key]}`)
     }
 }
 outputKeyAndValue(user)
