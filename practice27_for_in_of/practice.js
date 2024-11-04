@@ -138,19 +138,33 @@
 // 課題
 // 次の配列itemsには、複数のアイテム情報が格納されています。for...ofとfor...inを使って、
 // priceが100以上のアイテムのみを出力してください。
-const items = [
-    { name: "apple", price: 120 },
-    { name: "orange", price: 80 },
-    { name: "banana", price: 60 },
-    { name: "grape", price: 150 }
-];
-for(let item of items){
-    if(item.price>=100){
-        for(let key in item){
-            console.log(`${key}:${item[key]}`)
-        }
-    }
-}
+// const items = [
+//     { name: "apple", price: 120 },
+//     { name: "orange", price: 80 },
+//     { name: "banana", price: 60 },
+//     { name: "grape", price: 150 }
+// ];
+// for(let item of items){
+//     if(item.price>=100){
+//         for(let key in item){
+//             console.log(`${key}:${item[key]}`)
+//         }
+//     }
+// }
+
+// const items = [
+//     { name: "apple", price: 120 },
+//     { name: "orange", price: 80 },
+//     { name: "banana", price: 60 },
+//     { name: "grape", price: 150 }
+// ];
+
+// items.forEach(item=>{
+//     (item.price>=100
+//         ?console.log(item)
+//         :""
+//     )
+// })
 // output
 // name: apple
 // price: 120
@@ -158,6 +172,50 @@ for(let item of items){
 // price: 150
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 7：オブジェクトの配列からデータを集計
+// 目的: for...ofやforEachを使い、特定の条件に基づいたデータの集計方法を学びます。
+
+// 課題
+// 次の配列salesには、複数の売上データが格納されています。各データには、店舗名（store）、
+// 売上金額（amount）、およびカテゴリ（category）が含まれています。
+
+// この配列から、"electronics"カテゴリの売上合計を計算し、出力してください。
+
+// const sales = [
+//     { store: "Store A", amount: 300, category: "clothing" },
+//     { store: "Store B", amount: 800, category: "electronics" },
+//     { store: "Store A", amount: 1200, category: "electronics" },
+//     { store: "Store C", amount: 400, category: "clothing" },
+//     { store: "Store B", amount: 700, category: "electronics" }
+// ];
+// const output= sales.reduce((acc,sale)=>{
+//     if(sale.category==="electronics"){
+//         acc += sale.amount
+//     }
+//     return acc
+// },0)
+
+// console.log(output)
+
+const sales = [
+    { store: "Store A", amount: 300, category: "clothing" },
+    { store: "Store B", amount: 800, category: "electronics" },
+    { store: "Store A", amount: 1200, category: "electronics" },
+    { store: "Store C", amount: 400, category: "clothing" },
+    { store: "Store B", amount: 700, category: "electronics" }
+];
+let sum = 0
+
+for(let sale of sales){
+    if(sale.category==="electronics"){
+        sum += sale.amount
+    } 
+}
+console.log(sum)
+
+// output
+// electronicsカテゴリの売上合計: 2700
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
