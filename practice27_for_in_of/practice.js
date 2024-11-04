@@ -60,17 +60,51 @@
 // }
 // console.log(calculateSum(productPrices))
 
-const productPrices = {
-    apple: 120,
-    orange: 80,
-    banana: 60
-};
-let sum = 0;
-for(let key in productPrices) sum += productPrices[key];
-console.log(sum)
+// const productPrices = {
+//     apple: 120,
+//     orange: 80,
+//     banana: 60
+// };
+// let sum = 0;
+// for(let key in productPrices) sum += productPrices[key];
+// console.log(sum)
 // output
 // 合計価格: 260
 
 
 
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 4：ネストされた配列のループ（for...of）
+// 目的: for...ofを使って、配列の中にさらに配列がある場合に、内側の要素にアクセスする方法を学びます。
+
+// 課題
+// 次の配列numberGroupsには、複数の配列がネストされています。for...ofを使って、すべての数値を1つずつ出力してください。
+const numberGroups = [
+    [1, 2, 3],
+    [4, 5],
+    [6, 7, 8, 9]
+];
+
+for(let numberGroup of numberGroups){
+    for(let nunber of numberGroup){
+        console.log(nunber)
+    }
+}
+
+// output
+// 1
+// 2
+// 3
+// 4
+// 5
+// 6
+// 7
+// 8
+// 9
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
