@@ -45,20 +45,29 @@
 // 課題
 // 次のオブジェクトproductPricesには、商品の名前とその価格が格納されています。
 // for...inを使ってこのオブジェクトをループし、商品の合計価格を計算してください。
+// const productPrices = {
+//     apple: 120,
+//     orange: 80,
+//     banana: 60
+// };
+
+// function calculateSum(productPrices){
+//     let sum = 0
+//     for(let productName in productPrices){
+//         sum += productPrices[productName]
+//     }
+//     return sum
+// }
+// console.log(calculateSum(productPrices))
+
 const productPrices = {
     apple: 120,
     orange: 80,
     banana: 60
 };
-
-function calculateSum(productPrices){
-    let sum = 0
-    for(let productName in productPrices){
-        sum += productPrices[productName]
-    }
-    return sum
-}
-console.log(calculateSum(productPrices))
+let sum = 0;
+for(let key in productPrices) sum += productPrices[key];
+console.log(sum)
 // output
 // 合計価格: 260
 
