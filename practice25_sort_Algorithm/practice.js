@@ -107,34 +107,31 @@
 // 抽出した商品をpriceの降順（高い順）で並べ替えます。
 // 絞り込んだ商品のquantity（在庫数）の合計を計算し、結果を出力します。
 
-const inventory = [
-    { name: "Laptop", category: "electronics", price: 1200, quantity: 30 },
-    { name: "Desk", category: "furniture", price: 300, quantity: 15 },
-    { name: "Chair", category: "furniture", price: 100, quantity: 45 },
-    { name: "Monitor", category: "electronics", price: 200, quantity: 60 },
-    { name: "Mouse", category: "electronics", price: 25, quantity: 150 },
-    { name: "Notebook", category: "stationery", price: 5, quantity: 200 },
-    { name: "Pen", category: "stationery", price: 1, quantity: 500 },
-    { name: "Tablet", category: "electronics", price: 300, quantity: 20 }
-];
+// const inventory = [
+//     { name: "Laptop", category: "electronics", price: 1200, quantity: 30 },
+//     { name: "Desk", category: "furniture", price: 300, quantity: 15 },
+//     { name: "Chair", category: "furniture", price: 100, quantity: 45 },
+//     { name: "Monitor", category: "electronics", price: 200, quantity: 60 },
+//     { name: "Mouse", category: "electronics", price: 25, quantity: 150 },
+//     { name: "Notebook", category: "stationery", price: 5, quantity: 200 },
+//     { name: "Pen", category: "stationery", price: 1, quantity: 500 },
+//     { name: "Tablet", category: "electronics", price: 300, quantity: 20 }
+// ];
 
-function filteredAndSorted(inventory) {
-    const filteredItems = inventory.filter(product => product.category === "electronics");
-    const filteredAndSortedItems = filteredItems.slice().sort((a, b) => b.price - a.price);
-    const totalQuantity = filteredItems.reduce((acc, product) => {
-        acc += product.quantity
-        return acc
-    }, 0)
-    return { filteredItems, filteredAndSortedItems, totalQuantity }
-}
+// function filteredAndSorted(inventory) {
+//     const filteredItems = inventory.filter(product => product.category === "electronics");
+//     const filteredAndSortedItems = filteredItems.slice().sort((a, b) => b.price - a.price);
+//     const totalQuantity = filteredItems.reduce((acc, product) => {
+//         acc += product.quantity
+//         return acc
+//     }, 0)
+//     return { filteredItems, filteredAndSortedItems, totalQuantity }
+// }
 
-const { filteredItems, filteredAndSortedItems, totalQuantity } = filteredAndSorted(inventory);
+// const { filteredItems, filteredAndSortedItems, totalQuantity } = filteredAndSorted(inventory);
 
-// 絞り込んだ結果を表示
-console.log("Electronics Category (Price Desc):", filteredAndSortedItems);
-// 在庫の合計を表示
-console.log("Total Quantity in Electronics:", totalQuantity);
-
-
-
+// // 絞り込んだ結果を表示
+// console.log("Electronics Category (Price Desc):", filteredAndSortedItems);
+// // 在庫の合計を表示
+// console.log("Total Quantity in Electronics:", totalQuantity);
 // ------------------------------------------------------------------------------------------------------
