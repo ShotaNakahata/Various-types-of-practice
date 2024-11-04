@@ -28,14 +28,40 @@
 
 // 課題
 // 次の配列colorsに含まれる色の名前を1つずつ出力してください。
-const colors = ["red", "green", "blue"];
-for (let color of colors){
-    console.log(color)
-}
+// const colors = ["red", "green", "blue"];
+// for (let color of colors){
+//     console.log(color)
+// }
 // [output]
 // red
 // green
 // blue
+
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 3：オブジェクトの値の合計（for...in）
+// 目的: for...inを使ってオブジェクトをループし、数値のプロパティを合計する方法を学びます。
+
+// 課題
+// 次のオブジェクトproductPricesには、商品の名前とその価格が格納されています。
+// for...inを使ってこのオブジェクトをループし、商品の合計価格を計算してください。
+const productPrices = {
+    apple: 120,
+    orange: 80,
+    banana: 60
+};
+
+function calculateSum(productPrices){
+    let sum = 0
+    for(let productName in productPrices){
+        sum += productPrices[productName]
+    }
+    return sum
+}
+console.log(calculateSum(productPrices))
+// output
+// 合計価格: 260
+
 
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
