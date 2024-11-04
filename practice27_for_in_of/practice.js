@@ -107,16 +107,22 @@
 // 課題
 // 次の配列usersには、複数のユーザー情報が格納されています。for...ofとfor...inを使って、
 // 各ユーザーの情報（キーと値）を「キー: 値」の形式で出力してください。
-const users = [
-    { name: "Alice", age: 25 },
-    { name: "Bob", age: 30 },
-    { name: "Charlie", age: 35 }
-];
-for(let user of users){
-    for(let key in user){
-        console.log(`${key}:${user[key]}`)
-    }
-}
+// const users = [
+//     { name: "Alice", age: 25 },
+//     { name: "Bob", age: 30 },
+//     { name: "Charlie", age: 35 }
+// ];
+// // for(let user of users){
+// //     for(let key in user){
+// //         console.log(`${key}:${user[key]}`)
+// //     }
+// // }
+// for (let user of users) {
+//     for (let [key, value] of Object.entries(user)) {
+//         console.log(`${key}:${value}`)
+//     }
+// }
+
 // output
 // name: Alice
 // age: 25
@@ -126,6 +132,31 @@ for(let user of users){
 // age: 35
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 6：条件付きでオブジェクトを処理（for...in + for...of）
+// 目的: for...ofとfor...inを組み合わせ、条件に合致するオブジェクトのデータのみを抽出・出力する方法を学びます。
+
+// 課題
+// 次の配列itemsには、複数のアイテム情報が格納されています。for...ofとfor...inを使って、
+// priceが100以上のアイテムのみを出力してください。
+const items = [
+    { name: "apple", price: 120 },
+    { name: "orange", price: 80 },
+    { name: "banana", price: 60 },
+    { name: "grape", price: 150 }
+];
+for(let item of items){
+    if(item.price>=100){
+        for(let key in item){
+            console.log(`${key}:${item[key]}`)
+        }
+    }
+}
+// output
+// name: apple
+// price: 120
+// name: grape
+// price: 150
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
