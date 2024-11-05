@@ -38,12 +38,12 @@
 
 // 問題
 // 次の二次元配列entriesから、Object.fromEntriesを使ってオブジェクトを作成し、変数productに格納してください。
-const entries = [
-    ["name", "Smartphone"],
-    ["price", 700],
-    ["brand", "Samsung"]
-];
-console.log(Object.fromEntries(entries))
+// const entries = [
+//     ["name", "Smartphone"],
+//     ["price", 700],
+//     ["brand", "Samsung"]
+// ];
+// console.log(Object.fromEntries(entries))
 // output
 // {
 //     name: "Smartphone",
@@ -52,6 +52,30 @@ console.log(Object.fromEntries(entries))
 // }
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 4: Object.assignでオブジェクトを結合
+// 目的: Object.assignを使って、複数のオブジェクトを1つにまとめる方法を学びます。
+
+// 問題
+// 次のオブジェクトbaseInfoとadditionalInfoをObject.assignで結合し、新しいオブジェクトfullInfoを作成してください。
+const baseInfo = {
+    name: "Alice",
+    age: 28
+};
+const additionalInfo = {
+    city: "Paris",
+    occupation: "Engineer"
+};
+
+console.log(Object.assign(baseInfo,additionalInfo))
+
+// output
+// {
+//     name: "Alice",
+//         age: 28,
+//             city: "Paris",
+//                 occupation: "Engineer"
+// }
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
