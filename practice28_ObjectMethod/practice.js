@@ -171,30 +171,64 @@
 // 問題
 // 次のproductsオブジェクトには、各商品ごとにカテゴリと在庫数が格納されています。
 // カテゴリごとの在庫数の合計を計算し、各カテゴリの合計を持つオブジェクトを返してください。
-const products = {
-    apple: { category: "fruit", stock: 30 },
-    banana: { category: "fruit", stock: 20 },
-    carrot: { category: "vegetable", stock: 50 },
-    spinach: { category: "vegetable", stock: 15 },
-    chicken: { category: "meat", stock: 25 },
-    beef: { category: "meat", stock: 35 }
-};
-console.log(Object.entries(products).reduce((acc, [key, info]) => {
-    if(acc[info.category]){
-        acc[info.category] += info.stock;
-    }else{
-        acc[info.category] = info.stock;
-    }
-    return acc
-}, {}))
+// const products = {
+//     apple: { category: "fruit", stock: 30 },
+//     banana: { category: "fruit", stock: 20 },
+//     carrot: { category: "vegetable", stock: 50 },
+//     spinach: { category: "vegetable", stock: 15 },
+//     chicken: { category: "meat", stock: 25 },
+//     beef: { category: "meat", stock: 35 }
+// };
+// console.log(Object.entries(products).reduce((acc, [key, info]) => {
+//     if (acc[info.category]) {
+//         acc[info.category] += info.stock;
+//     } else {
+//         acc[info.category] = info.stock;
+//     }
+//     return acc
+// }, {}))
 // output
 // {
 //     fruit: 50,
 //         vegetable: 65,
 //             meat: 60
 // }
-
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 8: 商品ごとの在庫価値を計算する
+// 目的: 各商品の在庫の合計価値を計算し、在庫価値の高い順に並べる練習です。
+
+// 問題
+// 次のstoreInventoryオブジェクトには、各商品の在庫数と1個あたりの価格が格納されています。
+// 各商品の在庫価値を計算し、在庫価値が高い順に並べた新しい配列として返してください。
+const storeInventory = {
+    apple: { price: 2, stock: 30 },
+    banana: { price: 1, stock: 50 },
+    carrot: { price: 3, stock: 25 },
+    spinach: { price: 1, stock: 10 },
+    chicken: { price: 5, stock: 15 },
+    beef: { price: 10, stock: 5 }
+};
+const output = Object.entries(storeInventory).reduce((acc, [name, value]) => {
+    // console.log(value)
+    const finalPrice = value.price * value.stock
+    // console.log(finalPrice)
+    acc.push([name,finalPrice])
+    // const finalprice = price * stock
+    // console.log(price, stock)
+    // acc[1,2] = [key,finalprice]
+    return acc
+}, []).sort((a,b)=>b[1]-a[1])
+console.log(output)
+// output
+// [
+//     ["apple", 60],
+//     ["carrot", 75],
+//     ["banana", 50],
+//     ["chicken", 75],
+//     ["spinach", 10],
+//     ["beef", 50]
+// ]
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
