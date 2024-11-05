@@ -57,16 +57,16 @@
 
 // 問題
 // 次のオブジェクトbaseInfoとadditionalInfoをObject.assignで結合し、新しいオブジェクトfullInfoを作成してください。
-const baseInfo = {
-    name: "Alice",
-    age: 28
-};
-const additionalInfo = {
-    city: "Paris",
-    occupation: "Engineer"
-};
+// const baseInfo = {
+//     name: "Alice",
+//     age: 28
+// };
+// const additionalInfo = {
+//     city: "Paris",
+//     occupation: "Engineer"
+// };
 
-console.log(Object.assign({},baseInfo,additionalInfo))
+// console.log(Object.assign({},baseInfo,additionalInfo))
 
 // output
 // {
@@ -77,6 +77,37 @@ console.log(Object.assign({},baseInfo,additionalInfo))
 // }
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 5: Object.keysとObject.valuesで特定のデータを抽出
+// 目的: オブジェクトのキーと値を操作し、条件に合うデータを抽出する方法を学びます。
+
+// 問題
+// 次のオブジェクトgradesから、値が70以上の科目（キー）だけを抽出し、新しいオブジェクトとして返してください。
+const grades = {
+    math: 85,
+    english: 62,
+    science: 90,
+    history: 70,
+    art: 55
+};
+function CheckPoint(grades) {
+    return Object.entries(grades)
+    .filter(([key,value])=>value>=70)
+    .reduce((acc,subj)=>{
+        const [key,value] = subj;
+        acc[key]=value
+        return acc
+    },{})
+}
+
+console.log(CheckPoint(grades))
+// output
+// {
+//     math: 85,
+//         science: 90,
+//             history: 70
+// }
+
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
