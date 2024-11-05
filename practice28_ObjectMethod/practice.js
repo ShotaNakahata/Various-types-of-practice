@@ -116,6 +116,26 @@
 // 以下のinventoryオブジェクトには、各商品の在庫数が格納されています。
 // 在庫が10未満のものは "Low"、10以上50未満のものは "Medium"、50以上のものは "High" として、
 // 在庫レベルに基づいた新しいオブジェクトを返してください。
+// const inventory = {
+//     apples: 5,
+//     bananas: 15,
+//     oranges: 50,
+//     grapes: 45,
+//     strawberries: 3
+// };
+// const output = Object.entries(inventory).reduce((acc, product) => {
+//     let [key, value] = product;
+//     (value < 10
+//         ? value = "Low"
+//         : value >= 10 && value < 50
+//             ? value = "Medium"
+//             : value = "High")
+//     acc[key] = value
+//     return acc
+// }, {})
+
+// console.log(output)
+
 const inventory = {
     apples: 5,
     bananas: 15,
@@ -123,8 +143,7 @@ const inventory = {
     grapes: 45,
     strawberries: 3
 };
-const output = Object.entries(inventory).reduce((acc, product) => {
-    let [key, value] = product;
+const output = Object.entries(inventory).reduce((acc, [key,value]) => {
     (value < 10
         ? value = "Low"
         : value >= 10 && value < 50
