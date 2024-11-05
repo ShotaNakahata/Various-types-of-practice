@@ -227,42 +227,42 @@
 
 // 店舗ごとの売上合計を計算し、オブジェクト形式で出力する。
 // さらに、各店舗ごとに"electronics"カテゴリの売上合計を求め、出力する。
-const salesData = [
-    { store: "Store A", amount: 300, category: "clothing" },
-    { store: "Store B", amount: 800, category: "electronics" },
-    { store: "Store A", amount: 1200, category: "electronics" },
-    { store: "Store C", amount: 400, category: "clothing" },
-    { store: "Store B", amount: 700, category: "electronics" },
-    { store: "Store A", amount: 500, category: "clothing" }
-];
-function calculateSalesData(salesData) {
-    // {"store A":2000}
-    const StoreSalesData= salesData.reduce((acc, data) => {
-        if(acc[data.store]){
-            acc[data.store] += data.amount
-            // console.log("acc[data.store.amount] :",acc[data.store.amount])
-        }else{
-            acc[data.store] = data.amount;
-        }
-        return acc
-    }, {})
+// const salesData = [
+//     { store: "Store A", amount: 300, category: "clothing" },
+//     { store: "Store B", amount: 800, category: "electronics" },
+//     { store: "Store A", amount: 1200, category: "electronics" },
+//     { store: "Store C", amount: 400, category: "clothing" },
+//     { store: "Store B", amount: 700, category: "electronics" },
+//     { store: "Store A", amount: 500, category: "clothing" }
+// ];
+// function calculateSalesData(salesData) {
+//     // {"store A":2000}
+//     const StoreSalesData= salesData.reduce((acc, data) => {
+//         if(acc[data.store]){
+//             acc[data.store] += data.amount
+//             // console.log("acc[data.store.amount] :",acc[data.store.amount])
+//         }else{
+//             acc[data.store] = data.amount;
+//         }
+//         return acc
+//     }, {})
 
-    const electronicsSalesData = salesData.reduce((acc,data)=>{
-        if(data.category==="electronics"){
-            if(acc[data.store]){
-                acc[data.store] += data.amount
-                // console.log("acc[data.store.amount] :",acc[data.store.amount])
-            }else{
-                acc[data.store] = data.amount;
-            }
-        }else{
-            acc[data.store] = 0;
-        }
-        return acc
-    },{})
-    return {StoreSalesData,electronicsSalesData}
-}
-console.log(calculateSalesData(salesData))
+//     const electronicsSalesData = salesData.reduce((acc,data)=>{
+//         if(data.category==="electronics"){
+//             if(acc[data.store]){
+//                 acc[data.store] += data.amount
+//                 // console.log("acc[data.store.amount] :",acc[data.store.amount])
+//             }else{
+//                 acc[data.store] = data.amount;
+//             }
+//         }else{
+//             acc[data.store] = 0;
+//         }
+//         return acc
+//     },{})
+//     return {StoreSalesData,electronicsSalesData}
+// }
+// console.log(calculateSalesData(salesData))
 // output
 // // 店舗ごとの売上合計
 // {
@@ -277,6 +277,27 @@ console.log(calculateSalesData(salesData))
 //         "Store B": 1500,
 //             "Store C": 0
 // }
+const salesData = [
+    { store: "Store A", amount: 300, category: "clothing" },
+    { store: "Store B", amount: 800, category: "electronics" },
+    { store: "Store A", amount: 1200, category: "electronics" },
+    { store: "Store C", amount: 400, category: "clothing" },
+    { store: "Store B", amount: 700, category: "electronics" },
+    { store: "Store A", amount: 500, category: "clothing" }
+];
 
+function calculateSalesData(salesData) {
+    return salesData.reduce((acc, data) => {
+        acc.StoreSalesData[data.store] = (acc.StoreSalesData[data.store] || 0) + data.amount;
+        if (data.category === "electronics") {
+            acc.electronicsSalesData[data.store] = (acc.electronicsSalesData[data.store] || 0) + data.amount;
+        } else if (!acc.electronicsSalesData[data.store]){
+            acc.electronicsSalesData[data.store] = 0
+        }
+        return acc
+    }, { StoreSalesData: {}, electronicsSalesData: {} })
+}
+
+console.log(calculateSalesData(salesData))
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
