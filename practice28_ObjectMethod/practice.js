@@ -4,17 +4,34 @@
 
 // 問題
 // 次のオブジェクトproductからキーと値をそれぞれ取得し、次のような形式で出力してください。
-const product = {
-    name: "Laptop",
-    price: 1200,
-    brand: "Dell"
-};
-console.log("keys: ",Object.keys(product),"value: ",Object.values(product));
+// const product = {
+//     name: "Laptop",
+//     price: 1200,
+//     brand: "Dell"
+// };
+// console.log("keys: ",Object.keys(product),"value: ",Object.values(product));
 // out
 // Keys: ["name", "price", "brand"]
 // Values: ["Laptop", 1200, "Dell"]
-
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 基礎問題 2: Object.entriesの利用
+// 目的: オブジェクトのキーと値のペアを配列として取得し、操作する方法を学びます。
+// 問題
+// 次のオブジェクトemployeeから、Object.entriesを使って各キーと値のペアを取得し、次のような形式で出力してください。
+const employee = {
+    name: "John",
+    age: 30,
+    department: "Sales"
+};
+for(let [key,value] of Object.entries(employee)){
+    console.log(key,":",value)
+}
+
+// output
+// name: John
+// age: 30
+// department: Sales
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
