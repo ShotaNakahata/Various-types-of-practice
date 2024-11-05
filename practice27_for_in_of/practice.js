@@ -197,25 +197,86 @@
 
 // console.log(output)
 
-const sales = [
-    { store: "Store A", amount: 300, category: "clothing" },
-    { store: "Store B", amount: 800, category: "electronics" },
-    { store: "Store A", amount: 1200, category: "electronics" },
-    { store: "Store C", amount: 400, category: "clothing" },
-    { store: "Store B", amount: 700, category: "electronics" }
-];
-let sum = 0
+// const sales = [
+//     { store: "Store A", amount: 300, category: "clothing" },
+//     { store: "Store B", amount: 800, category: "electronics" },
+//     { store: "Store A", amount: 1200, category: "electronics" },
+//     { store: "Store C", amount: 400, category: "clothing" },
+//     { store: "Store B", amount: 700, category: "electronics" }
+// ];
+// let sum = 0
 
-for(let sale of sales){
-    if(sale.category==="electronics"){
-        sum += sale.amount
-    } 
-}
-console.log(sum)
-
+// for(let sale of sales){
+//     if(sale.category==="electronics"){
+//         sum += sale.amount
+//     } 
+// }
+// console.log(sum)
 // output
 // electronicsカテゴリの売上合計: 2700
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 8：店舗ごとの売上データを集計
+// 目的: for...ofやforEachを使い、条件に基づいてデータを集計し、特定の条件に合致するデータのみを出力する方法を学びます。
+
+// 課題
+// 以下のような形式の売上データsalesDataが与えられています。各データには、店舗名（store）、
+// 売上金額（amount）、およびカテゴリ（category）が含まれています。
+
+// この配列から以下の情報を取得し、出力してください。
+
+// 店舗ごとの売上合計を計算し、オブジェクト形式で出力する。
+// さらに、各店舗ごとに"electronics"カテゴリの売上合計を求め、出力する。
+const salesData = [
+    { store: "Store A", amount: 300, category: "clothing" },
+    { store: "Store B", amount: 800, category: "electronics" },
+    { store: "Store A", amount: 1200, category: "electronics" },
+    { store: "Store C", amount: 400, category: "clothing" },
+    { store: "Store B", amount: 700, category: "electronics" },
+    { store: "Store A", amount: 500, category: "clothing" }
+];
+function calculateSalesData(salesData) {
+    // {"store A":2000}
+    const StoreSalesData= salesData.reduce((acc, data) => {
+        if(acc[data.store]){
+            acc[data.store] += data.amount
+            // console.log("acc[data.store.amount] :",acc[data.store.amount])
+        }else{
+            acc[data.store] = data.amount;
+        }
+        return acc
+    }, {})
+
+    const electronicsSalesData = salesData.reduce((acc,data)=>{
+        if(data.category==="electronics"){
+            if(acc[data.store]){
+                acc[data.store] += data.amount
+                // console.log("acc[data.store.amount] :",acc[data.store.amount])
+            }else{
+                acc[data.store] = data.amount;
+            }
+        }else{
+            acc[data.store] = 0;
+        }
+        return acc
+    },{})
+    return {StoreSalesData,electronicsSalesData}
+}
+console.log(calculateSalesData(salesData))
+// output
+// // 店舗ごとの売上合計
+// {
+//     "Store A": 2000,
+//         "Store B": 1500,
+//             "Store C": 400
+// }
+
+// // 各店舗のelectronicsカテゴリの売上合計
+// {
+//     "Store A": 1200,
+//         "Store B": 1500,
+//             "Store C": 0
+// }
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
