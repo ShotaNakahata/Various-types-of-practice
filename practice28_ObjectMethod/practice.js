@@ -82,24 +82,24 @@
 
 // 問題
 // 次のオブジェクトgradesから、値が70以上の科目（キー）だけを抽出し、新しいオブジェクトとして返してください。
-const grades = {
-    math: 85,
-    english: 62,
-    science: 90,
-    history: 70,
-    art: 55
-};
-function CheckPoint(grades) {
-    return Object.entries(grades)
-    .filter(([key,value])=>value>=70)
-    .reduce((acc,subj)=>{
-        const [key,value] = subj;
-        acc[key]=value
-        return acc
-    },{})
-}
+// const grades = {
+//     math: 85,
+//     english: 62,
+//     science: 90,
+//     history: 70,
+//     art: 55
+// };
+// function CheckPoint(grades) {
+//     return Object.entries(grades)
+//     .filter(([key,value])=>value>=70)
+//     .reduce((acc,subj)=>{
+//         const [key,value] = subj;
+//         acc[key]=value
+//         return acc
+//     },{})
+// }
 
-console.log(CheckPoint(grades))
+// console.log(CheckPoint(grades))
 // output
 // {
 //     math: 85,
@@ -109,6 +109,43 @@ console.log(CheckPoint(grades))
 
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 6: 条件に応じてプロパティの値を変換する
+// 目的: オブジェクトのプロパティの値を操作し、条件に基づいて新しいデータを作成する方法を学びます。
+
+// 問題
+// 以下のinventoryオブジェクトには、各商品の在庫数が格納されています。
+// 在庫が10未満のものは "Low"、10以上50未満のものは "Medium"、50以上のものは "High" として、
+// 在庫レベルに基づいた新しいオブジェクトを返してください。
+const inventory = {
+    apples: 5,
+    bananas: 15,
+    oranges: 50,
+    grapes: 45,
+    strawberries: 3
+};
+const output = Object.entries(inventory).reduce((acc, product) => {
+    let [key, value] = product;
+    (value < 10
+        ? value = "Low"
+        : value >= 10 && value < 50
+            ? value = "Medium"
+            : value = "High")
+    acc[key] = value
+    return acc
+}, {})
+
+console.log(output)
+
+// output
+// {
+//     apples: "Low",
+//         bananas: "Medium",
+//             oranges: "High",
+//                 grapes: "Medium",
+//                     strawberries: "Low"
+// }
+
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
