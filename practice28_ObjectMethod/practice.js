@@ -18,14 +18,14 @@
 // 目的: オブジェクトのキーと値のペアを配列として取得し、操作する方法を学びます。
 // 問題
 // 次のオブジェクトemployeeから、Object.entriesを使って各キーと値のペアを取得し、次のような形式で出力してください。
-const employee = {
-    name: "John",
-    age: 30,
-    department: "Sales"
-};
-for(let [key,value] of Object.entries(employee)){
-    console.log(key,":",value)
-}
+// const employee = {
+//     name: "John",
+//     age: 30,
+//     department: "Sales"
+// };
+// for(let [key,value] of Object.entries(employee)){
+//     console.log(key,":",value)
+// }
 
 // output
 // name: John
@@ -33,6 +33,24 @@ for(let [key,value] of Object.entries(employee)){
 // department: Sales
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 3: Object.fromEntriesの利用
+// 目的: 二次元配列をオブジェクトに変換する方法を学びます。
+
+// 問題
+// 次の二次元配列entriesから、Object.fromEntriesを使ってオブジェクトを作成し、変数productに格納してください。
+const entries = [
+    ["name", "Smartphone"],
+    ["price", 700],
+    ["brand", "Samsung"]
+];
+console.log(Object.fromEntries(entries))
+// output
+// {
+//     name: "Smartphone",
+//         price: 700,
+//             brand: "Samsung"
+// }
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
