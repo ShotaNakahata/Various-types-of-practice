@@ -66,7 +66,7 @@ const additionalInfo = {
     occupation: "Engineer"
 };
 
-console.log(Object.assign(baseInfo,additionalInfo))
+console.log(Object.assign({},baseInfo,additionalInfo))
 
 // output
 // {
