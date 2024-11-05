@@ -136,24 +136,24 @@
 
 // console.log(output)
 
-const inventory = {
-    apples: 5,
-    bananas: 15,
-    oranges: 50,
-    grapes: 45,
-    strawberries: 3
-};
-const output = Object.entries(inventory).reduce((acc, [key,value]) => {
-    (value < 10
-        ? value = "Low"
-        : value >= 10 && value < 50
-            ? value = "Medium"
-            : value = "High")
-    acc[key] = value
-    return acc
-}, {})
+// const inventory = {
+//     apples: 5,
+//     bananas: 15,
+//     oranges: 50,
+//     grapes: 45,
+//     strawberries: 3
+// };
+// const output = Object.entries(inventory).reduce((acc, [key,value]) => {
+//     (value < 10
+//         ? value = "Low"
+//         : value >= 10 && value < 50
+//             ? value = "Medium"
+//             : value = "High")
+//     acc[key] = value
+//     return acc
+// }, {})
 
-console.log(output)
+// console.log(output)
 
 // output
 // {
@@ -164,7 +164,38 @@ console.log(output)
 //                     strawberries: "Low"
 // }
 
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 7: カテゴリごとの在庫合計を計算
+// 目的: オブジェクトのプロパティを操作し、条件に基づいて集計する方法を学びます。
 
+// 問題
+// 次のproductsオブジェクトには、各商品ごとにカテゴリと在庫数が格納されています。
+// カテゴリごとの在庫数の合計を計算し、各カテゴリの合計を持つオブジェクトを返してください。
+const products = {
+    apple: { category: "fruit", stock: 30 },
+    banana: { category: "fruit", stock: 20 },
+    carrot: { category: "vegetable", stock: 50 },
+    spinach: { category: "vegetable", stock: 15 },
+    chicken: { category: "meat", stock: 25 },
+    beef: { category: "meat", stock: 35 }
+};
+console.log(Object.entries(products).reduce((acc, [key, info]) => {
+    if(acc[info.category]){
+        acc[info.category] += info.stock;
+    }else{
+        acc[info.category] = info.stock;
+    }
+    return acc
+}, {}))
+// output
+// {
+//     fruit: 50,
+//         vegetable: 65,
+//             meat: 60
+// }
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
