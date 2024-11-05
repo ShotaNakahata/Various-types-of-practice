@@ -200,25 +200,25 @@
 // 問題
 // 次のstoreInventoryオブジェクトには、各商品の在庫数と1個あたりの価格が格納されています。
 // 各商品の在庫価値を計算し、在庫価値が高い順に並べた新しい配列として返してください。
-const storeInventory = {
-    apple: { price: 2, stock: 30 },
-    banana: { price: 1, stock: 50 },
-    carrot: { price: 3, stock: 25 },
-    spinach: { price: 1, stock: 10 },
-    chicken: { price: 5, stock: 15 },
-    beef: { price: 10, stock: 5 }
-};
-const output = Object.entries(storeInventory).reduce((acc, [name, value]) => {
-    // console.log(value)
-    const finalPrice = value.price * value.stock
-    // console.log(finalPrice)
-    acc.push([name,finalPrice])
-    // const finalprice = price * stock
-    // console.log(price, stock)
-    // acc[1,2] = [key,finalprice]
-    return acc
-}, []).sort((a,b)=>b[1]-a[1])
-console.log(output)
+// const storeInventory = {
+//     apple: { price: 2, stock: 30 },
+//     banana: { price: 1, stock: 50 },
+//     carrot: { price: 3, stock: 25 },
+//     spinach: { price: 1, stock: 10 },
+//     chicken: { price: 5, stock: 15 },
+//     beef: { price: 10, stock: 5 }
+// };
+// const output = Object.entries(storeInventory).reduce((acc, [name, value]) => {
+//     // console.log(value)
+//     const finalPrice = value.price * value.stock
+//     // console.log(finalPrice)
+//     acc.push([name,finalPrice])
+//     // const finalprice = price * stock
+//     // console.log(price, stock)
+//     // acc[1,2] = [key,finalprice]
+//     return acc
+// }, []).sort((a,b)=>b[1]-a[1])
+// console.log(output)
 // output
 // [
 //     ["apple", 60],
@@ -230,6 +230,37 @@ console.log(output)
 // ]
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 9: 商品のカテゴリごとの合計在庫価値を計算する
+// 目的: 各カテゴリ内の商品の在庫価値を合計し、カテゴリごとに集計する方法を学びます。
+
+// 問題
+// 以下のstoreInventoryオブジェクトには、各商品のカテゴリ、在庫数、価格が含まれています。
+// それぞれのカテゴリごとの合計在庫価値を計算し、カテゴリ名をキー、合計在庫価値を値とする新しいオブジェクトを返してください。
+
+const storeInventory = {
+    apple: { category: "fruit", price: 2, stock: 30 },
+    banana: { category: "fruit", price: 1, stock: 50 },
+    carrot: { category: "vegetable", price: 3, stock: 25 },
+    spinach: { category: "vegetable", price: 1, stock: 10 },
+    chicken: { category: "meat", price: 5, stock: 15 },
+    beef: { category: "meat", price: 10, stock: 5 }
+};
+console.log(Object.entries(storeInventory).reduce((acc, [name, info]) => {
+    const finalPrice = info.price * info.stock
+    if (acc[info.category]) {
+        acc[info.category] += finalPrice
+    }else{
+        acc[info.category] = finalPrice
+    }
+    return acc
+}, {}))
+// output
+// {
+//     fruit: 110,      // 2*30 + 1*50 = 110
+//         vegetable: 85,   // 3*25 + 1*10 = 85
+//             meat: 100        // 5*15 + 10*5 = 100
+// }
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
