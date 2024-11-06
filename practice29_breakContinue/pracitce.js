@@ -83,13 +83,20 @@
 // 以下の配列 ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"] をループで回します。
 // 文字数が偶数の要素は出力せずスキップします（continueを使用してください）。
 // 文字に「a」が含まれている場合もスキップします（continueを使用）。
+// const arr = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"]
+// for (animal of arr) {
+//     if (animal.length % 2 !== 0) {
+//         if (!animal.includes("a")) {
+//             console.log(animal)
+//         } continue;
+//     }continue;
+// }
 const arr = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"]
 for (animal of arr) {
-    if (animal.length % 2 !== 0) {
-        if (!animal.includes("a")) {
-            console.log(animal)
-        } continue;
-    }continue;
+    if(animal.length%2===0||animal.includes("a")){
+        continue;
+    }
+    console.log(animal)
 }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
