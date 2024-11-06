@@ -30,21 +30,43 @@
 // 内側のループは 1 から 5 までを回します（変数j）。
 // 各ループの積（i * j）を出力します。
 // 積が 20 を超えたらすべてのループを終了してください。
-for (let i = 1; i <= 5; i++) {
-    console.log("i :", i)
-    let j = 1;
-    for (j; j <= 5; j++) {
-        console.log("j :", j)
-        console.log("from j: ", i * j)
-        if (i * j > 20) {
-            break
-        }
-    }
-    if(i * j > 20){
-        break
-    }
-}
+// for (let i = 1; i <= 5; i++) {
+//     console.log("i :", i)
+//     let j = 1;
+//     for (j; j <= 5; j++) {
+//         console.log("j :", j)
+//         console.log("from j: ", i * j)
+//         if (i * j > 20) {
+//             break
+//         }
+//     }
+//     if(i * j > 20){
+//         break
+//     }
+// }
+// outloop:
+// for (let i = 1; i <= 5; i++) {
+//     for (let j = 1; j <= 5; j++) {
+//         console.log(`i: ${i}, j: ${j}`);
+//         if (i * j > 20) {
+//             break outloop;
+//         }
+//     }
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 4: continueを使用した複雑なフィルタリング
+// 課題: 以下の配列 ["apple", "banana", "cherry", "date", "elderberry"] をループし、
+// 文字数が偶数のものだけを出力してください。奇数文字のものはスキップします。
+
+// 学習ポイント:
+
+// continue を使用して、特定の条件で処理をスキップし、ループの次の反復に進む方法を学びます。
+const arr = ["apple", "banana", "cherry", "date", "elderberry"]
+arr.forEach(frut=>{
+    if(frut.length%2===0){
+        console.log(frut);
+    }
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
