@@ -61,13 +61,36 @@
 // 学習ポイント:
 
 // continue を使用して、特定の条件で処理をスキップし、ループの次の反復に進む方法を学びます。
-const arr = ["apple", "banana", "cherry", "date", "elderberry"]
-arr.forEach(frut=>{
-    if(frut.length%2===0){
-        console.log(frut);
-    }
-})
+// const arr = ["apple", "banana", "cherry", "date", "elderberry"]
+// arr.forEach(frut=>{
+//     if(frut.length%2===0){
+//         console.log(frut);
+//     }
+// })
+// for (frut of arr){
+//     if(frut.length%2!==0){
+//         console.log(frut)
+//         continue
+//     }else{
+//         console.log(frut)
+//     }
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 5: 特定の条件でループをスキップする
+// 課題: 複数の条件を組み合わせてcontinueを使用し、配列内の特定の要素をスキップしながら出力するコードを書いてください。
+
+// 条件:
+// 以下の配列 ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"] をループで回します。
+// 文字数が偶数の要素は出力せずスキップします（continueを使用してください）。
+// 文字に「a」が含まれている場合もスキップします（continueを使用）。
+const arr = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"]
+for (animal of arr) {
+    if (animal.length % 2 !== 0) {
+        if (!animal.includes("a")) {
+            console.log(animal)
+        } continue;
+    }continue;
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
