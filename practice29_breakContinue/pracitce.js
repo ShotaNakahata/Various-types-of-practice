@@ -91,14 +91,29 @@
 //         } continue;
 //     }continue;
 // }
-const arr = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"]
-for (animal of arr) {
-    if(animal.length%2===0||animal.includes("a")){
-        continue;
-    }
-    console.log(animal)
-}
+// const arr = ["ant", "bear", "cat", "dog", "elephant", "fox", "giraffe"]
+// for (animal of arr) {
+//     if(animal.length%2===0||animal.includes("a")){
+//         continue;
+//     }
+//     console.log(animal)
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 6: 早期終了の条件を複数設定
+// 課題: 1 から 100 までの数字をループで出力しますが、以下の条件を満たすようにしてください：
+
+// 数字が 15 の倍数のときだけ「FizzBuzz」と出力し、その数値は出力しない。
+// 数字が 40 に達したらループを終了する。
+// それ以外の数字はそのまま出力する。
+for (let i = 1; i <= 100; i++) {
+    if(i>=40){
+        break;
+    }else if(i%15==0){
+        console.log("FizzBuzz")
+        continue
+    }
+    console.log(i)
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
