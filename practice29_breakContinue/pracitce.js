@@ -231,27 +231,52 @@
 // 数値の場合は、10以上であれば出力し、10未満であればスキップする。
 // 文字列の場合は、文字数が偶数ならすべて大文字に変換して出力する。
 // 文字列に「a」が含まれている場合は、条件に関係なくスキップする（continueを使用）。
-const arr = ["car", 15, "bus", "train", 42, "bicycle", 7, "plane", "boat", 12,"titititi"]
-for(item of arr){
-    if(typeof item === "string"){
-        if(item.includes("a")){
-            continue;
-        }
-        if(item.length%2===0){
-            console.log(item.toUpperCase())
-        }else{
-            console.log(item)
-        }
+// const arr = ["car", 15, "bus", "train", 42, "bicycle", 7, "plane", "boat", 12,"titititi"]
+// for(item of arr){
+//     if(typeof item === "string"){
+//         if(item.includes("a")){
+//             continue;
+//         }
+//         if(item.length%2===0){
+//             console.log(item.toUpperCase())
+//         }else{
+//             console.log(item)
+//         }
+//     }
+//     if(typeof item ==="number"){
+//         if(item<10){
+//             continue;
+//         }else{
+//             console.log(item)
+//         }
+//     }
+// }
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 13: 入れ子のオブジェクトと条件付きのプロパティ抽出
+// 課題: 次のオブジェクト内のデータを走査し、特定の条件を満たすプロパティを出力するコードを書いてください。
+// continueやbreakを活用して、効率的に条件を処理してください。
+// 条件:
+// ageが30以上の人を見つけたら、その時点でループを終了する。
+// cityが「New York」の場合は、そのプロパティをスキップして次に進む。
+// 条件を満たしたnameとageを出力する。
+const data = {
+    section1: { name: "Alice", age: 25, city: "New York" },
+    section2: { name: "Bob", age: 17, city: "Paris" },
+    section3: { name: "Charlie", age: 30, city: "Berlin" },
+    section4: { name: "David", age: 45, city: "Tokyo" },
+    section5: { name: "Eva", age: 29, city: "New York" }
+};
+for([section,info] of Object.entries(data)){
+    // console.log(section,info)
+    if(info.age>=30){
+        break;
+    }else if(info.city==="New York"){
+        continue;
     }
-    if(typeof item ==="number"){
-        if(item<10){
-            continue;
-        }else{
-            console.log(item)
-        }
-    }
+    console.log(`name: ${info.name} age: ${info.age}`)
 }
 
-// if(item.length%2===0)
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
