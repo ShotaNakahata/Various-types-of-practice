@@ -158,14 +158,40 @@
 // 文字数が偶数の要素は出力しない。
 // 要素に「e」が含まれている場合は、出力せずスキップ。
 // 条件を満たさない要素のみを出力します。
-const arr = ["table", "chair", "lamp", "sofa", "bookshelf", "desk", "bed"] 
-for(prod of arr){
-    if(prod.length%2===0 || prod.includes("e")){
-        continue;
-    }
-    console.log(prod)
-}
+// const arr = ["table", "chair", "lamp", "sofa", "bookshelf", "desk", "bed"] 
+// for(prod of arr){
+//     if(prod.length%2===0 || prod.includes("e")){
+//         continue;
+//     }
+//     console.log(prod)
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 各グループ内の要素で、文字数が5以上のものだけを出力する。
+// グループ名がgroup2の場合は、そのグループ内の要素を一切処理せずにスキップする。
+// 文字に"e"が含まれている要素が見つかったら、そのグループのループを終了し、次のグループに移る。
+const data = {
+    group1: ["kiwi", "plum", "banana", "grape"], // "kiwi"と"plum"が出力される
+    group2: ["fig", "date"], // スキップされる
+    group3: ["mango", "peach", "plum"] // "mango"が出力される
+};
+
+
+
+for (group of Object.entries(data)){
+    // console.log(group)
+    // console.log(group[1])
+    if(group[0]==="group2"){
+        continue
+    }
+    for(fruit of group[1]){
+        if(fruit.includes("e")){
+            break;
+        }
+        if(fruit.length>=5){
+            console.log(fruit)
+        }
+    }
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
