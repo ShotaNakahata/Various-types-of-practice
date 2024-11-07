@@ -210,19 +210,48 @@
 // 各要素の長さが5文字未満の場合は、すべて大文字に変換して出力する。
 // 各要素の長さが5文字以上の場合は、先頭の1文字だけを大文字にし、残りを小文字にして出力する。
 // continueを使用して、「e」が含まれている文字列はスキップする。
-const arr = ["strawberry", "blueberry", "apple", "grape", "kiwi", "banana"]
-for(fruit of arr){
-    if(fruit.includes("e")){
-        continue
+// const arr = ["strawberry", "blueberry", "apple", "grape", "kiwi", "banana"]
+// for(fruit of arr){
+//     if(fruit.includes("e")){
+//         continue
+//     }
+//     if(fruit.length<5){
+//         let UpperFruit=fruit.toUpperCase()
+//         console.log(UpperFruit);
+//     }else if(fruit.length>=5){
+//         let HeadUpper = fruit[0].toUpperCase()+fruit.slice(1).toLowerCase()
+//         console.log(HeadUpper)
+//     }
+// }
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 12: 数値と文字列の混在処理
+// 課題: 次の配列 ["car", 15, "bus", "train", 42, "bicycle", 7, "plane", "boat", 12] をループし、
+// 以下の条件を満たす要素を出力するコードを書いてください：
+
+// 数値の場合は、10以上であれば出力し、10未満であればスキップする。
+// 文字列の場合は、文字数が偶数ならすべて大文字に変換して出力する。
+// 文字列に「a」が含まれている場合は、条件に関係なくスキップする（continueを使用）。
+const arr = ["car", 15, "bus", "train", 42, "bicycle", 7, "plane", "boat", 12,"titititi"]
+for(item of arr){
+    if(typeof item === "string"){
+        if(item.includes("a")){
+            continue;
+        }
+        if(item.length%2===0){
+            console.log(item.toUpperCase())
+        }else{
+            console.log(item)
+        }
     }
-    if(fruit.length<5){
-        let UpperFruit=fruit.toUpperCase()
-        console.log(UpperFruit);
-    }else if(fruit.length>=5){
-        let HeadUpper = fruit[0].toUpperCase()+fruit.slice(1).toLowerCase()
-        console.log(HeadUpper)
+    if(typeof item ==="number"){
+        if(item<10){
+            continue;
+        }else{
+            console.log(item)
+        }
     }
 }
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+// if(item.length%2===0)
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
