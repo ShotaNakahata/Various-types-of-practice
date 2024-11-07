@@ -259,24 +259,47 @@
 // ageが30以上の人を見つけたら、その時点でループを終了する。
 // cityが「New York」の場合は、そのプロパティをスキップして次に進む。
 // 条件を満たしたnameとageを出力する。
+// const data = {
+//     section1: { name: "Alice", age: 25, city: "New York" },
+//     section2: { name: "Bob", age: 17, city: "Paris" },
+//     section3: { name: "Charlie", age: 30, city: "Berlin" },
+//     section4: { name: "David", age: 45, city: "Tokyo" },
+//     section5: { name: "Eva", age: 29, city: "New York" }
+// };
+// for([section,info] of Object.entries(data)){
+//     // console.log(section,info)
+//     if(info.age>=30){
+//         break;
+//     }else if(info.city==="New York"){
+//         continue;
+//     }
+//     console.log(`name: ${info.name} age: ${info.age}`)
+// }
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 14: 複数の条件を使ったオブジェクトのデータ処理
+// 課題: 次のオブジェクト内のデータを走査し、指定された条件に基づいて特定の情報を出力するコードを書いてください。
+// 条件:
+// isActiveがtrueの人のみを対象にする。
+// cityが「New York」の人は出力せずスキップする。
+// ageが30以上の場合、その人の情報を出力し、さらにその時点でループを終了する。
+// 条件を満たした人のnameとcityを出力する。
 const data = {
-    section1: { name: "Alice", age: 25, city: "New York" },
-    section2: { name: "Bob", age: 17, city: "Paris" },
-    section3: { name: "Charlie", age: 30, city: "Berlin" },
-    section4: { name: "David", age: 45, city: "Tokyo" },
-    section5: { name: "Eva", age: 29, city: "New York" }
+    section1: { name: "Alice", age: 25, city: "New York", isActive: true },
+    section2: { name: "Bob", age: 17, city: "Paris", isActive: false },
+    section3: { name: "Charlie", age: 30, city: "Berlin", isActive: true },
+    section4: { name: "David", age: 45, city: "Tokyo", isActive: false },
+    section5: { name: "Eva", age: 29, city: "New York", isActive: true }
 };
 for([section,info] of Object.entries(data)){
-    // console.log(section,info)
-    if(info.age>=30){
-        break;
-    }else if(info.city==="New York"){
-        continue;
+    if(info.isActive){
+        if(info.city==="New York"){
+            continue
+        }else if(info.age>=30){
+            console.log(`name: ${info.name} age: ${info.age}`)
+            break;
+        }
     }
-    console.log(`name: ${info.name} age: ${info.age}`)
 }
-
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
