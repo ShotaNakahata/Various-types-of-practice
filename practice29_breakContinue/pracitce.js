@@ -140,17 +140,31 @@
 
 // 配列1: [10, 15, 20, 25]
 // 配列2: [5, 10, 15, 20]
-const arr1 = [10, 15, 20, 25,5,6,8,20]
-const arr2 =  [5, 10, 15, 20,5]
-for(number1 of arr1){
-    for(number2 of arr2){
-        if(number1+number2===30){
-            console.log(`number1: ${number1},number2: ${number2}`)
-            continue;
-        }
-    }
-}
+// const arr1 = [10, 15, 20, 25,5,6,8,20]
+// const arr2 =  [5, 10, 15, 20,5]
+// for(number1 of arr1){
+//     for(number2 of arr2){
+//         if(number1+number2===30){
+//             console.log(`number1: ${number1},number2: ${number2}`)
+//             continue;
+//         }
+//     }
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 9: 多重条件の組み合わせフィルタリング
+// 課題: 次の配列 ["table", "chair", "lamp", "sofa", "bookshelf", "desk", "bed"] をループし、
+// 以下の条件を満たす要素を出力するコードを書いてください：
+
+// 文字数が偶数の要素は出力しない。
+// 要素に「e」が含まれている場合は、出力せずスキップ。
+// 条件を満たさない要素のみを出力します。
+const arr = ["table", "chair", "lamp", "sofa", "bookshelf", "desk", "bed"] 
+for(prod of arr){
+    if(prod.length%2===0 || prod.includes("e")){
+        continue;
+    }
+    console.log(prod)
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
