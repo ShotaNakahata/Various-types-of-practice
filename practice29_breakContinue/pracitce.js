@@ -203,7 +203,26 @@
 //     }
 // }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 11: 文字列の条件付き変換
+// 課題: 次の配列 ["strawberry", "blueberry", "apple", "grape", "kiwi", "banana"]
+//  をループして、以下の条件を満たすように文字列を出力するコードを書いてください：
 
+// 各要素の長さが5文字未満の場合は、すべて大文字に変換して出力する。
+// 各要素の長さが5文字以上の場合は、先頭の1文字だけを大文字にし、残りを小文字にして出力する。
+// continueを使用して、「e」が含まれている文字列はスキップする。
+const arr = ["strawberry", "blueberry", "apple", "grape", "kiwi", "banana"]
+for(fruit of arr){
+    if(fruit.includes("e")){
+        continue
+    }
+    if(fruit.length<5){
+        let UpperFruit=fruit.toUpperCase()
+        console.log(UpperFruit);
+    }else if(fruit.length>=5){
+        let HeadUpper = fruit[0].toUpperCase()+fruit.slice(1).toLowerCase()
+        console.log(HeadUpper)
+    }
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
