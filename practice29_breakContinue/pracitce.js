@@ -290,14 +290,12 @@ const data = {
     section4: { name: "David", age: 45, city: "Tokyo", isActive: false },
     section5: { name: "Eva", age: 29, city: "New York", isActive: true }
 };
-for([section,info] of Object.entries(data)){
-    if(info.isActive){
-        if(info.city==="New York"){
-            continue
-        }else if(info.age>=30){
-            console.log(`name: ${info.name} age: ${info.age}`)
-            break;
-        }
+for ([section, info] of Object.entries(data)) {
+    if (info.isActive) continue;
+    if (info.city === "New York") continue;
+    else if (info.age >= 30) {
+        console.log(`name: ${info.name} age: ${info.age}`)
+        break;
     }
 }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
