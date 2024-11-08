@@ -1016,53 +1016,73 @@ function handleFailure() {
 // getUserInfo(), getUserOrders(), getUserNotifications() を同時に実行し、全ての結果を受け取ります。
 // すべての Promise が成功した場合、各データを console.log() で表示し、全てのデータをまとめたオブジェクトを出力してください。
 // いずれかの Promise が失敗した場合は、そのエラーメッセージを console.error() で出力し、処理を中止してください。
-function getUserInfo() {
+// function getUserInfo() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve({ name: "John Doe", age: 30 }) : reject(new Error("Failed to get user info"));
+//         }, 1000);
+//     });
+// }
+
+// function getUserOrders() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve(["Order1", "Order2", "Order3"]) : reject(new Error("Failed to get user orders"));
+//         }, 1500);
+//     });
+// }
+
+// function getUserNotifications() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve(["Notification1", "Notification2"]) : reject(new Error("Failed to get user notifications"));
+//         }, 2000);
+//     });
+// }
+
+// // 非同期処理を実装してください。
+// Promise.allSettled([getUserInfo(), getUserOrders(), getUserNotifications()])
+//     .then(results => {
+//         console.log(results); // デバッグ用に全ての `Promise` の結果を出力
+
+//         const fulfilledResults = {
+//             userInfo: results[0].status === "fulfilled" ? results[0].value : null,
+//             userOrders: results[1].status === "fulfilled" ? results[1].value : null,
+//             userNotifications: results[2].status === "fulfilled" ? results[2].value : null,
+//         };
+
+//         const errors = results
+//             .filter(result => result.status === "rejected")
+//             .map(result => result.reason.message);
+
+//         if (errors.length === 0) {
+//             console.log(fulfilledResults);
+//         } else {
+//             errors.forEach(error => console.error(error));
+//         }
+//     });
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 21: 非同期処理のリトライ機能
+// 目的: 非同期処理でエラーが発生した際に、再試行を行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchDataWithPotentialError を使用して、非同期処理を実行し、
+// エラーが発生した場合に最大3回まで再試行する処理を実装してください。
+
+// fetchDataWithPotentialError() を実行します。
+// もしエラーが発生した場合、合計で最大3回まで再試行を行います。
+// 3回目の試行でも失敗した場合は、console.error() で「Failed after 3 attempts」と出力してください。
+// 成功した場合は、その結果を console.log() で出力してください。
+function fetchDataWithPotentialError() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve({ name: "John Doe", age: 30 }) : reject(new Error("Failed to get user info"));
+            Math.random() < 0.5 ? resolve("Data fetched successfully") : reject(new Error("Fetch failed"));
         }, 1000);
     });
 }
 
-function getUserOrders() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve(["Order1", "Order2", "Order3"]) : reject(new Error("Failed to get user orders"));
-        }, 1500);
-    });
-}
+// リトライ機能を実装してください。
 
-function getUserNotifications() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve(["Notification1", "Notification2"]) : reject(new Error("Failed to get user notifications"));
-        }, 2000);
-    });
-}
-
-// 非同期処理を実装してください。
-Promise.allSettled([getUserInfo(), getUserOrders(), getUserNotifications()])
-    .then(results => {
-        console.log(results); // デバッグ用に全ての `Promise` の結果を出力
-
-        const fulfilledResults = {
-            userInfo: results[0].status === "fulfilled" ? results[0].value : null,
-            userOrders: results[1].status === "fulfilled" ? results[1].value : null,
-            userNotifications: results[2].status === "fulfilled" ? results[2].value : null,
-        };
-
-        const errors = results
-            .filter(result => result.status === "rejected")
-            .map(result => result.reason.message);
-
-        if (errors.length === 0) {
-            console.log(fulfilledResults);
-        } else {
-            errors.forEach(error => console.error(error));
-        }
-    });
-
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
