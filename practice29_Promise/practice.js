@@ -774,23 +774,45 @@ function handleFailure() {
 }
 
 // 条件に基づいた非同期処理を実装してください。
-Promise.all([fetchDataA(),fetchDataB()])
-.then(result=>{
-    console.log(result)
-    return handleSuccess()
+// Promise.all([fetchDataA(),fetchDataB()])
+// .then(result=>{
+//     console.log(result)
+//     return handleSuccess()
+// })
+// .then(result=>{
+//     console.log(result)
+//     return null
+// })
+// .catch(error=>{
+//     console.error(error.message)
+//     return handleFailure();
+// })
+// .then(result=>{
+//     if(result!==null){
+//         console.log(result)
+//     }
+// })
+Promise.allSettled([fetchDataA(),fetchDataB()])
+.then(results=>{
+    results.forEach((result,index)=>{
+        if(result.status==="fulfilled"){
+            console.log(`Task ${index+1} fulfilled, value:${result.value}`)
+        }else{
+            console.log(`Task ${index+1} rejected, reason:${result.reason.message}`)
+        }
+    })
+    const allfullfilled = results.every(result=>result.status==="fulfilled");
+    if(allfullfilled){
+        return handleSuccess();
+    }else{
+        return handleFailure();
+    }
 })
 .then(result=>{
     console.log(result)
-    return null
 })
 .catch(error=>{
     console.error(error.message)
-    return handleFailure();
-})
-.then(result=>{
-    if(result!==null){
-        console.log(result)
-    }
 })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
