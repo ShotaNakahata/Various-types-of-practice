@@ -84,42 +84,90 @@
 // それぞれの関数がランダムな遅延時間後にデータを返します。
 // これらを Promise.all() を使って並列で実行し、全ての結果をまとめて console.log() で出力してください。
 // ただし、いずれかの Promise でエラーが発生した場合、catch() を使ってエラーメッセージを出力してください。
-function firstFetch() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve("Data from fetchData1");
-        }, Math.random() * 2000); // 修正: Math.random() を使用
-    });
-}
+// function firstFetch() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve("Data from fetchData1");
+//         }, Math.random() * 2000); // 修正: Math.random() を使用
+//     });
+// }
 
-function secondFetch() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (Math.random() > 0.5) { // 修正: Math.random() > 0.5
-                reject(new Error("Error in fetchData2"));
-            } else {
-                resolve("Data from fetchData2");
-            }
-        }, Math.random() * 2000); // 修正: Math.random() を使用
-    });
-}
+// function secondFetch() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (Math.random() > 0.5) { // 修正: Math.random() > 0.5
+//                 reject(new Error("Error in fetchData2"));
+//             } else {
+//                 resolve("Data from fetchData2");
+//             }
+//         }, Math.random() * 2000); // 修正: Math.random() を使用
+//     });
+// }
 
-function thirdFetch() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve("Data from fetchData3");
-        }, Math.random() * 2000); // 修正: Math.random() を使用
-    });
-}
+// function thirdFetch() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve("Data from fetchData3");
+//         }, Math.random() * 2000); // 修正: Math.random() を使用
+//     });
+// }
 
-Promise.all([firstFetch(), secondFetch(), thirdFetch()])
-    .then(result => {
-        console.log("All results:", result);
-    })
-    .catch(error => {
-        console.error("An error occurred:", error.message);
-    })
+// Promise.all([firstFetch(), secondFetch(), thirdFetch()])
+//     .then(result => {
+//         console.log("All results:", result);
+//     })
+//     .catch(error => {
+//         console.error("An error occurred:", error.message);
+//     })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 5: 複数の Promise と部分的なエラーハンドリング
+// 目的: 複数の非同期処理を並列で実行し、一部の処理が失敗しても、成功した処理の結果を取得する方法を学ぶ。
+
+// 課題
+// 複数の非同期関数 fetchData1, fetchData2, fetchData3 を用意します。これらの関数を並列で実行し、
+// いずれかが失敗しても、他の成功した結果をまとめて取得して出力してください。
+// 失敗した場合でも、エラーメッセージを出力するようにしてください。
+
+function fetchData1(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+        resolve("Data from fetchData1")
+        }, Math.random()*2000);
+    })
+}
+function fetchData2(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+        if(Math.random()<0.5){
+            reject(new Error("Error in fetchData2"))
+        }else{
+            resolve("Data from fetchData2")
+        }
+        }, Math.random()*2000);
+    })
+}
+function fetchData3(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+        if(Math.random()<0.5){
+            reject(new Error("Error in fetchData3"))
+        }else{
+            resolve("Data from fetchData3")
+        }
+        }, Math.random()*2000);
+    })
+}
+
+Promise.allSettled([fetchData1(),fetchData2(),fetchData3()])
+.then(results=>{
+    results.forEach((result,index)=>{
+        if(result.status==='fulfilled'){
+            console.log(`Promise${index+1}: succeeded with: value ${result.value}`)
+        }else if(result.status==='rejected'){
+            console.log(`Promise${index+1}: failed with: reason ${result.reason.message}`)
+        }
+    })
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
