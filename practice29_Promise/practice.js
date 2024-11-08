@@ -222,55 +222,181 @@
 // 3 つの非同期関数 task1, task2, task3 を順番に実行し、それぞれの結果を console.log() に出力してください。
 // ただし、各タスクでエラーが発生する可能性があります。エラーが発生した場合、
 // その場でエラーメッセージを表示し、以降のタスクは実行されないようにしてください。
+// function task1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (Math.random() < 0.3) {
+//                 reject(new Error("Error in task1"));
+//             } else {
+//                 resolve("Result from task1");
+//             }
+//         }, 1000);
+//     });
+// }
+
+// function task2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (Math.random() < 0.3) {
+//                 reject(new Error("Error in task2"));
+//             } else {
+//                 resolve("Result from task2");
+//             }
+//         }, 2000);
+//     });
+// }
+
+// function task3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (Math.random() < 0.3) {
+//                 reject(new Error("Error in task3"));
+//             } else {
+//                 resolve("Result from task3");
+//             }
+//         }, 1500);
+//     });
+// }
+// // task1, task2, task3 を順番に実行し、エラーハンドリングを実装してください。
+// task1()
+// .then(result1=>{
+//     console.log(result1)
+//     return task2();
+// }).then(result2=>{
+//     console.log(result2)
+//     return task3();
+// }).then(result3=>{
+//     console.log(result3)
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 8: 条件付き非同期処理
+// 目的: 複数の非同期処理を順番に実行し、特定の条件に基づいて次の処理を制御する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 task1, task2, task3 を使用して、task1 の結果に応じて次の処理を実行してください。
+// task1 が成功し、結果が "Result from task1" であれば、task2 を実行してください。
+// それ以外の場合は、task3 を実行してください。それぞれの結果を console.log() に出力し、
+// エラーハンドリングも追加してください。
+// function task1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             if (Math.random() < 0.5) {
+//                 resolve("Result from task1");
+//             } else {
+//                 reject(new Error("Error in task1"));
+//             }
+//         }, 1000);
+//     });
+// }
+
+// function task2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task2");
+//         }, 2000);
+//     });
+// }
+
+// function task3() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task3");
+//         }, 1500);
+//     });
+// }
+
+// // task1 の結果に応じて、task2 または task3 を実行し、各結果を出力してください。
+// task1()
+// .then(result1=>{
+//     console.log(result1);
+//     if(result1==="Result from task1"){
+//         return task2();
+//     }else{
+//         return task3();
+//     }
+// })
+// .then(result=>{
+//     console.log(result)
+// })
+// .catch(error=>{
+//     console.log(error.message)
+//     return task3().then(result3=>{
+//         console.log(result3)
+//     })
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 9: 条件分岐付き非同期処理
+// 目的: 非同期処理を順番に実行し、それぞれの結果に応じて次に実行するタスクを動的に変更する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 task1, task2, task3, task4 を使用して、次のような条件付きで処理を実行してください。
+
+// task1 を実行し、その結果が "Result from task1" であれば task2 を実行し、次に task3 を実行する。
+// task1 の結果が "Special case" であれば、task4 を実行して処理を終了する。
+// task1 がエラーの場合は、エラーメッセージを出力して終了する。
+
 function task1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            if (Math.random() < 0.3) {
-                reject(new Error("Error in task1"));
+            const results = ["Result from task1", "Special case", "Another result"];
+            const result = results[Math.floor(Math.random() * results.length)]
+            if (result === "Another result") {
+                reject(new Error("Error in task1"))
             } else {
-                resolve("Result from task1");
+                resolve(result);
             }
         }, 1000);
-    });
+    })
 }
-
 function task2() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            if (Math.random() < 0.3) {
-                reject(new Error("Error in task2"));
-            } else {
-                resolve("Result from task2");
-            }
+            resolve("Result from task2");
         }, 2000);
     });
 }
 
 function task3() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            if (Math.random() < 0.3) {
-                reject(new Error("Error in task3"));
-            } else {
-                resolve("Result from task3");
-            }
+            resolve("Result from task3");
         }, 1500);
     });
 }
-// task1, task2, task3 を順番に実行し、エラーハンドリングを実装してください。
+
+function task4() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Result from task4");
+        }, 1000);
+    });
+}
 task1()
 .then(result1=>{
-    console.log(result1)
-    return task2();
-}).then(result2=>{
-    console.log(result2)
-    return task3();
-}).then(result3=>{
-    console.log(result3)
+    if(result1==="Result from task1"){
+        console.log("Result from task1")
+        return task2().then(result2=>{
+            console.log(result2)
+            return task3().then(result3=>{
+                console.log(result3)
+                return
+            })
+        })
+    }else{
+        console.log("Special case")
+        return task4();
+    }
+})
+.then(result4=>{
+    console.log(result4)
 })
 .catch(error=>{
     console.error(error.message)
 })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
