@@ -1239,54 +1239,100 @@
 // 3回目の試行でも失敗した場合は、保持していたすべてのエラーログを console.error() で出力し、
 // 「Failed after 3 attempts」と出力します。
 // 成功した場合は、その結果を console.log() で出力してください。
-function attemptAsyncOperation() {
+// function attemptAsyncOperation() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.1 ? resolve("Operation succeeded") : reject(new Error("Operation failed"));
+//         }, 1000);
+//     });
+// }
+
+// // 再帰的リトライとエラーログの管理を実装してください。
+// function retryAsyncOperation(asyncFunc, maxAttempt) {
+//     let attempt = 1;
+//     let errorbox = [];
+//     function excute() {
+//         return asyncFunc()
+//             .then(result => {
+//                 console.log(`Attempt ${attempt} succeeded`);
+//                 return result
+//             })
+//             .catch(error => {
+//                 console.warn(`Attempt ${attempt} failed: ${error.message}`);
+//                 errorbox.push(`Attempt ${attempt}: ${error.message}`);
+//                 attempt++;
+//                 if (attempt < maxAttempt) {
+//                     return excute();
+//                 } else {
+//                     console.error("Failed after maximum attempts");
+//                     errorbox.push(error)
+//                     const finalError = new Error("Failed after 3 attempts")
+//                     finalError.log = errorbox
+//                     return Promise.reject(finalError);
+//                 }
+//             })
+//     }
+//     return excute()
+// }
+
+
+// retryAsyncOperation(attemptAsyncOperation, 3)
+//     .then(result => {
+//         console.log("Final result:", result);
+//     })
+//     .catch(error => {
+//         console.error("Error:", error.message);
+//         if (error.logs) {
+//             console.error("Full error log:\n" + error.logs.join("\n"));
+//         }
+//     });
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 25: 条件付き非同期処理と結果の集約
+// 目的: 非同期処理を組み合わせて条件に応じた結果を処理し、結果を集約して表示する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchProductDetails, fetchProductReviews, fetchProductStock を使用して、
+// 商品の詳細、レビュー、在庫情報を取得し、結果を集約して出力するコードを実装してください。
+
+// fetchProductDetails()、fetchProductReviews()、fetchProductStock() を並列で実行して結果を集めます。
+// すべての処理が成功した場合、結果をまとめて次の形式で console.log() に出力します:
+function fetchProductDetails() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.1 ? resolve("Operation succeeded") : reject(new Error("Operation failed"));
+            Math.random() < 0.9 ? resolve({ name: "Product A", price: 100 }) : reject(new Error("Failed to fetch product details"));
         }, 1000);
     });
 }
 
-// 再帰的リトライとエラーログの管理を実装してください。
-function retryAsyncOperation(asyncFunc, maxAttempt) {
-    let attempt = 1;
-    let errorbox = [];
-    function excute() {
-        return asyncFunc()
-            .then(result => {
-                console.log(`Attempt ${attempt} succeeded`);
-                return result
-            })
-            .catch(error => {
-                console.warn(`Attempt ${attempt} failed: ${error.message}`);
-                errorbox.push(`Attempt ${attempt}: ${error.message}`);
-                attempt++;
-                if (attempt < maxAttempt) {
-                    return excute();
-                } else {
-                    console.error("Failed after maximum attempts");
-                    errorbox.push(error)
-                    const finalError = new Error("Failed after 3 attempts")
-                    finalError.log = errorbox
-                    return Promise.reject(finalError);
-                }
-            })
-    }
-    return excute()
+function fetchProductReviews() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.9 ? resolve(["Review 1", "Review 2"]) : reject(new Error("Failed to fetch product reviews"));
+        }, 1500);
+    });
 }
 
-
-retryAsyncOperation(attemptAsyncOperation, 3)
-    .then(result => {
-        console.log("Final result:", result);
-    })
-    .catch(error => {
-        console.error("Error:", error.message);
-        if (error.logs) {
-            console.error("Full error log:\n" + error.logs.join("\n"));
-        }
+function fetchProductStock() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.9 ? resolve({ stock: 20 }) : reject(new Error("Failed to fetch product stock"));
+        }, 1200);
     });
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+}
+
+// 条件付き非同期処理を実装してください。
+Promise.all([fetchProductDetails(), fetchProductReviews(), fetchProductStock()])
+.then(results=>{
+    console.log(results);
+    const Details = results[0]
+    const Review = results[1]
+    const Stock = results[2]
+    console.log({Details,Review,Stock})
+
+})
+.catch(error=>{
+    console.error(error.message)
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
