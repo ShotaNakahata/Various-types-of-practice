@@ -1073,44 +1073,96 @@
 // もしエラーが発生した場合、合計で最大3回まで再試行を行います。
 // 3回目の試行でも失敗した場合は、console.error() で「Failed after 3 attempts」と出力してください。
 // 成功した場合は、その結果を console.log() で出力してください。
-function fetchDataWithPotentialError() {
+// function fetchDataWithPotentialError() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.2 ? resolve("Data fetched successfully") : reject(new Error("Fetch failed"));
+//         }, 1000);
+//     });
+// }
+
+// // リトライ機能を実装してください。
+// function retryAsyncOperation(asyncFunc, maxAttempt) {
+//     let attempt = 1;
+//     function execute() {
+//         return asyncFunc()
+//             .then(result => {
+//                 console.log(result);
+//                 return result;
+//             })
+//             .catch(error => {
+//                 if (attempt < maxAttempt){
+//                     console.warn(`Attempt ${attempt} failed. Retrying...`)
+//                     attempt++
+//                     return execute();
+//                 }else{
+//                     console.log("Failed after 3 attempts")
+//                     throw error;
+//                 }
+//         })
+//     }
+//     return execute();
+// }
+
+// retryAsyncOperation(fetchDataWithPotentialError, 3)
+// .then(result=>{
+//     console.log("Final success:", result);
+// })
+// .catch(error=>{
+//     console.error(error.message);
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 22: 条件付き非同期処理の連携
+// 目的: 複数の非同期処理を実行し、その結果に基づいて次の非同期処理を条件付きで行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 checkUserCredentials, fetchUserData, fetchAdditionalDetails を使用して、
+// 以下のような条件付き非同期処理を実装してください。
+
+// checkUserCredentials() を実行し、ユーザーの認証を確認します。
+// 認証が成功した場合、fetchUserData() を実行してユーザーデータを取得し、console.log() で出力してください。
+// fetchUserData() が成功した場合、さらに fetchAdditionalDetails() を実行し、
+// その結果を console.log() で出力してください。
+// いずれかの非同期処理が失敗した場合、そのエラーメッセージを console.error() で出力し、処理を中止してください。
+function checkUserCredentials() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.2 ? resolve("Data fetched successfully") : reject(new Error("Fetch failed"));
+            Math.random() < 0.8 ? resolve("User authenticated") : reject(new Error("User authentication failed"));
         }, 1000);
     });
 }
 
-// リトライ機能を実装してください。
-function retryAsyncOperation(asyncFunc, maxAttempt) {
-    let attempt = 1;
-    function execute() {
-        return asyncFunc()
-            .then(result => {
-                console.log(result);
-                return result;
-            })
-            .catch(error => {
-                if (attempt < maxAttempt){
-                    console.warn(`Attempt ${attempt} failed. Retrying...`)
-                    attempt++
-                    return execute();
-                }else{
-                    console.log("Failed after 3 attempts")
-                    throw error;
-                }
-        })
-    }
-    return execute();
+function fetchUserData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.8 ? resolve({ id: 1, name: "John Doe" }) : reject(new Error("Failed to fetch user data"));
+        }, 1000);
+    });
 }
 
-retryAsyncOperation(fetchDataWithPotentialError, 3)
+function fetchAdditionalDetails() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.8 ? resolve({ details: "Additional user details" }) : reject(new Error("Failed to fetch additional details"));
+        }, 1000);
+    });
+}
+
+// 条件付き非同期処理を実装してください。
+checkUserCredentials()
 .then(result=>{
-    console.log("Final success:", result);
+    console.log(result);
+    return fetchUserData();
+})
+.then(result=>{
+    console.log(result);
+    return fetchAdditionalDetails();
+})
+.then(result=>{
+    console.log(result);
 })
 .catch(error=>{
     console.error(error.message);
 })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
