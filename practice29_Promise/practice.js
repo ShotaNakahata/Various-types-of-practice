@@ -962,50 +962,106 @@ function handleFailure() {
 // 各 Promise が resolve された場合、その売上データを集計して合計を出力します。
 // いずれかの Promise が rejected された場合は、そのエラーメッセージを console.error() で出力し、
 // 集計を中止してください。
-function getSalesData1() {
+// function getSalesData1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve(100) : reject(new Error("Error fetching sales data 1"));
+//         }, 1000);
+//     });
+// }
+
+// function getSalesData2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve(200) : reject(new Error("Error fetching sales data 2"));
+//         }, 1500);
+//     });
+// }
+
+// function getSalesData3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve(300) : reject(new Error("Error fetching sales data 3"));
+//         }, 2000);
+//     });
+// }
+
+// // 非同期処理を実装してください。
+// Promise.allSettled([getSalesData1(),getSalesData2(),getSalesData3()])
+// .then(results=>{
+//     console.log(results);
+//     const resoleves = results.filter(result=>result.status==="fulfilled").map(result=>result.value);
+//     const rejects = results.filter(result=>result.status==="rejected").map(result=>result.reason.message);
+//     if(resoleves.length===results.length){
+//         const sumPrice=resoleves.reduce((sum,price)=>{
+//             sum+=price
+//             return sum
+//         },0)
+//         console.log("sumPrice: ",sumPrice)
+//     }else{
+//         console.error("One or more promises failed:");
+//         rejects.forEach((reject,index)=>{
+//             console.error(`task ${index+1} is rejected reason : ${reject}`)
+//         })
+//     }
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 20: 非同期データの収集と統合処理
+// 目的: 複数の非同期処理を行い、その結果を収集して統合的に処理を行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 getUserInfo, getUserOrders, getUserNotifications を使用して、
+// ユーザー情報、注文履歴、通知を同時に取得し、全てのデータを統合して1つのオブジェクトとして出力してください。
+
+// getUserInfo(), getUserOrders(), getUserNotifications() を同時に実行し、全ての結果を受け取ります。
+// すべての Promise が成功した場合、各データを console.log() で表示し、全てのデータをまとめたオブジェクトを出力してください。
+// いずれかの Promise が失敗した場合は、そのエラーメッセージを console.error() で出力し、処理を中止してください。
+function getUserInfo() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve(100) : reject(new Error("Error fetching sales data 1"));
+            Math.random() < 0.8 ? resolve({ name: "John Doe", age: 30 }) : reject(new Error("Failed to get user info"));
         }, 1000);
     });
 }
 
-function getSalesData2() {
+function getUserOrders() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve(200) : reject(new Error("Error fetching sales data 2"));
+            Math.random() < 0.8 ? resolve(["Order1", "Order2", "Order3"]) : reject(new Error("Failed to get user orders"));
         }, 1500);
     });
 }
 
-function getSalesData3() {
+function getUserNotifications() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve(300) : reject(new Error("Error fetching sales data 3"));
+            Math.random() < 0.8 ? resolve(["Notification1", "Notification2"]) : reject(new Error("Failed to get user notifications"));
         }, 2000);
     });
 }
 
 // 非同期処理を実装してください。
-Promise.allSettled([getSalesData1(),getSalesData2(),getSalesData3()])
-.then(results=>{
-    console.log(results);
-    const resoleves = results.filter(result=>result.status==="fulfilled").map(result=>result.value);
-    const rejects = results.filter(result=>result.status==="rejected").map(result=>result.reason.message);
-    if(resoleves.length===results.length){
-        const sumPrice=resoleves.reduce((sum,price)=>{
-            sum+=price
-            return sum
-        },0)
-        console.log("sumPrice: ",sumPrice)
-    }else{
-        console.error("One or more promises failed:");
-        rejects.forEach((reject,index)=>{
-            console.error(`task ${index+1} is rejected reason : ${reject}`)
-        })
-    }
-})
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+Promise.allSettled([getUserInfo(), getUserOrders(), getUserNotifications()])
+    .then(results => {
+        console.log(results); // デバッグ用に全ての `Promise` の結果を出力
+
+        const fulfilledResults = {
+            userInfo: results[0].status === "fulfilled" ? results[0].value : null,
+            userOrders: results[1].status === "fulfilled" ? results[1].value : null,
+            userNotifications: results[2].status === "fulfilled" ? results[2].value : null,
+        };
+
+        const errors = results
+            .filter(result => result.status === "rejected")
+            .map(result => result.reason.message);
+
+        if (errors.length === 0) {
+            console.log(fulfilledResults);
+        } else {
+            errors.forEach(error => console.error(error));
+        }
+    });
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
