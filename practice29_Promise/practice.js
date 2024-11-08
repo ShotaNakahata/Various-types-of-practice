@@ -576,51 +576,110 @@
 // 両方のタスクが成功した場合、それぞれの結果を processUserData() と processOrderData() 
 // に渡して処理を行い、最終的な結果を console.log() に出力します。
 // いずれかのタスクが失敗した場合、エラーメッセージを console.error() で出力し、処理を中断します。
-function fetchUserData() {
+// function fetchUserData() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("User data") : reject(new Error("Error fetching user data"));
+//         }, 1000);
+//     });
+// }
+
+// function fetchOrderData() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Order data") : reject(new Error("Error fetching order data"));
+//         }, 1500);
+//     });
+// }
+
+// function processUserData(data) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(`Processed ${data}`);
+//         }, 500);
+//     });
+// }
+
+// function processOrderData(data) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(`Processed ${data}`);
+//         }, 500);
+//     });
+// }
+
+// 非同期処理を実装してください。
+// Promise.all([fetchUserData(),fetchOrderData()])
+// .then(results=>{
+//     return Promise.all(
+//         [processUserData(results[0]),
+//         processOrderData(results[1])])
+// })
+// .then(processedResult=>{
+//     processedResult.forEach(result=>{
+//         console.log(result)
+//     })
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 13: 逐次的な非同期処理と条件分岐
+// 目的: 非同期処理を複数段階に分けて実行し、各段階の結果に応じて次の処理を制御する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 loadUserProfile, loadUserSettings, saveUserPreferences を使って、
+// 以下のような処理を実装してください。
+
+// loadUserProfile() を実行し、ユーザープロファイルを取得します。
+// loadUserProfile() が成功した場合に loadUserSettings() を実行し、ユーザー設定を取得します。
+// loadUserSettings() が成功した場合に saveUserPreferences() を実行し、
+// ユーザープロファイルと設定を基にユーザーの設定を保存します。
+// いずれかの非同期処理が失敗した場合は、その時点でエラーメッセージを console.error() で出力し、処理を中断します。
+function loadUserProfile() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("User data") : reject(new Error("Error fetching user data"));
+            Math.random() < 0.8 ? resolve("User profile data") : reject(new Error("Failed to load user profile"));
         }, 1000);
     });
 }
 
-function fetchOrderData() {
+function loadUserSettings() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Order data") : reject(new Error("Error fetching order data"));
-        }, 1500);
+            Math.random() < 0.8 ? resolve("User settings data") : reject(new Error("Failed to load user settings"));
+        }, 1000);
     });
 }
 
-function processUserData(data) {
+function saveUserPreferences(profile, settings) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(`Processed ${data}`);
-        }, 500);
+            resolve(`Preferences saved for ${profile} with ${settings}`);
+        }, 1000);
     });
 }
 
-function processOrderData(data) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(`Processed ${data}`);
-        }, 500);
-    });
-}
-
-// 非同期処理を実装してください。
-Promise.all([fetchUserData(),fetchOrderData()])
-.then(results=>{
-    return Promise.all(
-        [processUserData(results[0]),
-        processOrderData(results[1])])
-})
-.then(processedResult=>{
-    processedResult.forEach(result=>{
-        console.log(result)
+// 非同期処理を逐次実行し、条件に応じた処理を実装してください。
+loadUserProfile()
+.then(profile=>{
+    console.log(profile)
+    return loadUserSettings().then(setting=>{
+        console.log(setting);
+        return {profile,setting}
     })
+})
+.then(({profile,setting})=>{
+    return saveUserPreferences(profile,setting)
+})
+.then(result=>{
+    console.log(result);
 })
 .catch(error=>{
     console.error(error.message)
 })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
