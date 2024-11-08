@@ -792,28 +792,69 @@ function handleFailure() {
 //         console.log(result)
 //     }
 // })
-Promise.allSettled([fetchDataA(),fetchDataB()])
-.then(results=>{
-    results.forEach((result,index)=>{
-        if(result.status==="fulfilled"){
-            console.log(`Task ${index+1} fulfilled, value:${result.value}`)
-        }else{
-            console.log(`Task ${index+1} rejected, reason:${result.reason.message}`)
-        }
-    })
-    const allfullfilled = results.every(result=>result.status==="fulfilled");
-    if(allfullfilled){
-        return handleSuccess();
-    }else{
-        return handleFailure();
-    }
-})
+// Promise.allSettled([fetchDataA(),fetchDataB()])
+// .then(results=>{
+//     results.forEach((result,index)=>{
+//         if(result.status==="fulfilled"){
+//             console.log(`Task ${index+1} fulfilled, value:${result.value}`)
+//         }else{
+//             console.log(`Task ${index+1} rejected, reason:${result.reason.message}`)
+//         }
+//     })
+//     const allfullfilled = results.every(result=>result.status==="fulfilled");
+//     if(allfullfilled){
+//         return handleSuccess();
+//     }else{
+//         return handleFailure();
+//     }
+// })
+// .then(result=>{
+//     console.log(result)
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 16: 最初に完了した非同期処理の結果を取得
+// 目的: 複数の非同期処理を同時に実行し、その中で最初に完了した Promise の結果を使用する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 task1, task2, task3 を使用して、以下のような条件で処理を実装してください。
+
+// task1(), task2(), task3() を同時に実行し、一番早く完了した Promise の結果を取得します。
+// 一番早く完了したタスクが成功 (fulfilled) した場合、その結果を console.log() で出力してください。
+// 一番早く完了したタスクが失敗 (rejected) した場合、そのエラーメッセージを console.error() で出力してください。
+function task1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.7 ? resolve("Task 1 completed") : reject(new Error("Task 1 failed"));
+        }, Math.random() * 3000);
+    });
+}
+
+function task2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.7 ? resolve("Task 2 completed") : reject(new Error("Task 2 failed"));
+        }, Math.random() * 3000);
+    });
+}
+
+function task3() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.7 ? resolve("Task 3 completed") : reject(new Error("Task 3 failed"));
+        }, Math.random() * 3000);
+    });
+}
+
+// 最初に完了したタスクの結果を取得する処理を実装してください。
+Promise.race([task1(),task2(),task3()])
 .then(result=>{
     console.log(result)
 })
 .catch(error=>{
     console.error(error.message)
 })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
