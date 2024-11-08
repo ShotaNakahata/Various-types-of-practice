@@ -24,34 +24,73 @@
 
 // 準備:
 // 以下の2つの非同期関数を使用してください。
-async function getUserData(){
-    return new Promise((resolve)=>{
-        setTimeout(() => {
-            resolve({ id: 1, name: 'Alice' })
-        }, 1000);
-    })
-}
+// async function getUserData(){
+//     return new Promise((resolve)=>{
+//         setTimeout(() => {
+//             resolve({ id: 1, name: 'Alice' })
+//         }, 1000);
+//     })
+// }
 
-async function getUserPost(userId) {
-    return new Promise((resolve)=>{
-        setTimeout(() => {
-            resolve([
-                { postId: 1, content: 'Hello World', userId },
-                { postId: 2, content: 'Learning async/await', userId }
-            ])
-        }, 1000);
-    })
-}
+// async function getUserPost(userId) {
+//     return new Promise((resolve)=>{
+//         setTimeout(() => {
+//             resolve([
+//                 { postId: 1, content: 'Hello World', userId },
+//                 { postId: 2, content: 'Learning async/await', userId }
+//             ])
+//         }, 1000);
+//     })
+// }
 
-async function fetchUserDetails(){
-    const user = await getUserData();
-    const post = await getUserPost(user.id);
-    return {user,post}
-}
-fetchUserDetails().then(result=>{
-    console.log(result);
-})
+// async function fetchUserDetails(){
+//     const user = await getUserData();
+//     const post = await getUserPost(user.id);
+//     return {user,post}
+// }
+// fetchUserDetails().then(result=>{
+//     console.log(result);
+// })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題3: 並行処理とPromise.all()の使用
+// 複数の非同期処理を並行して実行し、それらの結果をまとめて出力する関数を作成します。
+// 以下の3つの非同期関数fetchData1, fetchData2, fetchData3を並行して呼び出し、
+// その結果を1つのオブジェクトとして返すfetchAllData関数を作成してください。
+async function fetchData1() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('Data from fetchData1');
+        }, 1000);
+    });
+}
+
+async function fetchData2() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('Data from fetchData2');
+        }, 2000);
+    });
+}
+
+async function fetchData3() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('Data from fetchData3');
+        }, 1500);
+    });
+}
+
+async function fetchAllData() {
+    const [data1,data2,data3] = await Promise.all([fetchData1(), fetchData2(), fetchData3()])
+    return {data1,data2,data3}
+}
+
+(async()=>{
+    const result = await fetchAllData();
+    console.log(result)
+})();
+
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
