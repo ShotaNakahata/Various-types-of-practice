@@ -824,37 +824,89 @@ function handleFailure() {
 // task1(), task2(), task3() を同時に実行し、一番早く完了した Promise の結果を取得します。
 // 一番早く完了したタスクが成功 (fulfilled) した場合、その結果を console.log() で出力してください。
 // 一番早く完了したタスクが失敗 (rejected) した場合、そのエラーメッセージを console.error() で出力してください。
-function task1() {
+// function task1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Task 1 completed") : reject(new Error("Task 1 failed"));
+//         }, Math.random() * 3000);
+//     });
+// }
+
+// function task2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Task 2 completed") : reject(new Error("Task 2 failed"));
+//         }, Math.random() * 3000);
+//     });
+// }
+
+// function task3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Task 3 completed") : reject(new Error("Task 3 failed"));
+//         }, Math.random() * 3000);
+//     });
+// }
+
+// // 最初に完了したタスクの結果を取得する処理を実装してください。
+// Promise.race([task1(),task2(),task3()])
+// .then(result=>{
+//     console.log(result)
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 17: 複数の非同期処理の結果を集計して条件分岐
+// 目的: 非同期処理で複数の Promise の結果を取得し、それに基づいて次の処理を行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 getDataFromSource1, getDataFromSource2, 
+// getDataFromSource3 を使用して、以下の条件に従って処理を実装してください。
+
+// 3 つの Promise を同時に実行し、全ての結果を受け取ります。
+// 3 つの Promise の中で fulfilled（成功）した結果を集め、その内容を console.log() で出力します。
+// もし全てが rejected（失敗）だった場合、console.error() で「All promises failed」と出力してください。
+function getDataFromSource1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Task 1 completed") : reject(new Error("Task 1 failed"));
-        }, Math.random() * 3000);
+            Math.random() < 0.5 ? resolve("Data from source 1") : reject(new Error("Error from source 1"));
+        }, 1000);
     });
 }
 
-function task2() {
+function getDataFromSource2() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Task 2 completed") : reject(new Error("Task 2 failed"));
-        }, Math.random() * 3000);
+            Math.random() < 0.5 ? resolve("Data from source 2") : reject(new Error("Error from source 2"));
+        }, 1500);
     });
 }
 
-function task3() {
+function getDataFromSource3() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Task 3 completed") : reject(new Error("Task 3 failed"));
-        }, Math.random() * 3000);
+            Math.random() < 0.5 ? resolve("Data from source 3") : reject(new Error("Error from source 3"));
+        }, 2000);
     });
 }
 
-// 最初に完了したタスクの結果を取得する処理を実装してください。
-Promise.race([task1(),task2(),task3()])
-.then(result=>{
-    console.log(result)
+// 複数の非同期処理の結果を集計して条件分岐を実装してください。
+Promise.allSettled([getDataFromSource1(),getDataFromSource2(),getDataFromSource3()])
+.then(results=>{
+    console.log(results)
+    const fullfilleds = results.filter(result=>result.status==="fulfilled").map(result=>result.value)
+    const faileds = results.filter(result=>result.status==="rejected");
+    if(faileds.length===results.length){
+        console.error("All promises failed")
+    }else{
+        fullfilleds.forEach(value=>console.log(value))
+    }
 })
-.catch(error=>{
-    console.error(error.message)
-})
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
