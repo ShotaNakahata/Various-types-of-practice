@@ -636,41 +636,92 @@
 // loadUserSettings() が成功した場合に saveUserPreferences() を実行し、
 // ユーザープロファイルと設定を基にユーザーの設定を保存します。
 // いずれかの非同期処理が失敗した場合は、その時点でエラーメッセージを console.error() で出力し、処理を中断します。
-function loadUserProfile() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve("User profile data") : reject(new Error("Failed to load user profile"));
-        }, 1000);
-    });
-}
+// function loadUserProfile() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("User profile data") : reject(new Error("Failed to load user profile"));
+//         }, 1000);
+//     });
+// }
 
-function loadUserSettings() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve("User settings data") : reject(new Error("Failed to load user settings"));
-        }, 1000);
-    });
-}
+// function loadUserSettings() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("User settings data") : reject(new Error("Failed to load user settings"));
+//         }, 1000);
+//     });
+// }
 
-function saveUserPreferences(profile, settings) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(`Preferences saved for ${profile} with ${settings}`);
-        }, 1000);
-    });
-}
+// function saveUserPreferences(profile, settings) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(`Preferences saved for ${profile} with ${settings}`);
+//         }, 1000);
+//     });
+// }
 
 // 非同期処理を逐次実行し、条件に応じた処理を実装してください。
-loadUserProfile()
-.then(profile=>{
-    console.log(profile)
-    return loadUserSettings().then(setting=>{
-        console.log(setting);
-        return {profile,setting}
-    })
-})
-.then(({profile,setting})=>{
-    return saveUserPreferences(profile,setting)
+// loadUserProfile()
+// .then(profile=>{
+//     console.log(profile)
+//     return loadUserSettings().then(setting=>{
+//         console.log(setting);
+//         return {profile,setting}
+//     })
+// })
+// .then(({profile,setting})=>{
+//     return saveUserPreferences(profile,setting)
+// })
+// .then(result=>{
+//     console.log(result);
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 課題
+// 以下の非同期関数 checkUserStatus, loadDashboard, redirectToLogin を使用して、条件に基づいた処理を実装してください。
+
+// checkUserStatus() を実行してユーザーのログイン状態を確認します。
+// checkUserStatus() の結果が "Logged In" なら、loadDashboard() を実行してダッシュボードをロードし、
+// その結果を console.log() に出力します。
+// checkUserStatus() の結果が "Logged Out" なら、redirectToLogin() を実行してログインページにリダイレクトし、
+// その結果を console.log() に出力します。
+// checkUserStatus() が失敗した場合は、エラーメッセージを console.error() で出力し、処理を中断します。
+function checkUserStatus() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const status = Math.random() < 0.5 ? "Logged In" : "Logged Out";
+            Math.random() < 0.9 ? resolve(status) : reject(new Error("Failed to check user status"));
+        }, 1000);
+    });
+}
+
+function loadDashboard() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Dashboard loaded successfully");
+        }, 1000);
+    });
+}
+
+function redirectToLogin() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Redirected to login page");
+        }, 500);
+    });
+}
+
+// 条件に基づいた非同期処理を実装してください。
+checkUserStatus()
+.then(result=>{
+    console.log(result)
+    if(result==="Logged In"){
+        return loadDashboard();
+    }else{
+        return redirectToLogin();
+    }
 })
 .then(result=>{
     console.log(result);
@@ -678,7 +729,6 @@ loadUserProfile()
 .catch(error=>{
     console.error(error.message)
 })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
