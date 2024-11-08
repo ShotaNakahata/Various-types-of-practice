@@ -1341,38 +1341,38 @@
 // 以下の非同期関数 taskA, taskB, taskC を使用して、Promise.any() を使って最初に成功した結果を取得し、
 // 結果を console.log() で出力してください。すべての処理が失敗した場合は、
 // AggregateError のメッセージを console.error() で出力してください。
-function taskA() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.1 ? resolve("Result from taskA") : reject(new Error("Error in taskA"));
-        }, 1000);
-    });
-}
+// function taskA() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.1 ? resolve("Result from taskA") : reject(new Error("Error in taskA"));
+//         }, 1000);
+//     });
+// }
 
-function taskB() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.1 ? resolve("Result from taskB") : reject(new Error("Error in taskB"));
-        }, 1500);
-    });
-}
+// function taskB() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.1 ? resolve("Result from taskB") : reject(new Error("Error in taskB"));
+//         }, 1500);
+//     });
+// }
 
-function taskC() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.1 ? resolve("Result from taskC") : reject(new Error("Error in taskC"));
-        }, 1200);
-    });
-}
+// function taskC() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.1 ? resolve("Result from taskC") : reject(new Error("Error in taskC"));
+//         }, 1200);
+//     });
+// }
 
-// `Promise.any()` を使った非同期処理を実装してください。
-Promise.any([taskA(),taskB(),taskC()])
-.then(result=>{
-    console.log(result)
-})
-.catch(error=>{
-    console.error(error.message)
-})
+// // `Promise.any()` を使った非同期処理を実装してください。
+// Promise.any([taskA(),taskB(),taskC()])
+// .then(result=>{
+//     console.log(result)
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー

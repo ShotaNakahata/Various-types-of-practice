@@ -297,6 +297,7 @@ for ([section, info] of Object.entries(data)) {
         console.log(`name: ${info.name} age: ${info.age}`)
         break;
     }
+
 }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
