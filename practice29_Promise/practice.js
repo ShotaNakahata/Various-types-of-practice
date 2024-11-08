@@ -531,38 +531,96 @@
 // いずれかのタスクが失敗した場合:
 
 // エラーメッセージを console.error() で「One or more tasks failed.」と出力し、失敗したタスクの詳細を表示する。
-function fetchData1() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve("Data from fetchData1") : reject(new Error("Error in fetchData1"))
-        }, 1000);
-    })
-}
-function fetchData2() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve("Data from fetchData2") : reject(new Error("Error in fetchData2"))
-        }, 1500);
-    })
-}
-function fetchData3() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve("Data from fetchData3") : reject(new Error("Error in fetchData3"))
-        }, 2000);
-    })
-}
-Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
-    .then(results => {
-        const successes = results.filter(result => result.status === "fulfilled").map(result => result.value);
-        const failures = results.filter(result => result.status === "failures").map(result => result.value);
-        if(failures.length>0){
-            console.log("One or more tasks failed.");
-            failures.forEach(error=>console.error(error))
-        }else{
-            console.log("All tasks succeeded:",successes)
-        }
-    })
+// function fetchData1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("Data from fetchData1") : reject(new Error("Error in fetchData1"))
+//         }, 1000);
+//     })
+// }
+// function fetchData2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("Data from fetchData2") : reject(new Error("Error in fetchData2"))
+//         }, 1500);
+//     })
+// }
+// function fetchData3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("Data from fetchData3") : reject(new Error("Error in fetchData3"))
+//         }, 2000);
+//     })
+// }
+// Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
+//     .then(results => {
+//         const successes = results.filter(result => result.status === "fulfilled").map(result => result.value);
+//         const failures = results.filter(result => result.status === "failures").map(result => result.value);
+//         if(failures.length>0){
+//             console.log("One or more tasks failed.");
+//             failures.forEach(error=>console.error(error))
+//         }else{
+//             console.log("All tasks succeeded:",successes)
+//         }
+//     })
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 12: タスク完了後の追加処理
+// 目的: 複数の非同期タスクを実行し、その結果に基づいて次のステップで異なる処理を実装する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchUserData, fetchOrderData, processUserData, processOrderData 
+// を使用して、次のような条件で処理を実装してください。
+
+// fetchUserData() と fetchOrderData() を並列で実行し、どちらも完了するまで待機します。
+// 両方のタスクが成功した場合、それぞれの結果を processUserData() と processOrderData() 
+// に渡して処理を行い、最終的な結果を console.log() に出力します。
+// いずれかのタスクが失敗した場合、エラーメッセージを console.error() で出力し、処理を中断します。
+function fetchUserData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.7 ? resolve("User data") : reject(new Error("Error fetching user data"));
+        }, 1000);
+    });
+}
+
+function fetchOrderData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.7 ? resolve("Order data") : reject(new Error("Error fetching order data"));
+        }, 1500);
+    });
+}
+
+function processUserData(data) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(`Processed ${data}`);
+        }, 500);
+    });
+}
+
+function processOrderData(data) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(`Processed ${data}`);
+        }, 500);
+    });
+}
+
+// 非同期処理を実装してください。
+Promise.all([fetchUserData(),fetchOrderData()])
+.then(results=>{
+    return Promise.all(
+        [processUserData(results[0]),
+        processOrderData(results[1])])
+})
+.then(processedResult=>{
+    processedResult.forEach(result=>{
+        console.log(result)
+    })
+})
+.catch(error=>{
+    console.error(error.message)
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
