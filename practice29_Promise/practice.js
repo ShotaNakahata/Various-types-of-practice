@@ -1176,57 +1176,116 @@
 // fetchData() が失敗した場合、最大3回まで再試行します。
 // 3回目の試行でも fetchData() が失敗した場合は、エラーメッセージを console.error() で出力し、処理を中止してください。
 // processData() が失敗した場合も console.error() でそのエラーメッセージを出力し、処理を中止してください。
-function fetchData() {
+// function fetchData() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.5 ? resolve("Fetched data") : reject(new Error("Fetch failed"));
+//         }, 1000);
+//     });
+// }
+
+// function processData(data) {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve(`Processed ${data}`) : reject(new Error("Processing failed"));
+//         }, 500);
+//     });
+// }
+
+// // 再帰的リトライを含めた非同期処理を実装してください。
+// function retryAsyncOperation(asyncFunc1,asyncFunc2, maxAttempt) {
+//     let attempt = 1
+//     function execute() {
+//         return asyncFunc1()
+//             .then(result=>{
+//                 console.log("asyncFunc1",result)
+//                 return asyncFunc2(result)
+//                 .then(result=>{
+//                     console.log("asyncFunc2",result)
+//                     return result
+//                 })
+//             })
+//             .catch(error=>{
+//                 console.error(error.message);
+//                 if(attempt>=maxAttempt){
+//                     console.log(`attemt is ${attempt}`)
+//                     throw error;
+//                 }else{
+//                     console.log(`attemt is ${attempt}`)
+//                     attempt++
+//                     return execute()
+//                 }
+//             })
+//     }
+//     return execute();
+// }
+// retryAsyncOperation(fetchData,processData, 3)
+// .then(result=>{
+//     console.log(result)
+// })
+// .catch(error=>{
+//     console.error(error.message);
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 24: 再帰的リトライとエラーログの管理
+// 目的: 再帰的リトライを行い、各試行のエラーログを保持し、最終的に出力する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 attemptAsyncOperation を使用して、最大3回までリトライし、
+// 試行ごとのエラーをログとして保持し、すべての試行が失敗した場合にエラーログを出力する処理を実装してください。
+
+// attemptAsyncOperation() を実行します。
+// 失敗した場合、エラーメッセージをリストに追加し、最大3回まで再試行します。
+// 3回目の試行でも失敗した場合は、保持していたすべてのエラーログを console.error() で出力し、
+// 「Failed after 3 attempts」と出力します。
+// 成功した場合は、その結果を console.log() で出力してください。
+function attemptAsyncOperation() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.5 ? resolve("Fetched data") : reject(new Error("Fetch failed"));
+            Math.random() < 0.1 ? resolve("Operation succeeded") : reject(new Error("Operation failed"));
         }, 1000);
     });
 }
 
-function processData(data) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.7 ? resolve(`Processed ${data}`) : reject(new Error("Processing failed"));
-        }, 500);
-    });
-}
-
-// 再帰的リトライを含めた非同期処理を実装してください。
-function retryAsyncOperation(asyncFunc1,asyncFunc2, maxAttempt) {
-    let attempt = 1
-    function execute() {
-        return asyncFunc1()
-            .then(result=>{
-                console.log("asyncFunc1",result)
-                return asyncFunc2(result)
-                .then(result=>{
-                    console.log("asyncFunc2",result)
-                    return result
-                })
+// 再帰的リトライとエラーログの管理を実装してください。
+function retryAsyncOperation(asyncFunc, maxAttempt) {
+    let attempt = 1;
+    let errorbox = [];
+    function excute() {
+        return asyncFunc()
+            .then(result => {
+                console.log(`Attempt ${attempt} succeeded`);
+                return result
             })
-            .catch(error=>{
-                console.error(error.message);
-                if(attempt>=maxAttempt){
-                    console.log(`attemt is ${attempt}`)
-                    throw error;
-                }else{
-                    console.log(`attemt is ${attempt}`)
-                    attempt++
-                    return execute()
+            .catch(error => {
+                console.warn(`Attempt ${attempt} failed: ${error.message}`);
+                errorbox.push(`Attempt ${attempt}: ${error.message}`);
+                attempt++;
+                if (attempt < maxAttempt) {
+                    return excute();
+                } else {
+                    console.error("Failed after maximum attempts");
+                    errorbox.push(error)
+                    const finalError = new Error("Failed after 3 attempts")
+                    finalError.log = errorbox
+                    return Promise.reject(finalError);
                 }
             })
     }
-    return execute();
+    return excute()
 }
-retryAsyncOperation(fetchData,processData, 3)
-.then(result=>{
-    console.log(result)
-})
-.catch(error=>{
-    console.error(error.message);
-})
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+retryAsyncOperation(attemptAsyncOperation, 3)
+    .then(result => {
+        console.log("Final result:", result);
+    })
+    .catch(error => {
+        console.error("Error:", error.message);
+        if (error.logs) {
+            console.error("Full error log:\n" + error.logs.join("\n"));
+        }
+    });
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
