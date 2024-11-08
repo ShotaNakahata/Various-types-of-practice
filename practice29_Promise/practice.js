@@ -128,47 +128,92 @@
 // いずれかが失敗しても、他の成功した結果をまとめて取得して出力してください。
 // 失敗した場合でも、エラーメッセージを出力するようにしてください。
 
-function fetchData1(){
-    return new Promise((resolve,reject)=>{
+// function fetchData1(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(() => {
+//         resolve("Data from fetchData1")
+//         }, Math.random()*2000);
+//     })
+// }
+// function fetchData2(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(() => {
+//         if(Math.random()<0.5){
+//             reject(new Error("Error in fetchData2"))
+//         }else{
+//             resolve("Data from fetchData2")
+//         }
+//         }, Math.random()*2000);
+//     })
+// }
+// function fetchData3(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(() => {
+//         if(Math.random()<0.5){
+//             reject(new Error("Error in fetchData3"))
+//         }else{
+//             resolve("Data from fetchData3")
+//         }
+//         }, Math.random()*2000);
+//     })
+// }
+
+// Promise.allSettled([fetchData1(),fetchData2(),fetchData3()])
+// .then(results=>{
+//     results.forEach((result,index)=>{
+//         if(result.status==='fulfilled'){
+//             console.log(`Promise${index+1}: succeeded with: value ${result.value}`)
+//         }else if(result.status==='rejected'){
+//             console.log(`Promise${index+1}: failed with: reason ${result.reason.message}`)
+//         }
+//     })
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 6: 順番に非同期処理を実行して結果を収集
+// 目的: 複数の非同期処理を順番に実行し、その結果を一つの配列にまとめ、
+// 最終的に全ての結果を console.log() で出力する方法を学ぶ。
+
+// 課題
+// 以下の 3 つの非同期関数を使用して、それらを順番に実行し、
+// 各結果を一つの配列に集めて最後に出力してください。
+function task1() {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-        resolve("Data from fetchData1")
-        }, Math.random()*2000);
+            resolve("Result from task1")
+        }, 1000);
     })
 }
-function fetchData2(){
-    return new Promise((resolve,reject)=>{
+function task2() {
+    return new Promise((resolve) => {
         setTimeout(() => {
-        if(Math.random()<0.5){
-            reject(new Error("Error in fetchData2"))
-        }else{
-            resolve("Data from fetchData2")
-        }
-        }, Math.random()*2000);
-    })
-}
-function fetchData3(){
-    return new Promise((resolve,reject)=>{
-        setTimeout(() => {
-        if(Math.random()<0.5){
-            reject(new Error("Error in fetchData3"))
-        }else{
-            resolve("Data from fetchData3")
-        }
-        }, Math.random()*2000);
-    })
+            resolve("Result from task2");
+        }, 2000);
+    });
 }
 
-Promise.allSettled([fetchData1(),fetchData2(),fetchData3()])
-.then(results=>{
-    results.forEach((result,index)=>{
-        if(result.status==='fulfilled'){
-            console.log(`Promise${index+1}: succeeded with: value ${result.value}`)
-        }else if(result.status==='rejected'){
-            console.log(`Promise${index+1}: failed with: reason ${result.reason.message}`)
-        }
+function task3() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Result from task3");
+        }, 1500);
+    });
+}
+task1()
+    .then(result1 => {
+        console.log(result1);
+        return task2()
     })
-})
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    .then(result2 => {
+        console.log(result2);
+        return task3();
+    })
+    .then(result3 => {
+        console.log(result3)
+        console.log("All results: [Result from task1, Result from task2, Result from task3]");
+    }).catch(error => {
+        console.error("An error occurred:", error)
+    });
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
