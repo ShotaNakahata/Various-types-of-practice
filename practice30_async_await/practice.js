@@ -1,4 +1,21 @@
+// 問題1: 基本的なasync/awaitの使用
+// 非同期関数getUserを使用して、ユーザーデータを取得し、async/awaitを使用して関数内でその結果を取得し、
+// ログに出力するfetchUserData関数を作成してください。
 
+// 準備:
+// getUser関数はすでに定義されている非同期関数です。
+async function getUser() {
+    return new Promise((resolve)=>{
+        setTimeout(() => {
+            resolve({ id: 1, name: 'Alice' });
+        }, 1000);
+    })
+}
+async function fetchUser() {
+    const user = await getUser();
+    console.log(user);
+}
+fetchUser()
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
