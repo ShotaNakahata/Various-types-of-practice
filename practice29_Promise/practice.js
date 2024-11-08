@@ -741,37 +741,37 @@
 // 両方の Promise が成功した場合は、handleSuccess() を実行し、その結果を console.log() に出力します。
 // いずれかの Promise が失敗した場合は、handleFailure() を実行し、その結果を console.log() に出力します。
 // 各 Promise の状態も console.log() で出力してください。
-function fetchDataA() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Data A") : reject(new Error("Error in fetchDataA"));
-        }, 1000);
-    });
-}
+// function fetchDataA() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Data A") : reject(new Error("Error in fetchDataA"));
+//         }, 1000);
+//     });
+// }
 
-function fetchDataB() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Data B") : reject(new Error("Error in fetchDataB"));
-        }, 1500);
-    });
-}
+// function fetchDataB() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Data B") : reject(new Error("Error in fetchDataB"));
+//         }, 1500);
+//     });
+// }
 
-function handleSuccess() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Success handler executed");
-        }, 500);
-    });
-}
+// function handleSuccess() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Success handler executed");
+//         }, 500);
+//     });
+// }
 
-function handleFailure() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Failure handler executed");
-        }, 500);
-    });
-}
+// function handleFailure() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Failure handler executed");
+//         }, 500);
+//     });
+// }
 
 // 条件に基づいた非同期処理を実装してください。
 // Promise.all([fetchDataA(),fetchDataB()])
@@ -1076,13 +1076,41 @@ function handleFailure() {
 function fetchDataWithPotentialError() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.5 ? resolve("Data fetched successfully") : reject(new Error("Fetch failed"));
+            Math.random() < 0.2 ? resolve("Data fetched successfully") : reject(new Error("Fetch failed"));
         }, 1000);
     });
 }
 
 // リトライ機能を実装してください。
+function retryAsyncOperation(asyncFunc, maxAttempt) {
+    let attempt = 1;
+    function execute() {
+        return asyncFunc()
+            .then(result => {
+                console.log(result);
+                return result;
+            })
+            .catch(error => {
+                if (attempt < maxAttempt){
+                    console.warn(`Attempt ${attempt} failed. Retrying...`)
+                    attempt++
+                    return execute();
+                }else{
+                    console.log("Failed after 3 attempts")
+                    throw error;
+                }
+        })
+    }
+    return execute();
+}
 
+retryAsyncOperation(fetchDataWithPotentialError, 3)
+.then(result=>{
+    console.log("Final success:", result);
+})
+.catch(error=>{
+    console.error(error.message);
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
