@@ -913,44 +913,98 @@ function handleFailure() {
 // 3 つの Promise を同時に実行し、その結果を受け取ります。
 // 受け取った結果のうち、特定の文字列 "Important" を含む結果を console.log() で出力します。
 // "Important" を含む結果が一つもなかった場合、「No important data found」と console.error() で出力してください。
-function fetchData1() {
+// function fetchData1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Normal data 1") : resolve("Important data 1");
+//         }, 1000);
+//     });
+// }
+
+// function fetchData2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Normal data 2") : resolve("Important data 2");
+//         }, 1500);
+//     });
+// }
+
+// function fetchData3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.7 ? resolve("Normal data 3") : resolve("Important data 3");
+//         }, 2000);
+//     });
+// }
+
+// // 非同期処理を実装してください。
+// Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
+//     .then(results => {
+//         console.log(results)
+//         const ImportantData = results.filter(result =>
+//             result.status === "fulfilled" && result.value.includes("Important"))
+//             .map(result => result.value)
+//         if (ImportantData.length > 0) {
+//             console.log(ImportantData)
+//         } else {
+//             console.error("No important data found")
+//         }
+//     })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 19: 非同期処理の集計と統計情報の出力
+// 目的: 複数の非同期処理の結果を集計し、統計情報を出力する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 getSalesData1, getSalesData2, getSalesData3 を使用して、
+// 各データから合計売上を計算し、その結果を出力してください。
+
+// 3 つの Promise を同時に実行し、すべての結果を受け取ります。
+// 各 Promise が resolve された場合、その売上データを集計して合計を出力します。
+// いずれかの Promise が rejected された場合は、そのエラーメッセージを console.error() で出力し、
+// 集計を中止してください。
+function getSalesData1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Normal data 1") : resolve("Important data 1");
+            Math.random() < 0.8 ? resolve(100) : reject(new Error("Error fetching sales data 1"));
         }, 1000);
     });
 }
 
-function fetchData2() {
+function getSalesData2() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Normal data 2") : resolve("Important data 2");
+            Math.random() < 0.8 ? resolve(200) : reject(new Error("Error fetching sales data 2"));
         }, 1500);
     });
 }
 
-function fetchData3() {
+function getSalesData3() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.7 ? resolve("Normal data 3") : resolve("Important data 3");
+            Math.random() < 0.8 ? resolve(300) : reject(new Error("Error fetching sales data 3"));
         }, 2000);
     });
 }
 
 // 非同期処理を実装してください。
-Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
-    .then(results => {
-        console.log(results)
-        const ImportantData = results.filter(result =>
-            result.status === "fulfilled" && result.value.includes("Important"))
-            .map(result => result.value)
-        if (ImportantData.length > 0) {
-            console.log(ImportantData)
-        } else {
-            console.error("No important data found")
-        }
-    })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+Promise.allSettled([getSalesData1(),getSalesData2(),getSalesData3()])
+.then(results=>{
+    console.log(results);
+    const resoleves = results.filter(result=>result.status==="fulfilled").map(result=>result.value);
+    const rejects = results.filter(result=>result.status==="rejected").map(result=>result.reason.message);
+    if(resoleves.length===results.length){
+        const sumPrice=resoleves.reduce((sum,price)=>{
+            sum+=price
+            return sum
+        },0)
+        console.log("sumPrice: ",sumPrice)
+    }else{
+        console.error("One or more promises failed:");
+        rejects.forEach((reject,index)=>{
+            console.error(`task ${index+1} is rejected reason : ${reject}`)
+        })
+    }
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
