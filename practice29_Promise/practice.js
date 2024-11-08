@@ -176,45 +176,101 @@
 // 課題
 // 以下の 3 つの非同期関数を使用して、それらを順番に実行し、
 // 各結果を一つの配列に集めて最後に出力してください。
+// function task1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve("Result from task1")
+//         }, 1000);
+//     })
+// }
+// function task2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task2");
+//         }, 2000);
+//     });
+// }
+
+// function task3() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task3");
+//         }, 1500);
+//     });
+// }
+// task1()
+//     .then(result1 => {
+//         console.log(result1);
+//         return task2()
+//     })
+//     .then(result2 => {
+//         console.log(result2);
+//         return task3();
+//     })
+//     .then(result3 => {
+//         console.log(result3)
+//         console.log("All results: [Result from task1, Result from task2, Result from task3]");
+//     }).catch(error => {
+//         console.error("An error occurred:", error)
+//     });
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 7: シーケンシャルな非同期処理とエラーハンドリング
+// 目的: 複数の非同期処理を順番に実行し、各処理でエラーが発生した場合のハンドリング方法を学ぶ。
+
+// 課題
+// 3 つの非同期関数 task1, task2, task3 を順番に実行し、それぞれの結果を console.log() に出力してください。
+// ただし、各タスクでエラーが発生する可能性があります。エラーが発生した場合、
+// その場でエラーメッセージを表示し、以降のタスクは実行されないようにしてください。
 function task1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve("Result from task1")
+            if (Math.random() < 0.3) {
+                reject(new Error("Error in task1"));
+            } else {
+                resolve("Result from task1");
+            }
         }, 1000);
-    })
+    });
 }
+
 function task2() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve("Result from task2");
+            if (Math.random() < 0.3) {
+                reject(new Error("Error in task2"));
+            } else {
+                resolve("Result from task2");
+            }
         }, 2000);
     });
 }
 
 function task3() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve("Result from task3");
+            if (Math.random() < 0.3) {
+                reject(new Error("Error in task3"));
+            } else {
+                resolve("Result from task3");
+            }
         }, 1500);
     });
 }
+// task1, task2, task3 を順番に実行し、エラーハンドリングを実装してください。
 task1()
-    .then(result1 => {
-        console.log(result1);
-        return task2()
-    })
-    .then(result2 => {
-        console.log(result2);
-        return task3();
-    })
-    .then(result3 => {
-        console.log(result3)
-        console.log("All results: [Result from task1, Result from task2, Result from task3]");
-    }).catch(error => {
-        console.error("An error occurred:", error)
-    });
-
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+.then(result1=>{
+    console.log(result1)
+    return task2();
+}).then(result2=>{
+    console.log(result2)
+    return task3();
+}).then(result3=>{
+    console.log(result3)
+})
+.catch(error=>{
+    console.error(error.message)
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
