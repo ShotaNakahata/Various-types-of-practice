@@ -1296,44 +1296,83 @@
 
 // fetchProductDetails()、fetchProductReviews()、fetchProductStock() を並列で実行して結果を集めます。
 // すべての処理が成功した場合、結果をまとめて次の形式で console.log() に出力します:
-function fetchProductDetails() {
+// function fetchProductDetails() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.9 ? resolve({ name: "Product A", price: 100 }) : reject(new Error("Failed to fetch product details"));
+//         }, 1000);
+//     });
+// }
+
+// function fetchProductReviews() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.9 ? resolve(["Review 1", "Review 2"]) : reject(new Error("Failed to fetch product reviews"));
+//         }, 1500);
+//     });
+// }
+
+// function fetchProductStock() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.9 ? resolve({ stock: 20 }) : reject(new Error("Failed to fetch product stock"));
+//         }, 1200);
+//     });
+// }
+
+// // 条件付き非同期処理を実装してください。
+// Promise.all([fetchProductDetails(), fetchProductReviews(), fetchProductStock()])
+// .then(results=>{
+//     console.log(results);
+//     const Details = results[0]
+//     const Review = results[1]
+//     const Stock = results[2]
+//     console.log({Details,Review,Stock})
+
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 26: Promise.any() を使用した非同期処理
+// 目的: 複数の非同期処理の中で、最初に成功したものを取得し、すべて失敗した場合はエラーを処理する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 taskA, taskB, taskC を使用して、Promise.any() を使って最初に成功した結果を取得し、
+// 結果を console.log() で出力してください。すべての処理が失敗した場合は、
+// AggregateError のメッセージを console.error() で出力してください。
+function taskA() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.9 ? resolve({ name: "Product A", price: 100 }) : reject(new Error("Failed to fetch product details"));
+            Math.random() < 0.1 ? resolve("Result from taskA") : reject(new Error("Error in taskA"));
         }, 1000);
     });
 }
 
-function fetchProductReviews() {
+function taskB() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.9 ? resolve(["Review 1", "Review 2"]) : reject(new Error("Failed to fetch product reviews"));
+            Math.random() < 0.1 ? resolve("Result from taskB") : reject(new Error("Error in taskB"));
         }, 1500);
     });
 }
 
-function fetchProductStock() {
+function taskC() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.9 ? resolve({ stock: 20 }) : reject(new Error("Failed to fetch product stock"));
+            Math.random() < 0.1 ? resolve("Result from taskC") : reject(new Error("Error in taskC"));
         }, 1200);
     });
 }
 
-// 条件付き非同期処理を実装してください。
-Promise.all([fetchProductDetails(), fetchProductReviews(), fetchProductStock()])
-.then(results=>{
-    console.log(results);
-    const Details = results[0]
-    const Review = results[1]
-    const Stock = results[2]
-    console.log({Details,Review,Stock})
-
+// `Promise.any()` を使った非同期処理を実装してください。
+Promise.any([taskA(),taskB(),taskC()])
+.then(result=>{
+    console.log(result)
 })
 .catch(error=>{
     console.error(error.message)
 })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
