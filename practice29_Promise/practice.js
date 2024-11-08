@@ -688,48 +688,110 @@
 // checkUserStatus() の結果が "Logged Out" なら、redirectToLogin() を実行してログインページにリダイレクトし、
 // その結果を console.log() に出力します。
 // checkUserStatus() が失敗した場合は、エラーメッセージを console.error() で出力し、処理を中断します。
-function checkUserStatus() {
+// function checkUserStatus() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             const status = Math.random() < 0.5 ? "Logged In" : "Logged Out";
+//             Math.random() < 0.9 ? resolve(status) : reject(new Error("Failed to check user status"));
+//         }, 1000);
+//     });
+// }
+
+// function loadDashboard() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Dashboard loaded successfully");
+//         }, 1000);
+//     });
+// }
+
+// function redirectToLogin() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Redirected to login page");
+//         }, 500);
+//     });
+// }
+
+// 条件に基づいた非同期処理を実装してください。
+// checkUserStatus()
+// .then(result=>{
+//     console.log(result)
+//     if(result==="Logged In"){
+//         return loadDashboard();
+//     }else{
+//         return redirectToLogin();
+//     }
+// })
+// .then(result=>{
+//     console.log(result);
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 15: 条件付き非同期処理の組み合わせ
+// 目的: 複数の非同期処理の結果を受け取り、条件に基づいて追加の非同期処理を行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchDataA, fetchDataB, handleSuccess, handleFailure を使用して、
+// 以下の条件で処理を実装してください。
+
+// fetchDataA() と fetchDataB() を同時に実行し、両方の結果を取得します。
+// 両方の Promise が成功した場合は、handleSuccess() を実行し、その結果を console.log() に出力します。
+// いずれかの Promise が失敗した場合は、handleFailure() を実行し、その結果を console.log() に出力します。
+// 各 Promise の状態も console.log() で出力してください。
+function fetchDataA() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            const status = Math.random() < 0.5 ? "Logged In" : "Logged Out";
-            Math.random() < 0.9 ? resolve(status) : reject(new Error("Failed to check user status"));
+            Math.random() < 0.7 ? resolve("Data A") : reject(new Error("Error in fetchDataA"));
         }, 1000);
     });
 }
 
-function loadDashboard() {
-    return new Promise((resolve) => {
+function fetchDataB() {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve("Dashboard loaded successfully");
-        }, 1000);
+            Math.random() < 0.7 ? resolve("Data B") : reject(new Error("Error in fetchDataB"));
+        }, 1500);
     });
 }
 
-function redirectToLogin() {
+function handleSuccess() {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve("Redirected to login page");
+            resolve("Success handler executed");
+        }, 500);
+    });
+}
+
+function handleFailure() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Failure handler executed");
         }, 500);
     });
 }
 
 // 条件に基づいた非同期処理を実装してください。
-checkUserStatus()
+Promise.all([fetchDataA(),fetchDataB()])
 .then(result=>{
     console.log(result)
-    if(result==="Logged In"){
-        return loadDashboard();
-    }else{
-        return redirectToLogin();
-    }
+    return handleSuccess()
 })
 .then(result=>{
-    console.log(result);
+    console.log(result)
+    return null
 })
 .catch(error=>{
     console.error(error.message)
+    return handleFailure();
 })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+.then(result=>{
+    if(result!==null){
+        console.log(result)
+    }
+})
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
