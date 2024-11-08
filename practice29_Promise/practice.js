@@ -867,43 +867,89 @@ function handleFailure() {
 // 3 つの Promise を同時に実行し、全ての結果を受け取ります。
 // 3 つの Promise の中で fulfilled（成功）した結果を集め、その内容を console.log() で出力します。
 // もし全てが rejected（失敗）だった場合、console.error() で「All promises failed」と出力してください。
-function getDataFromSource1() {
+// function getDataFromSource1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.5 ? resolve("Data from source 1") : reject(new Error("Error from source 1"));
+//         }, 1000);
+//     });
+// }
+
+// function getDataFromSource2() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.5 ? resolve("Data from source 2") : reject(new Error("Error from source 2"));
+//         }, 1500);
+//     });
+// }
+
+// function getDataFromSource3() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.5 ? resolve("Data from source 3") : reject(new Error("Error from source 3"));
+//         }, 2000);
+//     });
+// }
+
+// // 複数の非同期処理の結果を集計して条件分岐を実装してください。
+// Promise.allSettled([getDataFromSource1(),getDataFromSource2(),getDataFromSource3()])
+// .then(results=>{
+//     console.log(results)
+//     const fullfilleds = results.filter(result=>result.status==="fulfilled").map(result=>result.value)
+//     const faileds = results.filter(result=>result.status==="rejected");
+//     if(faileds.length===results.length){
+//         console.error("All promises failed")
+//     }else{
+//         fullfilleds.forEach(value=>console.log(value))
+//     }
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 18: 非同期処理のフィルタリングと条件分岐
+// 目的: 複数の非同期処理の結果から特定の条件を満たすデータを抽出し、条件に応じて異なる処理を行う方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchData1, fetchData2, fetchData3 を使用して、以下の条件に従って処理を実装してください。
+
+// 3 つの Promise を同時に実行し、その結果を受け取ります。
+// 受け取った結果のうち、特定の文字列 "Important" を含む結果を console.log() で出力します。
+// "Important" を含む結果が一つもなかった場合、「No important data found」と console.error() で出力してください。
+function fetchData1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.5 ? resolve("Data from source 1") : reject(new Error("Error from source 1"));
+            Math.random() < 0.7 ? resolve("Normal data 1") : resolve("Important data 1");
         }, 1000);
     });
 }
 
-function getDataFromSource2() {
+function fetchData2() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.5 ? resolve("Data from source 2") : reject(new Error("Error from source 2"));
+            Math.random() < 0.7 ? resolve("Normal data 2") : resolve("Important data 2");
         }, 1500);
     });
 }
 
-function getDataFromSource3() {
+function fetchData3() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.5 ? resolve("Data from source 3") : reject(new Error("Error from source 3"));
+            Math.random() < 0.7 ? resolve("Normal data 3") : resolve("Important data 3");
         }, 2000);
     });
 }
 
-// 複数の非同期処理の結果を集計して条件分岐を実装してください。
-Promise.allSettled([getDataFromSource1(),getDataFromSource2(),getDataFromSource3()])
-.then(results=>{
-    console.log(results)
-    const fullfilleds = results.filter(result=>result.status==="fulfilled").map(result=>result.value)
-    const faileds = results.filter(result=>result.status==="rejected");
-    if(faileds.length===results.length){
-        console.error("All promises failed")
-    }else{
-        fullfilleds.forEach(value=>console.log(value))
-    }
-})
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 非同期処理を実装してください。
+Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
+    .then(results => {
+        console.log(results)
+        const ImportantData = results.filter(result =>
+            result.status === "fulfilled" && result.value.includes("Important"))
+            .map(result => result.value)
+        if (ImportantData.length > 0) {
+            console.log(ImportantData)
+        } else {
+            console.error("No important data found")
+        }
+    })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
