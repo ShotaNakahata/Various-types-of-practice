@@ -338,19 +338,78 @@
 // task1 の結果が "Special case" であれば、task4 を実行して処理を終了する。
 // task1 がエラーの場合は、エラーメッセージを出力して終了する。
 
+// function task1() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             const results = ["Result from task1", "Special case", "Another result"];
+//             const result = results[Math.floor(Math.random() * results.length)]
+//             if (result === "Another result") {
+//                 reject(new Error("Error in task1"))
+//             } else {
+//                 resolve(result);
+//             }
+//         }, 1000);
+//     })
+// }
+// function task2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task2");
+//         }, 2000);
+//     });
+// }
+
+// function task3() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task3");
+//         }, 1500);
+//     });
+// }
+
+// function task4() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Result from task4");
+//         }, 1000);
+//     });
+// }
+// task1()
+// .then(result1=>{
+//     if(result1==="Result from task1"){
+//         console.log("Result from task1")
+//         return task2().then(result2=>{
+//             console.log(result2)
+//             return task3().then(result3=>{
+//                 console.log(result3)
+//                 return
+//             })
+//         })
+//     }else{
+//         console.log("Special case")
+//         return task4();
+//     }
+// })
+// .then(result4=>{
+//     console.log(result4)
+// })
+// .catch(error=>{
+//     console.error(error.message)
+// })
 function task1() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const results = ["Result from task1", "Special case", "Another result"];
-            const result = results[Math.floor(Math.random() * results.length)]
+            const result = results[Math.floor(Math.random() * results.length)];
             if (result === "Another result") {
-                reject(new Error("Error in task1"))
+                reject(new Error("Error in task1"));
             } else {
                 resolve(result);
             }
         }, 1000);
-    })
+    });
 }
+
 function task2() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -374,28 +433,34 @@ function task4() {
         }, 1000);
     });
 }
+
 task1()
 .then(result1=>{
+    console.log(result1)
     if(result1==="Result from task1"){
-        console.log("Result from task1")
-        return task2().then(result2=>{
-            console.log(result2)
-            return task3().then(result3=>{
-                console.log(result3)
-                return
-            })
-        })
+        return task2()
     }else{
-        console.log("Special case")
         return task4();
     }
 })
-.then(result4=>{
-    console.log(result4)
+.then(result=>{
+    if(result==="Result from task2"){
+        console.log(result);
+        return task3();
+    }else{
+        console.log(result)
+        return null;
+    }
 })
-.catch(error=>{
+.then(result=>{
+    if(result!==null){
+        console.log(result)
+    }
+}).catch(error=>{
     console.error(error.message)
 })
+// 条件分岐に基づいてタスクを実行し、各結果を出力するコードを書いてください。
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
