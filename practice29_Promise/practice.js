@@ -1124,45 +1124,111 @@
 // fetchUserData() が成功した場合、さらに fetchAdditionalDetails() を実行し、
 // その結果を console.log() で出力してください。
 // いずれかの非同期処理が失敗した場合、そのエラーメッセージを console.error() で出力し、処理を中止してください。
-function checkUserCredentials() {
+// function checkUserCredentials() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve("User authenticated") : reject(new Error("User authentication failed"));
+//         }, 1000);
+//     });
+// }
+
+// function fetchUserData() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve({ id: 1, name: "John Doe" }) : reject(new Error("Failed to fetch user data"));
+//         }, 1000);
+//     });
+// }
+
+// function fetchAdditionalDetails() {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             Math.random() < 0.8 ? resolve({ details: "Additional user details" }) : reject(new Error("Failed to fetch additional details"));
+//         }, 1000);
+//     });
+// }
+
+// // 条件付き非同期処理を実装してください。
+// checkUserCredentials()
+// .then(result=>{
+//     console.log(result);
+//     return fetchUserData();
+// })
+// .then(result=>{
+//     console.log(result);
+//     return fetchAdditionalDetails();
+// })
+// .then(result=>{
+//     console.log(result);
+// })
+// .catch(error=>{
+//     console.error(error.message);
+// })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 23: 再帰的リトライと条件付き非同期処理
+// 目的: 複数回の再試行を含む非同期処理の実装を学び、条件に応じて次の処理を行う方法を理解する。
+
+// 課題
+// 以下の非同期関数 fetchData, processData を使用して、データを取得し、
+// 失敗した場合は最大3回まで再試行を行い、成功した場合はそのデータを処理する流れを実装してください。
+
+// fetchData() を実行し、成功すればデータを processData() に渡して処理を行い、結果を console.log() で出力します。
+// fetchData() が失敗した場合、最大3回まで再試行します。
+// 3回目の試行でも fetchData() が失敗した場合は、エラーメッセージを console.error() で出力し、処理を中止してください。
+// processData() が失敗した場合も console.error() でそのエラーメッセージを出力し、処理を中止してください。
+function fetchData() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve("User authenticated") : reject(new Error("User authentication failed"));
+            Math.random() < 0.5 ? resolve("Fetched data") : reject(new Error("Fetch failed"));
         }, 1000);
     });
 }
 
-function fetchUserData() {
+function processData(data) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            Math.random() < 0.8 ? resolve({ id: 1, name: "John Doe" }) : reject(new Error("Failed to fetch user data"));
-        }, 1000);
+            Math.random() < 0.7 ? resolve(`Processed ${data}`) : reject(new Error("Processing failed"));
+        }, 500);
     });
 }
 
-function fetchAdditionalDetails() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            Math.random() < 0.8 ? resolve({ details: "Additional user details" }) : reject(new Error("Failed to fetch additional details"));
-        }, 1000);
-    });
+// 再帰的リトライを含めた非同期処理を実装してください。
+function retryAsyncOperation(asyncFunc1,asyncFunc2, maxAttempt) {
+    let attempt = 1
+    function execute() {
+        return asyncFunc1()
+            .then(result=>{
+                console.log("asyncFunc1",result)
+                return asyncFunc2(result)
+                .then(result=>{
+                    console.log("asyncFunc2",result)
+                    return result
+                })
+            })
+            .catch(error=>{
+                console.error(error.message);
+                if(attempt>=maxAttempt){
+                    console.log(`attemt is ${attempt}`)
+                    throw error;
+                }else{
+                    console.log(`attemt is ${attempt}`)
+                    attempt++
+                    return execute()
+                }
+            })
+    }
+    return execute();
 }
-
-// 条件付き非同期処理を実装してください。
-checkUserCredentials()
+retryAsyncOperation(fetchData,processData, 3)
 .then(result=>{
-    console.log(result);
-    return fetchUserData();
-})
-.then(result=>{
-    console.log(result);
-    return fetchAdditionalDetails();
-})
-.then(result=>{
-    console.log(result);
+    console.log(result)
 })
 .catch(error=>{
     console.error(error.message);
 })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
