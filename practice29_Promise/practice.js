@@ -472,51 +472,97 @@
 // taskA と taskB を 同時に実行 します。
 // 両方のタスクが完了した後に、どちらか一方でも "Success" の結果を返した場合は、taskC を実行します。
 // 両方のタスクが "Failure" の結果を返した場合は、taskC は実行せず、エラーメッセージを出力して終了します。
-function taskA() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const result = Math.random() < 0.5 ? "Success" : "Failure";
-            resolve(result);
-        }, 1000);
-    });
-}
+// function taskA() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             const result = Math.random() < 0.5 ? "Success" : "Failure";
+//             resolve(result);
+//         }, 1000);
+//     });
+// }
 
-function taskB() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const result = Math.random() < 0.5 ? "Success" : "Failure";
-            resolve(result);
-        }, 1500);
-    });
-}
+// function taskB() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             const result = Math.random() < 0.5 ? "Success" : "Failure";
+//             resolve(result);
+//         }, 1500);
+//     });
+// }
 
-function taskC() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Task C completed");
-        }, 2000);
-    });
-}
+// function taskC() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve("Task C completed");
+//         }, 2000);
+//     });
+// }
 
-// 並列処理と条件分岐を組み合わせて、指定された条件通りにタスクを実行するコードを書いてください。
-Promise.allSettled([taskA(),taskB()])
-.then(results=>{
-    results.forEach((result,index)=>{
-        console.log(`Task ${index+1} result: `,result);
-    })
-    const anySuccess = results.some(result=>result.status==="fulfilled"&&result.value==="Success");
-    if(anySuccess){
-        return taskC()
-    }else{
-        throw new Error("Both tasks failed. Task C will not be executed.");
-    }
-})
-.then(result=>{
-    console.log(result);
-})
-.catch(error=>{
-    console.error(error.message);
-})
+// // 並列処理と条件分岐を組み合わせて、指定された条件通りにタスクを実行するコードを書いてください。
+// Promise.allSettled([taskA(),taskB()])
+// .then(results=>{
+//     results.forEach((result,index)=>{
+//         console.log(`Task ${index+1} result: `,result);
+//     })
+//     const anySuccess = results.some(result=>result.status==="fulfilled"&&result.value==="Success");
+//     if(anySuccess){
+//         return taskC()
+//     }else{
+//         throw new Error("Both tasks failed. Task C will not be executed.");
+//     }
+// })
+// .then(result=>{
+//     console.log(result);
+// })
+// .catch(error=>{
+//     console.error(error.message);
+// })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題 11: 非同期タスクの結果を集約し、条件に応じた処理を行う
+// 目的: 複数の非同期処理を実行し、その結果をもとにさらに複雑な条件分岐を実装する方法を学ぶ。
+
+// 課題
+// 以下の非同期関数 fetchData1, fetchData2, fetchData3 を実行し、それぞれの結果を集約して、
+// 以下の条件を満たす処理を行ってください。
+
+// 全てのタスクが成功した場合:
+
+// それぞれの結果を配列に格納し、console.log() で「All tasks succeeded: [結果1, 結果2, 結果3]」と出力する。
+// いずれかのタスクが失敗した場合:
+
+// エラーメッセージを console.error() で「One or more tasks failed.」と出力し、失敗したタスクの詳細を表示する。
+function fetchData1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.8 ? resolve("Data from fetchData1") : reject(new Error("Error in fetchData1"))
+        }, 1000);
+    })
+}
+function fetchData2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.8 ? resolve("Data from fetchData2") : reject(new Error("Error in fetchData2"))
+        }, 1500);
+    })
+}
+function fetchData3() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() < 0.8 ? resolve("Data from fetchData3") : reject(new Error("Error in fetchData3"))
+        }, 2000);
+    })
+}
+Promise.allSettled([fetchData1(), fetchData2(), fetchData3()])
+    .then(results => {
+        const successes = results.filter(result => result.status === "fulfilled").map(result => result.value);
+        const failures = results.filter(result => result.status === "failures").map(result => result.value);
+        if(failures.length>0){
+            console.log("One or more tasks failed.");
+            failures.forEach(error=>console.error(error))
+        }else{
+            console.log("All tasks succeeded:",successes)
+        }
+    })
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
