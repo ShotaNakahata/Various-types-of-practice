@@ -56,42 +56,85 @@
 // 複数の非同期処理を並行して実行し、それらの結果をまとめて出力する関数を作成します。
 // 以下の3つの非同期関数fetchData1, fetchData2, fetchData3を並行して呼び出し、
 // その結果を1つのオブジェクトとして返すfetchAllData関数を作成してください。
-async function fetchData1() {
-    return new Promise((resolve) => {
+// async function fetchData1() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve('Data from fetchData1');
+//         }, 1000);
+//     });
+// }
+
+// async function fetchData2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve('Data from fetchData2');
+//         }, 2000);
+//     });
+// }
+
+// async function fetchData3() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve('Data from fetchData3');
+//         }, 1500);
+//     });
+// }
+
+// async function fetchAllData() {
+//     const [data1,data2,data3] = await Promise.all([fetchData1(), fetchData2(), fetchData3()])
+//     return {data1,data2,data3}
+// }
+
+// (async()=>{
+//     const result = await fetchAllData();
+//     console.log(result)
+// })();
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// async/awaitを使用して、複数の非同期処理を実行し、エラーハンドリングも行うコードを書いてください。3
+// つの非同期関数fetchUserData, fetchPosts, fetchCommentsを並行して呼び出し、
+// それらの結果をまとめてオブジェクトとして返すfetchAllDataWithHandling関数を作成します。
+// なお、いずれかの関数でエラーが発生した場合は、そのエラーをキャッチして適切なエラーメッセージを出力してください。
+async function fetchUserData() {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve('Data from fetchData1');
+            Math.random() > 0.7 ? reject(new Error('Failed to fetch user data')) : resolve({ id: 1, name: 'Alice' });
         }, 1000);
     });
 }
 
-async function fetchData2() {
-    return new Promise((resolve) => {
+async function fetchPosts() {
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve('Data from fetchData2');
-        }, 2000);
-    });
-}
-
-async function fetchData3() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve('Data from fetchData3');
+            Math.random() > 0.7 ? reject(new Error('Failed to fetch posts')) : resolve(['Post 1', 'Post 2', 'Post 3']);
         }, 1500);
     });
 }
 
-async function fetchAllData() {
-    const [data1,data2,data3] = await Promise.all([fetchData1(), fetchData2(), fetchData3()])
-    return {data1,data2,data3}
+async function fetchComments() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            Math.random() > 0.7 ? reject(new Error('Failed to fetch comments')) : resolve(['Comment 1', 'Comment 2']);
+        }, 2000);
+    });
+}
+async function fetchAllDataWithHandling() {
+    try {
+        const [UserData, Posts, Comments] = await Promise.all([fetchUserData(), fetchPosts(), fetchComments()])
+        return { UserData, Posts, Comments }
+    } catch (error) {
+        console.error(error.message)
+        return null;
+    }
 }
 
-(async()=>{
-    const result = await fetchAllData();
-    console.log(result)
+(async () => {
+    const result = await fetchAllDataWithHandling();
+    if (result) {
+        console.log(result)
+    }else{
+        console.log('Failed to fetch all data')
+    }
 })();
-
-
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
