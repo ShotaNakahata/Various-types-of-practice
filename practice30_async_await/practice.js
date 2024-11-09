@@ -179,25 +179,61 @@
 // ヒント:
 // API呼び出しを並行して行うためにPromise.all()を使用できます。
 // 各fetchの結果はawaitで待機し、JSON形式にパースしてください。
-async function fetchUserAndPosts() {
+// async function fetchUserAndPosts() {
+//     try {
+//         const [userResponse, postsResponse] =await Promise.all([
+//             fetch("https://jsonplaceholder.typicode.com/users/1"),
+//             fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
+//         ])
+//         if (!userResponse.ok || !postsResponse.ok) {
+//             throw new Error("Failed to fetch user or posts");
+//         }
+//         const user = await userResponse.json();
+//         const posts = await postsResponse.json();
+//         const result = { user, posts }
+//         console.log(result)
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// }
+// fetchUserAndPosts();
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題7: 並行処理とエラーハンドリングを組み合わせた非同期処理
+// 複数の非同期API呼び出しを組み合わせて、エラーハンドリングも適切に行う関数を作成してください。
+// この問題では、外部APIから複数のデータを並行して取得し、
+// 個別のAPI呼び出しでエラーが発生した場合も他のAPI呼び出しの結果を取得できるようにします。
+
+// 要件:
+// fetchUserData, fetchPostsData, fetchCommentsDataという3つの関数を作成し、それぞれ以下のURLからデータを取得します。
+// ユーザーデータ: https://jsonplaceholder.typicode.com/users/1
+// 投稿データ: https://jsonplaceholder.typicode.com/posts?userId=1
+// コメントデータ: https://jsonplaceholder.typicode.com/comments?postId=1
+// fetchAllDataSafely関数を作成し、これらの関数を並行して実行します。
+// API呼び出しの1つがエラーになっても、他の呼び出しが続行されるようにします。
+// 各関数の結果をまとめてオブジェクトとして返し、成功したデータだけが含まれるようにしてください。
+// エラーメッセージはconsole.errorで出力してください
+async function fetchAllDataSafelyname() {
     try {
-        const [userResponse, postsResponse] =await Promise.all([
+        const response = await Promise.allSettled([
             fetch("https://jsonplaceholder.typicode.com/users/1"),
-            fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
+            fetch("https://jsonplaceholder.typicode.com/posts?userId=1"),
+            fetch("https://jsonplaceholder.typicode.com/comments?postId=1")
         ])
-        if (!userResponse.ok || !postsResponse.ok) {
-            throw new Error("Failed to fetch user or posts");
-        }
-        const user = await userResponse.json();
-        const posts = await postsResponse.json();
-        const result = { user, posts }
-        console.log(result)
+        const user = response[0].status === "fulfilled" ? await response[0].value.json() : null;
+        const post = response[1].status === "fulfilled" ? await response[1].value.json() : null;
+        const comment = response[2].status === "fulfilled" ? await response[2].value.json() : null;
+        return { user, post, comment }
     } catch (error) {
         console.error(error.message);
     }
 }
-fetchUserAndPosts();
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+fetchAllDataSafelyname()
+    .then(result => {
+        console.log(result)
+    })
+    .catch(error => {
+        console.error(error.message)
+    })
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
