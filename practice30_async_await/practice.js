@@ -149,22 +149,54 @@
 // ヒント:
 // fetchはPromiseを返す関数です。awaitを使って結果を待機できます。
 // レスポンスをresponse.json()でJSON形式に変換することができます。
-async function fetchData() {
+// async function fetchData() {
+//     try {
+//         const response = await fetch("https://jsonplaceholder.typicode.com/users")
+//         // console.log(response)
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         const data = await response.json();
+//         console.log(data[0].name);
+//     } catch (error) {
+//         console.error('There has been a problem with your fetch operation:', error);
+//     }
+// }
+
+// fetchData();
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題6: 複数のAPI呼び出しを組み合わせた非同期処理
+// 複数のAPIからデータを取得し、それらを組み合わせた情報を表示する関数を作成してください。
+// 外部APIとしてJSONPlaceholderを使用します。
+
+// 要件:
+// fetchUserAndPostsという名前のasync関数を作成してください。
+// https://jsonplaceholder.typicode.com/users/1からユーザー情報を取得します。
+// https://jsonplaceholder.typicode.com/posts?userId=1からそのユーザーの投稿一覧を取得します。
+// これら2つのAPI呼び出しを並行して実行し、ユーザー情報と投稿を1つのオブジェクトにまとめて返します。
+// 取得したオブジェクトをコンソールに出力してください。
+// エラーハンドリングを行い、エラー発生時には適切なメッセージを出力してください。
+// ヒント:
+// API呼び出しを並行して行うためにPromise.all()を使用できます。
+// 各fetchの結果はawaitで待機し、JSON形式にパースしてください。
+async function fetchUserAndPosts() {
     try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users")
-        // console.log(response)
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        const [userResponse, postsResponse] =await Promise.all([
+            fetch("https://jsonplaceholder.typicode.com/users/1"),
+            fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
+        ])
+        if (!userResponse.ok || !postsResponse.ok) {
+            throw new Error("Failed to fetch user or posts");
         }
-        const data = await response.json();
-        console.log(data[0].name);
+        const user = await userResponse.json();
+        const posts = await postsResponse.json();
+        const result = { user, posts }
+        console.log(result)
     } catch (error) {
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error(error.message);
     }
 }
-
-fetchData();
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+fetchUserAndPosts();
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
