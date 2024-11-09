@@ -212,29 +212,96 @@
 // API呼び出しの1つがエラーになっても、他の呼び出しが続行されるようにします。
 // 各関数の結果をまとめてオブジェクトとして返し、成功したデータだけが含まれるようにしてください。
 // エラーメッセージはconsole.errorで出力してください
-async function fetchAllDataSafelyname() {
+// async function fetchAllDataSafelyname() {
+//     try {
+//         const response = await Promise.allSettled([
+//             fetch("https://jsonplaceholder.typicode.com/users/1"),
+//             fetch("https://jsonplaceholder.typicode.com/posts?userId=1"),
+//             fetch("https://jsonplaceholder.typicode.com/comments?postId=1")
+//         ])
+//         const user = response[0].status === "fulfilled" ? await response[0].value.json() : null;
+//         const post = response[1].status === "fulfilled" ? await response[1].value.json() : null;
+//         const comment = response[2].status === "fulfilled" ? await response[2].value.json() : null;
+//         return { user, post, comment }
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// }
+// fetchAllDataSafelyname()
+//     .then(result => {
+//         console.log(result)
+//     })
+//     .catch(error => {
+//         console.error(error.message)
+//     })
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題8: 非同期関数の実行順序と待機処理
+// この問題では、複数の非同期関数を順番に実行し、その結果を基に次の処理を行う練習をします。
+// 複数のAPI呼び出しを順番に実行し、前の結果を使用して次のAPI呼び出しに渡してください。
+
+// 要件:
+// getUser関数を作成し、https://jsonplaceholder.typicode.com/users/1からユーザー情報を取得します。
+// getUserPosts関数を作成し、
+// 取得したユーザーのIDを使用してhttps://jsonplaceholder.typicode.com/posts?userId=1から投稿一覧を取得します。
+// これらの関数をfetchUserData関数で順番に呼び出し、結果を1つのオブジェクトとして返してください。
+// 取得したデータはコンソールに出力してください。
+// 各API呼び出しでエラーハンドリングを行い、エラー時には適切なメッセージを出力してください。
+// ヒント:
+// awaitを使用して非同期関数の実行を順番に制御してください。
+// 各関数でtry/catchを使ってエラーハンドリングを実装してください。
+async function getUser() {
     try {
-        const response = await Promise.allSettled([
-            fetch("https://jsonplaceholder.typicode.com/users/1"),
-            fetch("https://jsonplaceholder.typicode.com/posts?userId=1"),
-            fetch("https://jsonplaceholder.typicode.com/comments?postId=1")
-        ])
-        const user = response[0].status === "fulfilled" ? await response[0].value.json() : null;
-        const post = response[1].status === "fulfilled" ? await response[1].value.json() : null;
-        const comment = response[2].status === "fulfilled" ? await response[2].value.json() : null;
-        return { user, post, comment }
+        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+        if (!response.ok) {
+            throw new Error("Failed to fetch user data");
+        }
+        const user = await response.json();
+        return user.id;
     } catch (error) {
-        console.error(error.message);
+        console.error("Error in getUser:", error.message);
+        return null; // エラー時にnullを返す
     }
 }
-fetchAllDataSafelyname()
+
+async function getUserPosts(userId) {
+    try {
+        // テンプレートリテラルの修正
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch user posts");
+        }
+        const posts = await response.json();
+        return posts; // postsとして返す
+    } catch (error) {
+        console.error("Error in getUserPosts:", error.message);
+        return null; // エラー時にnullを返す
+    }
+}
+
+async function fetchUserData() {
+    const userId = await getUser();
+    if (userId === null) {
+        console.error("User data could not be retrieved.");
+        return null; // エラー時にnullを返す
+    }
+
+    const posts = await getUserPosts(userId);
+    if (posts === null) {
+        console.error("User posts could not be retrieved.");
+        return { userId, posts: null };
+    }
+
+    return { userId, posts };
+}
+
+fetchUserData()
     .then(result => {
-        console.log(result)
+        console.log(result);
     })
     .catch(error => {
-        console.error(error.message)
-    })
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+        console.error("Unexpected error:", error.message);
+    });
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
