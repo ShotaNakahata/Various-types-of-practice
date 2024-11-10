@@ -527,20 +527,20 @@
 // titleに特定の単語（例: "qui"）が含まれている投稿だけを返します。
 // 非同期処理を使用してAPI呼び出しを行い、エラーハンドリングを適切に行ってください。
 // 結果をコンソールに出力し、取得された投稿の配列を確認してください。
-async function fetchAndFilterPosts(url) {
-    try {
-        const response = await fetch(url);
-        if(!response.ok){
-            throw new Error("response.ok is fail" + error.message);
-        }
-        const posts = await response.json();
-        const filtered = posts.filter(post=>post.title.includes("qui"));
-        console.log("filtered : ",filtered)
-    } catch (error) {
-        console.error(error.message)
-    }
-}
-fetchAndFilterPosts("https://jsonplaceholder.typicode.com/posts")
+// async function fetchAndFilterPosts(url) {
+//     try {
+//         const response = await fetch(url);
+//         if(!response.ok){
+//             throw new Error("response.ok is fail" + error.message);
+//         }
+//         const posts = await response.json();
+//         const filtered = posts.filter(post=>post.title.includes("qui"));
+//         console.log("filtered : ",filtered)
+//     } catch (error) {
+//         console.error(error.message)
+//     }
+// }
+// fetchAndFilterPosts("https://jsonplaceholder.typicode.com/posts")
 // output
 // Filtered posts: [
 //     {
@@ -559,5 +559,70 @@ fetchAndFilterPosts("https://jsonplaceholder.typicode.com/posts")
 // ]
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題14: APIデータの結合とソート
+// この問題では、複数のAPIからデータを取得し、それらを結合したうえで特定のプロパティでソートする関数を作成します。
+// JSONPlaceholderのAPIを使用して、ユーザーデータと投稿データを結合します。
+
+// 要件:
+// APIエンドポイント:
+// ユーザーデータ: https://jsonplaceholder.typicode.com/users
+// 投稿データ: https://jsonplaceholder.typicode.com/posts
+// **関数fetchAndMergeData**を作成し、ユーザーデータと投稿データを取得し、
+// userIdをキーとして投稿にユーザーの情報を追加します。
+// 投稿データをtitleプロパティのアルファベット順にソートし、結果を返します。
+// 適切なエラーハンドリングを実装してください。
+async function fetchAndMergeData() {
+    try {
+        const userResponse = await fetch("https://jsonplaceholder.typicode.com/users");
+        const postResponse = await fetch("https://jsonplaceholder.typicode.com/posts");
+        if (!userResponse.ok || !postResponse.ok) {
+            throw new Error("fetch result is not ok");
+        }
+        const users = await userResponse.json();
+        const posts = await postResponse.json();
+        const mergedData = posts.map(post => {
+            const user = users.find(user => user.id === post.userId)
+            return { ...post, user }
+
+        })
+        const sortedMergedData = mergedData.sort((a,b)=>a.title.localeCompare(b.title))
+        console.log(sortedMergedData)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+fetchAndMergeData();
+// output
+// Merged and sorted posts: [
+//     {
+//         userId: 1,
+//         id: 2,
+//         title: "at vero eos et accusamus",
+//         body: "quia et suscipit...",
+//         user: {
+//             id: 1,
+//             name: "Leanne Graham",
+//             username: "Bret",
+//             email: "Sincere@april.biz",
+//             ...
+//       }
+//     },
+//     {
+//         userId: 3,
+//         id: 11,
+//         title: "dolorem dolore est ipsam",
+//         body: "dignissimos aperiam dolorem...",
+//         user: {
+//             id: 3,
+//             name: "Clementine Bauch",
+//             username: "Samantha",
+//             email: "Nathan@yesenia.net",
+//             ...
+//       }
+//     },
+//     ...
+// ]
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
