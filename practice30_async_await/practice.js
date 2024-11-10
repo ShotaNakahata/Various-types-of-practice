@@ -467,57 +467,97 @@
 // fetchSequentially関数を作成し、ID 1から3までの投稿を逐次的に（順番に）取得し、合計の実行時間を測定します。
 // fetchInParallel関数を作成し、ID 1から3までの投稿を並列で取得し、合計の実行時間を測定します。
 // 両方の関数を呼び出し、それぞれの実行時間をコンソールに出力してください。
-async function fetchData() {
-    console.time("Sequential Fetch")
-    const fetchSequentially = async () => {
-        let data = []
-        for (let i = 1; i <= 3; i++) {
-            let id = i
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-            if (!response.ok) {
-                throw new Error("response.ok id not true");
-            }
-            const post = await response.json();
-            data.push(post);
-        }
-        return data
-    }
-    const sequentialData = await fetchSequentially()
-    console.timeEnd("Sequential Fetch");
+// async function fetchData() {
+//     console.time("Sequential Fetch")
+//     const fetchSequentially = async () => {
+//         let data = []
+//         for (let i = 1; i <= 3; i++) {
+//             let id = i
+//             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+//             if (!response.ok) {
+//                 throw new Error("response.ok id not true");
+//             }
+//             const post = await response.json();
+//             data.push(post);
+//         }
+//         return data
+//     }
+//     const sequentialData = await fetchSequentially()
+//     console.timeEnd("Sequential Fetch");
 
-    console.time("Parallel Fetch");
-    const fetchInParallel = async () => {
-        const responses = await Promise.all([
-            fetch("https://jsonplaceholder.typicode.com/posts/1"),
-            fetch("https://jsonplaceholder.typicode.com/posts/2"),
-            fetch("https://jsonplaceholder.typicode.com/posts/3"),
-        ])
+//     console.time("Parallel Fetch");
+//     const fetchInParallel = async () => {
+//         const responses = await Promise.all([
+//             fetch("https://jsonplaceholder.typicode.com/posts/1"),
+//             fetch("https://jsonplaceholder.typicode.com/posts/2"),
+//             fetch("https://jsonplaceholder.typicode.com/posts/3"),
+//         ])
 
-        const data =await Promise.all(responses.map(response=>{
-            if(!response.ok){
-                throw new Error("response is not ok")
-            }
-            return response.json();
-        }))
-        return data
-    }
-    const parallelData = await fetchInParallel();
-    console.timeEnd("Parallel Fetch");
+//         const data =await Promise.all(responses.map(response=>{
+//             if(!response.ok){
+//                 throw new Error("response is not ok")
+//             }
+//             return response.json();
+//         }))
+//         return data
+//     }
+//     const parallelData = await fetchInParallel();
+//     console.timeEnd("Parallel Fetch");
 
-    return [sequentialData, parallelData];
-}
-fetchData()
-    .then(result => {
-        console.log(result);
-    })
-    .catch(error => {
-        console.error(error.message)
-    })
-// output
-// Sequential fetch complete in: 3000ms
-// Parallel fetch complete in: 1000ms
-
+//     return [sequentialData, parallelData];
+// }
+// fetchData()
+//     .then(result => {
+//         console.log(result);
+//     })
+//     .catch(error => {
+//         console.error(error.message)
+//     })
+// // output
+// // Sequential fetch complete in: 3000ms
+// // Parallel fetch complete in: 1000ms
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題13: APIのデータ取得とデータのフィルタリング
+// この問題では、複数のAPI呼び出しを行い、取得したデータを指定された条件でフィルタリングする関数を作成します。
+// 今回はJSONPlaceholderのAPIを使用して、投稿データを取得し、特定の条件を満たす投稿だけを抽出します。
+
+// 要件:
+// APIエンドポイント: https://jsonplaceholder.typicode.com/posts
+// **関数fetchAndFilterPosts**を作成し、すべての投稿を取得して、
+// titleに特定の単語（例: "qui"）が含まれている投稿だけを返します。
+// 非同期処理を使用してAPI呼び出しを行い、エラーハンドリングを適切に行ってください。
+// 結果をコンソールに出力し、取得された投稿の配列を確認してください。
+async function fetchAndFilterPosts(url) {
+    try {
+        const response = await fetch(url);
+        if(!response.ok){
+            throw new Error("response.ok is fail" + error.message);
+        }
+        const posts = await response.json();
+        const filtered = posts.filter(post=>post.title.includes("qui"));
+        console.log("filtered : ",filtered)
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+fetchAndFilterPosts("https://jsonplaceholder.typicode.com/posts")
+// output
+// Filtered posts: [
+//     {
+//         userId: 1,
+//         id: 2,
+//         title: "qui est esse",
+//         body: "est rerum tempore vitae..."
+//     },
+//     {
+//         userId: 1,
+//         id: 7,
+//         title: "magnam facilis autem",
+//         body: "dolore placeat quibusdam ea quo vitae..."
+//     },
+//     ...
+// ]
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
