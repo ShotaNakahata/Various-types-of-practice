@@ -249,59 +249,102 @@
 // ヒント:
 // awaitを使用して非同期関数の実行を順番に制御してください。
 // 各関数でtry/catchを使ってエラーハンドリングを実装してください。
-async function getUser() {
-    try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
-        if (!response.ok) {
-            throw new Error("Failed to fetch user data");
-        }
-        const user = await response.json();
-        return user.id;
-    } catch (error) {
-        console.error("Error in getUser:", error.message);
-        return null; // エラー時にnullを返す
-    }
-}
+// async function getUser() {
+//     try {
+//         const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+//         if (!response.ok) {
+//             throw new Error("Failed to fetch user data");
+//         }
+//         const user = await response.json();
+//         return user.id;
+//     } catch (error) {
+//         console.error("Error in getUser:", error.message);
+//         return null; // エラー時にnullを返す
+//     }
+// }
 
-async function getUserPosts(userId) {
-    try {
-        // テンプレートリテラルの修正
-        const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-        if (!response.ok) {
-            throw new Error("Failed to fetch user posts");
-        }
-        const posts = await response.json();
-        return posts; // postsとして返す
-    } catch (error) {
-        console.error("Error in getUserPosts:", error.message);
-        return null; // エラー時にnullを返す
-    }
-}
+// async function getUserPosts(userId) {
+//     try {
+//         // テンプレートリテラルの修正
+//         const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+//         if (!response.ok) {
+//             throw new Error("Failed to fetch user posts");
+//         }
+//         const posts = await response.json();
+//         return posts; // postsとして返す
+//     } catch (error) {
+//         console.error("Error in getUserPosts:", error.message);
+//         return null; // エラー時にnullを返す
+//     }
+// }
 
-async function fetchUserData() {
-    const userId = await getUser();
-    if (userId === null) {
-        console.error("User data could not be retrieved.");
-        return null; // エラー時にnullを返す
-    }
+// async function fetchUserData() {
+//     const userId = await getUser();
+//     if (userId === null) {
+//         console.error("User data could not be retrieved.");
+//         return null; // エラー時にnullを返す
+//     }
 
-    const posts = await getUserPosts(userId);
-    if (posts === null) {
-        console.error("User posts could not be retrieved.");
-        return { userId, posts: null };
-    }
+//     const posts = await getUserPosts(userId);
+//     if (posts === null) {
+//         console.error("User posts could not be retrieved.");
+//         return { userId, posts: null };
+//     }
 
-    return { userId, posts };
-}
+//     return { userId, posts };
+// }
 
-fetchUserData()
-    .then(result => {
-        console.log(result);
-    })
-    .catch(error => {
-        console.error("Unexpected error:", error.message);
-    });
+// fetchUserData()
+//     .then(result => {
+//         console.log(result);
+//     })
+//     .catch(error => {
+//         console.error("Unexpected error:", error.message);
+//     });
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題9: エラーハンドリングとリトライ機能の実装
+// この問題では、API呼び出しが失敗した場合に一定回数まで再試行（リトライ）を行う非同期関数を作成します。
+// API呼び出しに失敗したときにエラーハンドリングを行い、再試行を繰り返して、最終的に成功したか、
+// 失敗した場合は適切なメッセージを出力します。
+
+// 要件:
+// fetchWithRetryという名前の関数を作成し、urlとretries（再試行回数）を引数に取ります。
+// fetchWithRetry関数はfetchを使って指定されたurlに対してリクエストを行います。
+// リクエストが失敗した場合、指定されたretries回数だけ再試行を行い、
+// それでも失敗した場合はエラーメッセージをconsole.errorで出力します。
+// 成功した場合は取得したデータをJSON形式で返します。
+// 再試行の間には一定の遅延（例えば500ms）を挟んでください。
+async function fetchWithRetry(url, entries = 3, delay = 500) {
+    for (let i = 0; i <= entries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+            const user = await response.json();
+            console.log('Data fetched successfully:', user);
+            return user
+        } catch (error) {
+            console.error(`Attempt ${i + 1} failed: ${error.message}`);
+            if (i === entries) {
+                console.error("Error: Failed to fetch data after multiple attempts.")
+                return null
+            }
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+
+}
+
+fetchWithRetry('https://jsonplaceholder.typicode.com/users/1', 3, 500)
+    .then(result => {
+        if (result) {
+            console.log('Final result:', result);
+        }
+    })
+    .catch(error => {
+        console.error('Unexpected error:', error.message);
+    });
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
