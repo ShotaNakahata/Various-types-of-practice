@@ -649,39 +649,82 @@
 //     posts: null,  // 投稿データがエラーで取得できなかった場合
 //     comments: [...] // コメントデータが正常に取得された場合
 // }
-async function fetchAllData() {
-    try {
-        // [userResponse, postResponse, commentResponse]
-        let responses = await Promise.allSettled([
-            fetch("https://jsonplaceholder.typicode.com/users"),
-            fetch("https://jsonplaceholder.typicode.com/posts"),
-            fetch("https://jsonplaceholder.typicode.com/comments")
-        ])
-        responses = responses.flat()
+// async function fetchAllData() {
+//     try {
+//         // [userResponse, postResponse, commentResponse]
+//         let responses = await Promise.allSettled([
+//             fetch("https://jsonplaceholder.typicode.com/users"),
+//             fetch("https://jsonplaceholder.typicode.com/posts"),
+//             fetch("https://jsonplaceholder.typicode.com/comments")
+//         ])
+//         responses = responses.flat()
 
-        const results = await Promise.all(
+//         const results = await Promise.all(
+//             responses.map(async (response) => {
+//                 if (response.status === "fulfilled") {
+//                     try {
+//                         const JsonData = await response.value.json();
+//                         return JsonData
+//                     } catch (error) {
+//                         return { error: "Failed to parse JSON" };
+//                     }
+//                 }else{
+//                     return { error: result.reason.message };
+//                 }
+//             })
+//         )
+//         console.log('Processed Results:', results);
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// }
+
+// fetchAllData()
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題: 非同期処理で複数のAPIデータを合成する
+// 2つの異なるAPIからデータを取得し、それらを合成して1つのオブジェクトにまとめる関数を作成してください。
+
+// 要件:
+
+// 2つのAPIエンドポイントからデータを取得します。
+// エンドポイント1: https://jsonplaceholder.typicode.com/users/1
+// エンドポイント2: https://jsonplaceholder.typicode.com/posts?userId=1
+// データの取得に失敗した場合は、適切なエラーメッセージを出力してください。
+// データを合成して、次のようなオブジェクトを返します:
+async function fetchAndMargeFunc() {
+    try {
+        const responses = await Promise.all([
+            fetch("https://jsonplaceholder.typicode.com/users/1"),
+            fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
+        ])
+        const result = await Promise.all(
             responses.map(async (response) => {
-                if (response.status === "fulfilled") {
-                    try {
-                        const JsonData = await response.value.json();
+                try {
+                    if (response.ok) {
+                        const JsonData = await response.json();
                         return JsonData
-                    } catch (error) {
+                    } else {
                         return { error: "Failed to parse JSON" };
                     }
-                }else{
-                    return { error: result.reason.message };
+                } catch (error) {
+                    return { error: "response is not ok" };
                 }
             })
         )
-        console.log('Processed Results:', results);
+        const output = { user: result[0], posts: result[1] }
+        console.log(output)
     } catch (error) {
-        console.error(error.message);
+        console.error(error.message)
     }
 }
+fetchAndMargeFunc();
 
-fetchAllData()
+// output
+// {
+//     user: { /* ユーザーデータ */ },
+//     posts: [ /* 投稿データの配列 */]
+// }
 
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
