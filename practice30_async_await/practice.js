@@ -847,7 +847,7 @@ async function mergeUsersAndPosts({ userData, posts }) {
             const post = posts.find(post => post.userId === user.id)
             return { user,post }
         })
-        const filterMerged =merged.filter(data=>data.post.title.includes("qui"))
+        const filterMerged =merged.filter(data=>data.post && data.post.title.includes("qui"))
         console.log(filterMerged)
         // console.log(posts)
     } catch (error) {
