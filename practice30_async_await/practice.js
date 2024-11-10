@@ -738,54 +738,54 @@
 // getUser()で取得したユーザーIDを使用してgetPostsByUser(userId)を呼び出し、
 // 次に取得した投稿の1つ目の投稿IDを使用してgetCommentsByPost(postId)を呼び出してください。
 // すべてのデータをオブジェクトにまとめ、以下の形式で出力してください。
-async function fetchCompleteUserData() {
-    let output = {}
-    async function getUser() {
-        try {
-            const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
-            if (!response.ok) {
-                throw new Error("fail to fetch userData")
-            }
-            const user = await response.json();
-            // console.log(user)
-            output.user = user
-            return getPostsByUser(user.id)
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-    async function getPostsByUser(userId) {
-        try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-            if (!response.ok) {
-                throw new Error("fail to fetch userData")
-            }
-            const post = await response.json();
-            // console.log(post)
-            output.post = post
-            return getCommentsByPost(post.userId)
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
+// async function fetchCompleteUserData() {
+//     let output = {}
+//     async function getUser() {
+//         try {
+//             const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+//             if (!response.ok) {
+//                 throw new Error("fail to fetch userData")
+//             }
+//             const user = await response.json();
+//             // console.log(user)
+//             output.user = user
+//             return getPostsByUser(user.id)
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
+//     async function getPostsByUser(userId) {
+//         try {
+//             const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+//             if (!response.ok) {
+//                 throw new Error("fail to fetch userData")
+//             }
+//             const post = await response.json();
+//             // console.log(post)
+//             output.post = post
+//             return getCommentsByPost(post.userId)
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
 
-    async function getCommentsByPost(postId) {
-        try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
-            if (!response.ok) {
-                throw new Error("fail to fetch userData")
-            }
-            const comment = await response.json();
-            output.comment = comment
+//     async function getCommentsByPost(postId) {
+//         try {
+//             const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
+//             if (!response.ok) {
+//                 throw new Error("fail to fetch userData")
+//             }
+//             const comment = await response.json();
+//             output.comment = comment
 
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-    await getUser();
-    console.log(output)
-}
-fetchCompleteUserData();
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
+//     await getUser();
+//     console.log(output)
+// }
+// fetchCompleteUserData();
 // output
 // {
 //     user: { /* ユーザーデータ */ },
@@ -793,6 +793,113 @@ fetchCompleteUserData();
 //     comments: [ /* コメントデータの配列 */ ]
 // }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題: 複数のAPIデータを処理し、特定条件でフィルタリングして出力する
+// 2つの異なるAPIエンドポイントからデータを取得し、
+// 取得したデータを特定の条件でフィルタリングして結果を出力する関数を作成してください。
+
+// 要件:
+
+// 2つのAPIエンドポイントを使用してデータを取得します。
+// API 1: https://jsonplaceholder.typicode.com/users
+// API 2: https://jsonplaceholder.typicode.com/posts
+// 2つのAPIから取得したデータを結合し、userIdが一致するユーザーと投稿をマージしてください。
+// 投稿のタイトルに特定のキーワード（例: "qui"）が含まれているものだけを抽出してください。
+// 結果をconsole.log()で出力します。
+async function getUsersAndPostsData() {
+    async function fetchUsers() {
+        try {
+            const response = await fetch("https://jsonplaceholder.typicode.com/users");
+            if (!response.ok) {
+                throw new Error("failed fetch user")
+            }
+            const users = await response.json();
+            // console.log(users)
+            return await fetchPosts(users);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    async function fetchPosts(userData) {
+        try {
+            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+            if (!response.ok) {
+                throw new Error("failed fetch posts")
+            }
+
+            const posts = await response.json();
+            // console.log(posts)
+            const allData = { userData, posts }
+            return await mergeUsersAndPosts(allData);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    await fetchUsers()
+}
+// const a = { userData: A, postData: B }
+
+async function mergeUsersAndPosts({ userData, posts }) {
+    try {
+        if (!userData || !posts) {
+            throw new Error("couldn't get users or posts")
+        }
+        const merged = userData.map(user => {
+            const post = posts.find(post => post.userId === user.id)
+            return { user,post }
+        })
+        const filterMerged =merged.filter(data=>data.post.title.includes("qui"))
+        console.log(filterMerged)
+        // console.log(posts)
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+getUsersAndPostsData()
+
+// users[
+// {
+//     id: 1,
+//     name: 'Leanne Graham',
+//     username: 'Bret',
+//     email: 'Sincere@april.biz',
+//     address: {
+//         street: 'Kulas Light',
+//         suite: 'Apt. 556',
+//         city: 'Gwenborough',
+//         zipcode: '92998-3874',
+//         geo: [Object]
+//     },
+//     phone: '1-770-736-8031 x56442',
+//     website: 'hildegard.org',
+//     company: {
+//         name: 'Romaguera-Crona',
+//         catchPhrase: 'Multi-layered client-server neural-net',
+//         bs: 'harness real-time e-markets'
+//     }
+// },{},,,]
+
+// posts
+// [
+//     {
+//         userId: 1,
+//         id: 1,
+//         title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+//         body: 'quia et suscipit\n' +
+//             'suscipit recusandae consequuntur expedita et cum\n' +
+//             'reprehenderit molestiae ut ut quas totam\n' +
+//             'nostrum rerum est autem sunt rem eveniet architecto'
+//     },{},,,]
+
+// output
+// [
+//     {
+//       user: { /* ユーザー情報 */ },
+//       post: { /* 該当する投稿情報 */ }
+//     },
+//     // 条件を満たす他のユーザーと投稿
+// ]
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
