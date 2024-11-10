@@ -571,32 +571,32 @@
 // userIdをキーとして投稿にユーザーの情報を追加します。
 // 投稿データをtitleプロパティのアルファベット順にソートし、結果を返します。
 // 適切なエラーハンドリングを実装してください。
-async function fetchAndMergeData() {
-    try {
-        // const userResponse = await fetch("https://jsonplaceholder.typicode.com/users");
-        // const postResponse = await fetch("https://jsonplaceholder.typicode.com/posts");
-        const [userResponse,postResponse] = await Promise.all([
-            fetch("https://jsonplaceholder.typicode.com/users"),
-            fetch("https://jsonplaceholder.typicode.com/posts")
-        ]);
-        if (!userResponse.ok || !postResponse.ok) {
-            throw new Error("fetch result is not ok");
-        }
-        const users = await userResponse.json();
-        const posts = await postResponse.json();
-        const mergedData = posts.map(post => {
-            const user = users.find(user => user.id === post.userId)
-            return { ...post, user }
+// async function fetchAndMergeData() {
+//     try {
+//         // const userResponse = await fetch("https://jsonplaceholder.typicode.com/users");
+//         // const postResponse = await fetch("https://jsonplaceholder.typicode.com/posts");
+//         const [userResponse,postResponse] = await Promise.all([
+//             fetch("https://jsonplaceholder.typicode.com/users"),
+//             fetch("https://jsonplaceholder.typicode.com/posts")
+//         ]);
+//         if (!userResponse.ok || !postResponse.ok) {
+//             throw new Error("fetch result is not ok");
+//         }
+//         const users = await userResponse.json();
+//         const posts = await postResponse.json();
+//         const mergedData = posts.map(post => {
+//             const user = users.find(user => user.id === post.userId)
+//             return { ...post, user }
 
-        })
-        const sortedMergedData = mergedData.sort((a,b)=>a.title.localeCompare(b.title))
-        console.log(sortedMergedData)
-    } catch (error) {
-        console.error(error)
-    }
-}
+//         })
+//         const sortedMergedData = mergedData.sort((a,b)=>a.title.localeCompare(b.title))
+//         console.log(sortedMergedData)
+//     } catch (error) {
+//         console.error(error)
+//     }
+// }
 
-fetchAndMergeData();
+// fetchAndMergeData();
 // output
 // Merged and sorted posts: [
 //     {
@@ -628,5 +628,65 @@ fetchAndMergeData();
 //     ...
 // ]
 
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題15: 複数の非同期APIからのデータ取得とエラーハンドリング
+// この問題では、複数のAPIからデータを取得し、そのデータを組み合わせて最終的な結果を返す関数を作成します。
+// ただし、いずれかのAPIでエラーが発生した場合、適切なエラーメッセージを出力し、その後も他のAPIのデータ取得を続けてください。
+
+// 要件:
+// APIエンドポイント:
+// ユーザーデータ: https://jsonplaceholder.typicode.com/users
+// 投稿データ: https://jsonplaceholder.typicode.com/posts
+// コメントデータ: https://jsonplaceholder.typicode.com/comments
+// **関数fetchAllData**を作成し、3つのAPIからデータを取得し、それぞれのレスポンスを処理して結果を返します。
+// いずれかのAPIでエラーが発生した場合は、そのエラーをキャッチし、エラーメッセージをコンソールに出力してください。
+// エラーが発生しても他のAPIの処理は継続します。
+// 最終的に取得できたデータをコンソールに出力します。エラーが発生した場合は、そのデータをnullとして結果に含めてください。
+
+// output
+// Fetched data: {
+//     users: [...], // ユーザー情報が正常に取得された場合
+//     posts: null,  // 投稿データがエラーで取得できなかった場合
+//     comments: [...] // コメントデータが正常に取得された場合
+// }
+async function fetchAllData() {
+    try {
+        // [userResponse, postResponse, commentResponse]
+        let responses = await Promise.allSettled([
+            fetch("https://jsonplaceholder.typicode.com/users"),
+            fetch("https://jsonplaceholder.typicode.com/posts"),
+            fetch("https://jsonplaceholder.typicode.com/comments")
+        ])
+        responses = responses.flat()
+
+        const results = await Promise.all(
+            responses.map(async (response) => {
+                if (response.status === "fulfilled") {
+                    try {
+                        const JsonData = await response.value.json();
+                        return JsonData
+                    } catch (error) {
+                        return { error: "Failed to parse JSON" };
+                    }
+                }else{
+                    return { error: result.reason.message };
+                }
+            })
+        )
+        console.log('Processed Results:', results);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+fetchAllData()
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
