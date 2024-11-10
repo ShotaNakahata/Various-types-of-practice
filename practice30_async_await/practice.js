@@ -691,41 +691,107 @@
 // エンドポイント2: https://jsonplaceholder.typicode.com/posts?userId=1
 // データの取得に失敗した場合は、適切なエラーメッセージを出力してください。
 // データを合成して、次のようなオブジェクトを返します:
-async function fetchAndMargeFunc() {
-    try {
-        const responses = await Promise.all([
-            fetch("https://jsonplaceholder.typicode.com/users/1"),
-            fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
-        ])
-        const result = await Promise.all(
-            responses.map(async (response) => {
-                try {
-                    if (response.ok) {
-                        const JsonData = await response.json();
-                        return JsonData
-                    } else {
-                        return { error: "Failed to parse JSON" };
-                    }
-                } catch (error) {
-                    return { error: "response is not ok" };
-                }
-            })
-        )
-        const output = { user: result[0], posts: result[1] }
-        console.log(output)
-    } catch (error) {
-        console.error(error.message)
-    }
-}
-fetchAndMargeFunc();
-
+// async function fetchAndMargeFunc() {
+//     try {
+//         const responses = await Promise.all([
+//             fetch("https://jsonplaceholder.typicode.com/users/1"),
+//             fetch("https://jsonplaceholder.typicode.com/posts?userId=1")
+//         ])
+//         const result = await Promise.all(
+//             responses.map(async (response) => {
+//                 try {
+//                     if (response.ok) {
+//                         const JsonData = await response.json();
+//                         return JsonData
+//                     } else {
+//                         return { error: "Failed to parse JSON" };
+//                     }
+//                 } catch (error) {
+//                     return { error: "response is not ok" };
+//                 }
+//             })
+//         )
+//         const output = { user: result[0], posts: result[1] }
+//         console.log(output)
+//     } catch (error) {
+//         console.error(error.message)
+//     }
+// }
+// fetchAndMargeFunc();
 // output
 // {
 //     user: { /* ユーザーデータ */ },
 //     posts: [ /* 投稿データの配列 */]
 // }
-
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題: 非同期処理のチェーンでデータの依存関係を処理する
+// 複数の非同期関数を作成し、それらを順番に呼び出してデータを組み合わせ、最終的な結果を構築する関数を作成してください。
+
+// 要件:
+
+// 以下の3つの非同期関数を作成します。
+// getUser() - ユーザーデータを取得する関数。APIエンドポイント: https://jsonplaceholder.typicode.com/users/1
+// getPostsByUser(userId) - 特定のユーザーIDに基づいた投稿データを取得する関数。
+// APIエンドポイント: https://jsonplaceholder.typicode.com/posts?userId={userId}
+// getCommentsByPost(postId) - 特定の投稿IDに基づいたコメントデータを取得する関数。
+// APIエンドポイント: https://jsonplaceholder.typicode.com/comments?postId={postId}
+// getUser()で取得したユーザーIDを使用してgetPostsByUser(userId)を呼び出し、
+// 次に取得した投稿の1つ目の投稿IDを使用してgetCommentsByPost(postId)を呼び出してください。
+// すべてのデータをオブジェクトにまとめ、以下の形式で出力してください。
+async function fetchCompleteUserData() {
+    let output = {}
+    async function getUser() {
+        try {
+            const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+            if (!response.ok) {
+                throw new Error("fail to fetch userData")
+            }
+            const user = await response.json();
+            // console.log(user)
+            output.user = user
+            return getPostsByUser(user.id)
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    async function getPostsByUser(userId) {
+        try {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+            if (!response.ok) {
+                throw new Error("fail to fetch userData")
+            }
+            const post = await response.json();
+            // console.log(post)
+            output.post = post
+            return getCommentsByPost(post.userId)
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    async function getCommentsByPost(postId) {
+        try {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`);
+            if (!response.ok) {
+                throw new Error("fail to fetch userData")
+            }
+            const comment = await response.json();
+            output.comment = comment
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    await getUser();
+    console.log(output)
+}
+fetchCompleteUserData();
+// output
+// {
+//     user: { /* ユーザーデータ */ },
+//     posts: [ /* 投稿データの配列 */ ],
+//     comments: [ /* コメントデータの配列 */ ]
+// }
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
