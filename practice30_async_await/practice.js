@@ -315,36 +315,112 @@
 // それでも失敗した場合はエラーメッセージをconsole.errorで出力します。
 // 成功した場合は取得したデータをJSON形式で返します。
 // 再試行の間には一定の遅延（例えば500ms）を挟んでください。
-async function fetchWithRetry(url, entries = 3, delay = 500) {
-    for (let i = 0; i <= entries; i++) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Request failed with status ${response.status}`);
-            }
-            const user = await response.json();
-            console.log('Data fetched successfully:', user);
-            return user
-        } catch (error) {
-            console.error(`Attempt ${i + 1} failed: ${error.message}`);
-            if (i === entries) {
-                console.error("Error: Failed to fetch data after multiple attempts.")
-                return null
-            }
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-    }
+// async function fetchWithRetry(url, entries = 3, delay = 500) {
+//     for (let i = 0; i <= entries; i++) {
+//         try {
+//             const response = await fetch(url);
+//             if (!response.ok) {
+//                 throw new Error(`Request failed with status ${response.status}`);
+//             }
+//             const user = await response.json();
+//             console.log('Data fetched successfully:', user);
+//             return user
+//         } catch (error) {
+//             console.error(`Attempt ${i + 1} failed: ${error.message}`);
+//             if (i === entries) {
+//                 console.error("Error: Failed to fetch data after multiple attempts.")
+//                 return null
+//             }
+//             await new Promise(resolve => setTimeout(resolve, delay));
+//         }
+//     }
 
+// }
+
+// fetchWithRetry('https://jsonplaceholder.typicode.com/users/1', 3, 500)
+//     .then(result => {
+//         if (result) {
+//             console.log('Final result:', result);
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Unexpected error:', error.message);
+//     });
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 問題10: 非同期処理と条件付きAPI呼び出し
+// この問題では、条件付きでAPI呼び出しを行う非同期処理を実装します。
+// 特定の条件に基づいて複数のAPIを順番に呼び出し、結果を処理する方法を学びます。
+
+// 要件:
+// **checkCondition**という関数を作成し、Promiseを返します。
+// この関数はランダムに成功（true）または失敗（false）を返します。
+// **fetchDataFromAPI1とfetchDataFromAPI2**という関数を作成し、それぞれ別々のURLからデータを取得します。
+// API 1: https://jsonplaceholder.typicode.com/posts/1
+// API 2: https://jsonplaceholder.typicode.com/posts/2
+// **mainFunction**を作成し、以下の条件付きロジックを実装してください。
+// checkConditionがtrueの場合はfetchDataFromAPI1を呼び出して結果を処理。
+// checkConditionがfalseの場合はfetchDataFromAPI2を呼び出して結果を処理。
+// 各API呼び出しの結果をコンソールに出力し、エラーハンドリングを行ってください。
+async function checkCondition() {
+    return await new Promise((resolve, reject) => {
+        (Math.random() > 0.5 ? resolve({ message: "success", func: fetchDataFromAPI1 }) : reject({ message: "success", func: fetchDataFromAPI1 }));
+    })
 }
 
-fetchWithRetry('https://jsonplaceholder.typicode.com/users/1', 3, 500)
-    .then(result => {
-        if (result) {
-            console.log('Final result:', result);
+async function fetchDataFromAPI1() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+        if (!response.ok) {
+            throw new Error("fetch1 is failed."+ error.message);
         }
+        const post1 = await response.json();
+        // console.log(post1)//--------------------------------------
+        return post1;
+    } catch (error) {
+        throw new Error("fetch1 is failed."+ error.message);
+    }
+}
+async function fetchDataFromAPI2() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts/2");
+        if (!response.ok) {
+            throw new Error("fetch2 is failed."+ error.message);
+        }
+        const post2 = await response.json();
+        // console.log(post2)//--------------------------------------
+        return post2;
+    } catch (error) {
+        throw new Error("fetch1 is failed."+ error.message);
+    }
+}
+checkCondition()
+    .then(async result => {
+        console.log(result.message);
+        console.log("from then with calling func1")
+        return await result.func();
+    })
+    .catch(async result => {
+        console.log(result.message);
+        console.log("from catch with calling func2")
+        return await result.func()
+    })
+    .then(result => {
+        console.log(result);
+        console.log("from then at second time")
     })
     .catch(error => {
-        console.error('Unexpected error:', error.message);
-    });
+        console.error(error.message);
+        console.log("from catch at second time")
+    })
+
+
+// output 
+// Condition met, fetching from API 1...
+// Data from API 1: { userId: 1, id: 1, title: '...', body: '...' }
+
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
