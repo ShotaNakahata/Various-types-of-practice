@@ -273,59 +273,109 @@
 // コンストラクタで初期化します。
 // getSummary()メソッドをオーバーライドし、super.getSummary()を呼び出した後、
 // 追加情報として"Duration: ${duration} hours, Narrated by ${narrator}"を出力してください。
-class Book {
-    constructor(title, author, publishedYear) {
-        this.title = title
-        this.author = author
-        this.publishedYear = publishedYear
-    }
-    getSummary() {
-        console.log(`${this.title} by ${this.author}, published in ${this.publishedYear}`)
-    }
-}
-class EBook extends Book {
-    constructor(title, author, publishedYear, fileSize, format) {
-        super(title, author, publishedYear)
-        this.fileSize = fileSize
-        this.format = format
-    }
-    getSummary() {
-        super.getSummary();
-        console.log(`File size: ${this.fileSize} MB, Format: ${this.format}`)
-    }
-}
-class AudioBook extends Book {
-    constructor(title, author, publishedYear, duration, narrator) {
-        super(title, author, publishedYear);
-        this.duration = duration
-        this.narrator = narrator;
-    }
-    getSummary(){
-        super.getSummary()
-        console.log(`Duration: ${this.duration} hours, Narrated by ${this.narrator}`)
-    }
-}
-// 動作確認コード
+// class Book {
+//     constructor(title, author, publishedYear) {
+//         this.title = title
+//         this.author = author
+//         this.publishedYear = publishedYear
+//     }
+//     getSummary() {
+//         console.log(`${this.title} by ${this.author}, published in ${this.publishedYear}`)
+//     }
+// }
+// class EBook extends Book {
+//     constructor(title, author, publishedYear, fileSize, format) {
+//         super(title, author, publishedYear)
+//         this.fileSize = fileSize
+//         this.format = format
+//     }
+//     getSummary() {
+//         super.getSummary();
+//         console.log(`File size: ${this.fileSize} MB, Format: ${this.format}`)
+//     }
+// }
+// class AudioBook extends Book {
+//     constructor(title, author, publishedYear, duration, narrator) {
+//         super(title, author, publishedYear);
+//         this.duration = duration
+//         this.narrator = narrator;
+//     }
+//     getSummary(){
+//         super.getSummary()
+//         console.log(`Duration: ${this.duration} hours, Narrated by ${this.narrator}`)
+//     }
+// }
+// // 動作確認コード
 
-// Bookクラスのインスタンスをテスト
-const book = new Book("1984", "George Orwell", 1949);
-book.getSummary(); // 出力: "1984 by George Orwell, published in 1949"
+// // Bookクラスのインスタンスをテスト
+// const book = new Book("1984", "George Orwell", 1949);
+// book.getSummary(); // 出力: "1984 by George Orwell, published in 1949"
 
-// EBookクラスのインスタンスをテスト
-const eBook = new EBook("Digital Fortress", "Dan Brown", 1998, 1.5, "PDF");
-eBook.getSummary();
-// 出力:
-// "Digital Fortress by Dan Brown, published in 1998"
-// "File size: 1.5 MB, Format: PDF"
+// // EBookクラスのインスタンスをテスト
+// const eBook = new EBook("Digital Fortress", "Dan Brown", 1998, 1.5, "PDF");
+// eBook.getSummary();
+// // 出力:
+// // "Digital Fortress by Dan Brown, published in 1998"
+// // "File size: 1.5 MB, Format: PDF"
 
-// AudioBookクラスのインスタンスをテスト
-const audioBook = new AudioBook("The Hobbit", "J.R.R. Tolkien", 1937, 11, "Andy Serkis");
-audioBook.getSummary();
+// // AudioBookクラスのインスタンスをテスト
+// const audioBook = new AudioBook("The Hobbit", "J.R.R. Tolkien", 1937, 11, "Andy Serkis");
+// audioBook.getSummary();
 // 出力:
 // "The Hobbit by J.R.R. Tolkien, published in 1937"
 // "Duration: 11 hours, Narrated by Andy Serkis"
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 7: 社員管理システムの実装
+// 以下の要件に従って、社員管理システムを実装してください。
+
+// 要件:
+// Employeeという親クラスを作成してください。
+
+// プロパティとしてname、position、salaryを持ち、コンストラクタで初期化します。
+// getDetails()メソッドを追加し、
+// "${name} works as a ${position} with a salary of ${salary}."を出力してください。
+
+// ManagerクラスをEmployeeクラスから継承して作成してください。
+// Employeeクラスのプロパティに加えて、department（部門）というプロパティを追加し、コンストラクタで初期化します。
+// getDetails()メソッドをオーバーライドし、super.getDetails()
+// "Manages the ${department} department."を追加で出力してください。
+
+// DeveloperクラスをEmployeeクラスから継承して作成してください。
+// Employeeクラスのプロパティに加えて、programmingLanguage（使用言語）というプロパティを追加し、
+// コンストラクタで初期化します。
+// getDetails()メソッドをオーバーライドし、super.getDetails()を呼び出した後、
+// "Specializes in ${programmingLanguage}."を追加で出力してください。
+class Employee {
+    constructor(name, position, salary) {
+        this.name = name
+        this.position = position
+        this.salary = salary
+    }
+    getDetails() {
+        console.log(`${this.name} works as a ${this.position} with a salary of ${this.salary}.`)
+    }
+}
+class Manager extends Employee {
+    constructor(name, position, salary, department) {
+        super(name, position, salary)
+        this.department = department
+    }
+    getDetails() {
+        super.getDetails()
+        console.log(`Manages the ${this.department} department.`)
+    }
+}
+class Developer extends Employee {
+    constructor(name, position, salary, programmingLanguage) {
+        super(name, position, salary)
+        this.programmingLanguage = programmingLanguage
+    }
+    getDetails() {
+        super.getDetails()
+        console.log(`Specializes in ${this.programmingLanguage}.`)
+    }
+}
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
