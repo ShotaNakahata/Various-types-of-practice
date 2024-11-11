@@ -212,50 +212,119 @@
 
 // コンストラクタでnameとradiusを受け取り、プロパティとして設定します。
 // getArea()メソッドをオーバーライドし、円の面積（Math.PI * radius * radius）を返すようにしてください。
-class Shape {
-    constructor(name) {
-        this.name = name
-    }
-    getArea() {
-        console.log("Area calculation not implemented for this shape")
-    }
-}
+// class Shape {
+//     constructor(name) {
+//         this.name = name
+//     }
+//     getArea() {
+//         console.log("Area calculation not implemented for this shape")
+//     }
+// }
 
-class Rectangle extends Shape {
-    constructor(name, width, height) {
-        super(name)
-        this.width = width
-        this.height = height
-    }
-    getArea() {
-        return this.width * this.height
-    }
-}
+// class Rectangle extends Shape {
+//     constructor(name, width, height) {
+//         super(name)
+//         this.width = width
+//         this.height = height
+//     }
+//     getArea() {
+//         return this.width * this.height
+//     }
+// }
 
-class Circle extends Shape {
-    constructor(name, radius) {
-        super(name)
-        this.radius = radius
-    }
-    getArea() {
-        return Math.PI * this.radius * this.radius
-    }
-}
-// クラスの定義（Shape, Rectangle, Circle）
-// これらは、あなたが実装するものとします。
+// class Circle extends Shape {
+//     constructor(name, radius) {
+//         super(name)
+//         this.radius = radius
+//     }
+//     getArea() {
+//         return Math.PI * this.radius * this.radius
+//     }
+// }
+// // クラスの定義（Shape, Rectangle, Circle）
+// // これらは、あなたが実装するものとします。
 
-// 動作確認コード
-const shape = new Shape("Generic Shape");
-shape.getArea(); // 出力: "Area calculation not implemented for this shape"
+// // 動作確認コード
+// const shape = new Shape("Generic Shape");
+// shape.getArea(); // 出力: "Area calculation not implemented for this shape"
 
-const rectangle = new Rectangle("Rectangle", 10, 5);
-console.log(rectangle.getArea()); // 出力: 50
+// const rectangle = new Rectangle("Rectangle", 10, 5);
+// console.log(rectangle.getArea()); // 出力: 50
 
-const circle = new Circle("Circle", 7);
-console.log(circle.getArea()); // 出力: 153.93804002589985（Math.PI * 7 * 7）
-
+// const circle = new Circle("Circle", 7);
+// console.log(circle.getArea()); // 出力: 153.93804002589985（Math.PI * 7 * 7）
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 要件:
+// Bookというクラスを作成してください。
+
+// プロパティとしてtitle、author、publishedYearを持ち、コンストラクタで初期化します。
+// getSummary()メソッドを追加し、本の概要として"${title} by ${author}, published in ${publishedYear}"
+// を出力してください。
+
+// EBookクラスをBookクラスから継承して作成してください。
+// Bookクラスのプロパティに加えてfileSize（ファイルサイズ）とformat（形式）というプロパティを追加し、
+// コンストラクタで初期化します。
+// getSummary()メソッドをオーバーライドし、super.getSummary()を呼び出した後、
+// 追加情報として"File size: ${fileSize} MB, Format: ${format}"を出力してください。
+
+// AudioBookクラスをBookクラスから継承して作成してください。
+// Bookクラスのプロパティに加えてduration（再生時間）とnarrator（ナレーター）というプロパティを追加し、
+// コンストラクタで初期化します。
+// getSummary()メソッドをオーバーライドし、super.getSummary()を呼び出した後、
+// 追加情報として"Duration: ${duration} hours, Narrated by ${narrator}"を出力してください。
+class Book {
+    constructor(title, author, publishedYear) {
+        this.title = title
+        this.author = author
+        this.publishedYear = publishedYear
+    }
+    getSummary() {
+        console.log(`${this.title} by ${this.author}, published in ${this.publishedYear}`)
+    }
+}
+class EBook extends Book {
+    constructor(title, author, publishedYear, fileSize, format) {
+        super(title, author, publishedYear)
+        this.fileSize = fileSize
+        this.format = format
+    }
+    getSummary() {
+        super.getSummary();
+        console.log(`File size: ${this.fileSize} MB, Format: ${this.format}`)
+    }
+}
+class AudioBook extends Book {
+    constructor(title, author, publishedYear, duration, narrator) {
+        super(title, author, publishedYear);
+        this.duration = duration
+        this.narrator = narrator;
+    }
+    getSummary(){
+        super.getSummary()
+        console.log(`Duration: ${this.duration} hours, Narrated by ${this.narrator}`)
+    }
+}
+// 動作確認コード
+
+// Bookクラスのインスタンスをテスト
+const book = new Book("1984", "George Orwell", 1949);
+book.getSummary(); // 出力: "1984 by George Orwell, published in 1949"
+
+// EBookクラスのインスタンスをテスト
+const eBook = new EBook("Digital Fortress", "Dan Brown", 1998, 1.5, "PDF");
+eBook.getSummary();
+// 出力:
+// "Digital Fortress by Dan Brown, published in 1998"
+// "File size: 1.5 MB, Format: PDF"
+
+// AudioBookクラスのインスタンスをテスト
+const audioBook = new AudioBook("The Hobbit", "J.R.R. Tolkien", 1937, 11, "Andy Serkis");
+audioBook.getSummary();
+// 出力:
+// "The Hobbit by J.R.R. Tolkien, published in 1937"
+// "Duration: 11 hours, Narrated by Andy Serkis"
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
