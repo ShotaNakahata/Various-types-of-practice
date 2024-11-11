@@ -38,16 +38,17 @@ class Person {
     }
 }
 class Student extends Person{
-    constructor(name,grade){
-        super(name);
+    constructor(name,grade,age){
+        super(name,age);
         this.grade=grade
     }
     study(){
         console.log(`${this.name} is studying for a ${this.grade} grade.`)
     }
 }
-const student = new Student("Alice",3)
+const student = new Student("Alice",3,20)
 student.study();
+student.introduce();
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
