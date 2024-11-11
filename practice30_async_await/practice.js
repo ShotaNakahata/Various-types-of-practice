@@ -805,57 +805,57 @@
 // 2つのAPIから取得したデータを結合し、userIdが一致するユーザーと投稿をマージしてください。
 // 投稿のタイトルに特定のキーワード（例: "qui"）が含まれているものだけを抽出してください。
 // 結果をconsole.log()で出力します。
-async function getUsersAndPostsData() {
-    async function fetchUsers() {
-        try {
-            const response = await fetch("https://jsonplaceholder.typicode.com/users");
-            if (!response.ok) {
-                throw new Error("failed fetch user")
-            }
-            const users = await response.json();
-            // console.log(users)
-            return await fetchPosts(users);
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-    async function fetchPosts(userData) {
-        try {
-            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-            if (!response.ok) {
-                throw new Error("failed fetch posts")
-            }
+// async function getUsersAndPostsData() {
+//     async function fetchUsers() {
+//         try {
+//             const response = await fetch("https://jsonplaceholder.typicode.com/users");
+//             if (!response.ok) {
+//                 throw new Error("failed fetch user")
+//             }
+//             const users = await response.json();
+//             // console.log(users)
+//             return await fetchPosts(users);
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
+//     async function fetchPosts(userData) {
+//         try {
+//             const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+//             if (!response.ok) {
+//                 throw new Error("failed fetch posts")
+//             }
 
-            const posts = await response.json();
-            // console.log(posts)
-            const allData = { userData, posts }
-            return await mergeUsersAndPosts(allData);
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-    await fetchUsers()
-}
-// const a = { userData: A, postData: B }
+//             const posts = await response.json();
+//             // console.log(posts)
+//             const allData = { userData, posts }
+//             return await mergeUsersAndPosts(allData);
+//         } catch (error) {
+//             console.error(error.message);
+//         }
+//     }
+//     await fetchUsers()
+// }
+// // const a = { userData: A, postData: B }
 
-async function mergeUsersAndPosts({ userData, posts }) {
-    try {
-        if (!userData || !posts) {
-            throw new Error("couldn't get users or posts")
-        }
-        const merged = userData.map(user => {
-            const post = posts.find(post => post.userId === user.id)
-            return { user,post }
-        })
-        const filterMerged =merged.filter(data=>data.post && data.post.title.includes("qui"))
-        console.log(filterMerged)
-        // console.log(posts)
-    } catch (error) {
-        console.error(error.message)
-    }
-}
+// async function mergeUsersAndPosts({ userData, posts }) {
+//     try {
+//         if (!userData || !posts) {
+//             throw new Error("couldn't get users or posts")
+//         }
+//         const merged = userData.map(user => {
+//             const post = posts.find(post => post.userId === user.id)
+//             return { user,post }
+//         })
+//         const filterMerged =merged.filter(data=>data.post && data.post.title.includes("qui"))
+//         console.log(filterMerged)
+//         // console.log(posts)
+//     } catch (error) {
+//         console.error(error.message)
+//     }
+// }
 
-getUsersAndPostsData()
+// getUsersAndPostsData()
 
 // users[
 // {
@@ -901,6 +901,7 @@ getUsersAndPostsData()
 // ]
 
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
