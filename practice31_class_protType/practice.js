@@ -346,36 +346,104 @@
 // コンストラクタで初期化します。
 // getDetails()メソッドをオーバーライドし、super.getDetails()を呼び出した後、
 // "Specializes in ${programmingLanguage}."を追加で出力してください。
+// class Employee {
+//     constructor(name, position, salary) {
+//         this.name = name
+//         this.position = position
+//         this.salary = salary
+//     }
+//     getDetails() {
+//         console.log(`${this.name} works as a ${this.position} with a salary of ${this.salary}.`)
+//     }
+// }
+// class Manager extends Employee {
+//     constructor(name, position, salary, department) {
+//         super(name, position, salary)
+//         this.department = department
+//     }
+//     getDetails() {
+//         super.getDetails()
+//         console.log(`Manages the ${this.department} department.`)
+//     }
+// }
+// class Developer extends Employee {
+//     constructor(name, position, salary, programmingLanguage) {
+//         super(name, position, salary)
+//         this.programmingLanguage = programmingLanguage
+//     }
+//     getDetails() {
+//         super.getDetails()
+//         console.log(`Specializes in ${this.programmingLanguage}.`)
+//     }
+// }
+// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 要件
+// Employeeクラスを作成してください。
+
+// Employeeクラスはname、position、salary、idのプロパティを持ち、コンストラクタで初期化します。
+// getDetails()メソッドを追加し、"${name} works as a ${position} with a salary of ${salary}."という文字列を返します。
+
+// 非同期処理で社員データを管理するためのEmployeeDatabaseクラスを作成してください。
+// employeesという空の配列をプロパティとして持ちます。これはすべての社員オブジェクトを格納するための配列です。
+// addEmployee(employee)メソッドを追加し、1秒の遅延後に新しい社員オブジェクトをemployees配列に追加します。
+// getEmployeeById(id)メソッドを追加し、指定したidの社員オブジェクトを1秒の遅延後に返す非同期処理を実装してください。
+// listAllEmployees()メソッドを追加し、すべての社員のgetDetails()メソッドの結果を表示します。
+
+// DeveloperクラスをEmployeeクラスから継承して作成してください。
+// Employeeクラスのプロパティに加えてprogrammingLanguage（使用言語）というプロパティを追加し、コンストラクタで初期化します。
+// getDetails()メソッドをオーバーライドし、親クラスのgetDetails()メソッドを呼び出した後、
+// "Specializes in ${programmingLanguage}."という文字列を返してください。
+
+// 実際にEmployeeDatabaseクラスのインスタンスを作成し、
+// いくつかのEmployeeやDeveloperオブジェクトを追加して非同期でデータが管理できているか確認してください。
 class Employee {
-    constructor(name, position, salary) {
+    constructor(name, position, salary, id) {
         this.name = name
         this.position = position
         this.salary = salary
+        this.id = id
     }
     getDetails() {
         console.log(`${this.name} works as a ${this.position} with a salary of ${this.salary}.`)
     }
 }
-class Manager extends Employee {
-    constructor(name, position, salary, department) {
-        super(name, position, salary)
-        this.department = department
+// const emplay1 = new Employee("Jun","CEO",1000,1);
+// emplay1.getDetails()
+class EmployeeDatabase {
+    constructor() {
+        this.employees = []
     }
-    getDetails() {
-        super.getDetails()
-        console.log(`Manages the ${this.department} department.`)
+    async addEmployee(employee) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        this.employees.push(employee);
+        console.log(`${employee.name} has been added.`);
+    }
+    async getEmployeeById(id) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return this.employees.find(employee => employee.id === id)
+    }
+    listAllEmployees() {
+        this.employees.forEach(emp => {
+            emp.getDetails()
+        })
     }
 }
-class Developer extends Employee {
-    constructor(name, position, salary, programmingLanguage) {
-        super(name, position, salary)
-        this.programmingLanguage = programmingLanguage
-    }
-    getDetails() {
-        super.getDetails()
-        console.log(`Specializes in ${this.programmingLanguage}.`)
-    }
+async function testEmployeeDatabase() {
+    const employeeDatabase = new EmployeeDatabase();
+    const employee1 = new Employee("John Doe", "Manager", 50000, 1);
+    const employee2 = new Employee("Jane Smith", "Developer", 60000, 2);
+
+    await employeeDatabase.addEmployee(employee1);
+    await employeeDatabase.addEmployee(employee2);
+
+    const retrievedEmployee = await employeeDatabase.getEmployeeById(1);
+    console.log("Retrieved Employee:");
+    retrievedEmployee.getDetails()
+
+    console.log("\nAll Employees:");
+    employeeDatabase.listAllEmployees();
 }
-// ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+testEmployeeDatabase();
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
