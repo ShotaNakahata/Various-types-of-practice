@@ -152,50 +152,109 @@
 // DogクラスをMammalクラスから継承し、bark()メソッドを追加してください。
 // bark()メソッドは"${name} barks: Woof!"をconsole.logで出力します。
 
-class Animal{
-    constructor(name,species){
-        this.name=name
-        this.species=species
-    }
-    describe(){
-        console.log(`${this.name} is a ${this.species}.`)
-    }
-}
-class Mammal extends Animal{
-    constructor(name,species,hasFur){
-        super(name,species)
-        this.hasFur=hasFur
-    }
-    describe(){
-        super.describe();
-        console.log(`${this.name} has fur: ${this.hasFur}.`)
-    }
-}
-class Dog extends Mammal{
-    constructor(name,species,hasFur){
-        super(name,species,hasFur);
-    }
-    bark(){
-        console.log(`${this.name} barks: Woof`)
-    }
-}
+// class Animal{
+//     constructor(name,species){
+//         this.name=name
+//         this.species=species
+//     }
+//     describe(){
+//         console.log(`${this.name} is a ${this.species}.`)
+//     }
+// }
+// class Mammal extends Animal{
+//     constructor(name,species,hasFur){
+//         super(name,species)
+//         this.hasFur=hasFur
+//     }
+//     describe(){
+//         super.describe();
+//         console.log(`${this.name} has fur: ${this.hasFur}.`)
+//     }
+// }
+// class Dog extends Mammal{
+//     constructor(name,species,hasFur){
+//         super(name,species,hasFur);
+//     }
+//     bark(){
+//         console.log(`${this.name} barks: Woof`)
+//     }
+// }
 
-const animal = new Animal("Generic Animal", "unknown species");
-animal.describe(); // "Generic Animal is a unknown species."
+// const animal = new Animal("Generic Animal", "unknown species");
+// animal.describe(); // "Generic Animal is a unknown species."
 
-const mammal = new Mammal("Elephant", "Elephas maximus", true);
-mammal.describe();
-// 出力:
-// "Elephant is a Elephas maximus."
-// "Elephant has fur: true."
+// const mammal = new Mammal("Elephant", "Elephas maximus", true);
+// mammal.describe();
+// // 出力:
+// // "Elephant is a Elephas maximus."
+// // "Elephant has fur: true."
 
-const dog = new Dog("Buddy", "Canis lupus familiaris", true);
-dog.describe();
-// 出力:
-// "Buddy is a Canis lupus familiaris."
-// "Buddy has fur: true."
-dog.bark(); // "Buddy barks: Woof!"
+// const dog = new Dog("Buddy", "Canis lupus familiaris", true);
+// dog.describe();
+// // 出力:
+// // "Buddy is a Canis lupus familiaris."
+// // "Buddy has fur: true."
+// dog.bark(); // "Buddy barks: Woof!"
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+// 応用問題 5: クラスと継承を使った図形の実装
+// 以下の要件に従って、図形を表すクラスを実装してください。
+// 要件:
+
+// Shapeという親クラスを作成してください。
+// Shapeクラスはnameというプロパティを持ち、コンストラクタで初期化します。
+// getArea()というメソッドを持ちますが、このメソッドは親クラスでは具体的な実装を持たず、
+// "Area calculation not implemented for this shape"というメッセージを出力してください。
+// RectangleクラスをShapeクラスから継承して作成してください。
+
+// コンストラクタでname、width、heightを受け取り、プロパティとして設定します。
+// getArea()メソッドをオーバーライドし、長方形の面積（width * height）を返すようにしてください。
+// CircleクラスをShapeクラスから継承して作成してください。
+
+// コンストラクタでnameとradiusを受け取り、プロパティとして設定します。
+// getArea()メソッドをオーバーライドし、円の面積（Math.PI * radius * radius）を返すようにしてください。
+class Shape {
+    constructor(name) {
+        this.name = name
+    }
+    getArea() {
+        console.log("Area calculation not implemented for this shape")
+    }
+}
+
+class Rectangle extends Shape {
+    constructor(name, width, height) {
+        super(name)
+        this.width = width
+        this.height = height
+    }
+    getArea() {
+        return this.width * this.height
+    }
+}
+
+class Circle extends Shape {
+    constructor(name, radius) {
+        super(name)
+        this.radius = radius
+    }
+    getArea() {
+        return Math.PI * this.radius * this.radius
+    }
+}
+// クラスの定義（Shape, Rectangle, Circle）
+// これらは、あなたが実装するものとします。
+
+// 動作確認コード
+const shape = new Shape("Generic Shape");
+shape.getArea(); // 出力: "Area calculation not implemented for this shape"
+
+const rectangle = new Rectangle("Rectangle", 10, 5);
+console.log(rectangle.getArea()); // 出力: 50
+
+const circle = new Circle("Circle", 7);
+console.log(circle.getArea()); // 出力: 153.93804002589985（Math.PI * 7 * 7）
+
+
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
