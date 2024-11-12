@@ -420,7 +420,13 @@ class EmployeeDatabase {
     }
     async getEmployeeById(id) {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        return this.employees.find(employee => employee.id === id)
+        const employee=this.employees.find(employee => employee.id === id)
+        if(!employee){
+            console.log(`NO employee have id is ${id}`)
+            return null
+        }else{
+            return employee
+        }
     }
     listAllEmployees() {
         this.employees.forEach(emp => {
@@ -428,15 +434,29 @@ class EmployeeDatabase {
         })
     }
 }
+class Developer extends Employee {
+    constructor(name, position, salary, id, programmingLanguage) {
+        super(name, position, salary, id)
+        this.programmingLanguage = programmingLanguage
+    }
+    getDetails() {
+        super.getDetails()
+        console.log(`Specializes in ${this.programmingLanguage}.`)
+    }
+}
+
 async function testEmployeeDatabase() {
     const employeeDatabase = new EmployeeDatabase();
     const employee1 = new Employee("John Doe", "Manager", 50000, 1);
-    const employee2 = new Employee("Jane Smith", "Developer", 60000, 2);
+    const developer1 = new Developer("Jane Smith", "Developer", 60000, 2, "javascript")
+    console.log("developer details: ")
+    developer1.getDetails()
 
     await employeeDatabase.addEmployee(employee1);
-    await employeeDatabase.addEmployee(employee2);
+    await employeeDatabase.addEmployee(developer1)
 
-    const retrievedEmployee = await employeeDatabase.getEmployeeById(1);
+
+    const retrievedEmployee = await employeeDatabase.getEmployeeById(3);
     console.log("Retrieved Employee:");
     retrievedEmployee.getDetails()
 
