@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./paractice1.js" defer></script>
+  </head>
+  <body style="background-color: antiquewhite">
+    <h1>社員管理システム</h1>
+    <div>
+        <form id="employeeForm" action="" style="display: flex; flex-direction: column;">
+          <label for="name">名前</label>
+          <input type="text" id="name" required />
+    
+          <label for="position">position</label>
+          <input type="text" id="position" required />
+    
+          <label for="salary">給与:</label>
+          <input type="number" id="salary" required />
+    
+          <label for="programmingLanguage"
+            >プログラミング言語 (Developerのみ):</label >
+          <input type="text" id="programmingLanguage" />
+
+          <button type="button" id="addEmployeeBtn">社員を追加</button>
+          <button type="button" id="showEmployeesBtn">社員一覧を表示</button>
+
+          <div id="employeeList"></div>
+    </div>
+    </form>
+  </body>
+</html>
