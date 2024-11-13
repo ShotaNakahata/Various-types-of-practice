@@ -128,21 +128,21 @@
 // 配列peopleが与えられます。この配列には、名前と年齢を持つオブジェクトが格納されています。
 // 各要素について、名前を大文字に変換し、年齢に10を加える操作を行い、新しい配列を作成してください。
 // mapを使用して新しい配列を生成しつつ、bindを活用して動的に操作できるようにしてください。
-const peoples = [
-    { name: 'Alice', age: 25 },
-    { name: 'Bob', age: 30 },
-    { name: 'Charlie', age: 35 }
-];
-function fixPeople(peoples) {
-    const OriginalArray = peoples.map(people => {
-        const UpperName = people.name.toUpperCase();
-        const age2 = people.age * 2
-        return { UpperName, age2 }
-    })
-    return OriginalArray
-}
-console.log(fixPeople(peoples));
-const bindFixPeople = fixPeople.bind(peoples)
+// const peoples = [
+//     { name: 'Alice', age: 25 },
+//     { name: 'Bob', age: 30 },
+//     { name: 'Charlie', age: 35 }
+// ];
+// function fixPeople(peoples) {
+//     const OriginalArray = peoples.map(people => {
+//         const UpperName = people.name.toUpperCase();
+//         const age2 = people.age * 2
+//         return { UpperName, age2 }
+//     })
+//     return OriginalArray
+// }
+// console.log(fixPeople(peoples));
+// const bindFixPeople = fixPeople.bind(peoples)
 
 // const makeNewPeople = people.bind()
 // ここにコードを追加してください
@@ -157,5 +157,24 @@ const bindFixPeople = fixPeople.bind(peoples)
 //     { name: 'BOB', age: 40 },
 //     { name: 'CHARLIE', age: 45 }
 // ]
+const ageIncrement = 10;
+const context = { ageIncrement };
 
+const peoples = [
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 30 },
+    { name: 'Charlie', age: 35 }
+];
+const operation = {
+    toUpperName(person) {
+        return {
+            name: person.name.toUpperCase(),
+            age: person.age + this.ageIncrement
+        }
+    }
+}
+
+const processPerson = operation.toUpperName.bind(context);
+const newPeople = peoples.map(processPerson)
+console.log(newPeople)
 // ------------------------------------------------------------------------------
