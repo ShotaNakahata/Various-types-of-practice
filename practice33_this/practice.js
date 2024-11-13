@@ -46,18 +46,25 @@
 // 複数の人を表すオブジェクト（person1とperson2）があります。
 // introduce関数を定義し、この関数を使って、それぞれの人の情報を表示してください。
 // call と bind を活用してください。
-function introduce(job, country) {
-    console.log(`Hi, I am ${this.name}. I work as a ${job}, and I live in ${country}.`);
-}
+// function introduce(job, country) {
+//     console.log(`Hi, I am ${this.name}. I work as a ${job}, and I live in ${country}.`);
+// }
 
-const person1 = { name: 'Alice' };
-const person2 = { name: 'Bob' };
-introduce.call(person1,"Developer","Japan")
-const bindIntroduce=introduce.bind(person2)
-bindIntroduce("Designer","USA")
+// const person1 = { name: 'Alice' };
+// const person2 = { name: 'Bob' };
+// introduce.call(person1,"Developer","Japan")
+// const bindIntroduce=introduce.bind(person2)
+// bindIntroduce("Designer","USA")
 // introduceを使ってそれぞれの情報を出力してください。
-
 // ------------------------------------------------------------------------------
+// 問題 5: 配列の最大値を計算する（applyの応用）
+// 要件
+// 配列numbersが与えられます。この配列の中で最大値を求めて出力してください。
+// Math.max関数を使います。ただし、Math.maxは配列を直接受け取れないため、**apply**を使って解決してください。
+const numbers = [45, 3, 89, 23, 78];
+
+console.log(Math.max.apply(null, numbers))
+
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
