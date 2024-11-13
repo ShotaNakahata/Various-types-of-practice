@@ -64,7 +64,7 @@
 const numbers = [45, 3, 89, 23, 78];
 
 // console.log(Math.max.apply(null, numbers))
-console.log(Math.min.apply(null,numbers))
+console.log(Math.min.apply(null,numbers),Math.max.apply(null,numbers))
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
