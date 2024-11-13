@@ -157,24 +157,53 @@
 //     { name: 'BOB', age: 40 },
 //     { name: 'CHARLIE', age: 45 }
 // ]
-const ageIncrement = 10;
-const context = { ageIncrement };
+// const ageIncrement = 10;
+// const context = { ageIncrement };
 
-const peoples = [
-    { name: 'Alice', age: 25 },
-    { name: 'Bob', age: 30 },
-    { name: 'Charlie', age: 35 }
+// const peoples = [
+//     { name: 'Alice', age: 25 },
+//     { name: 'Bob', age: 30 },
+//     { name: 'Charlie', age: 35 }
+// ];
+// const operation = {
+//     toUpperName(person) {
+//         return {
+//             name: person.name.toUpperCase(),
+//             age: person.age + this.ageIncrement
+//         }
+//     }
+// }
+
+// const processPerson = operation.toUpperName.bind(context);
+// const newPeople = peoples.map(processPerson)
+// console.log(newPeople)
+// ------------------------------------------------------------------------------
+// 問題: カスタムロジックを動的に適用する
+// 要件
+// 商品の配列productsが与えられます。
+// 各商品の価格を変動させる関数adjustPriceを作成してください。
+// thisに適用ルール（増加率や減少率）を含むオブジェクトを渡すことで、価格調整ロジックを動的に変更できるようにしてください。
+// call、apply、bindを使ってそれぞれの方法で解決してください。
+const products = [
+    { name: 'Laptop', price: 1000 },
+    { name: 'Phone', price: 500 },
+    { name: 'Tablet', price: 750 }
 ];
-const operation = {
-    toUpperName(person) {
-        return {
-            name: person.name.toUpperCase(),
-            age: person.age + this.ageIncrement
-        }
-    }
+
+function adjustPrice(product) {
+    const newProducts = product.reduce((acc, product) => {
+        const newPrice = product.price * 1.1
+        acc[product.name] = product.name
+        return {name:product.name,price:newPrice}
+    }, {})
+    return newProducts
 }
 
-const processPerson = operation.toUpperName.bind(context);
-const newPeople = peoples.map(processPerson)
-console.log(newPeople)
+console.log(adjustPrice())
+// 各商品の価格を調整し、新しい配列を作成してください
+// call, apply, bind をそれぞれ活用する
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
