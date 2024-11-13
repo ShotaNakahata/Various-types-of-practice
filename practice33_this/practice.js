@@ -72,11 +72,11 @@
 // 新しい要素（例: 99）を追加した新しい配列を作成します。
 // **applyを活用してArray.prototype.pushを使い、既存の配列をコピーしつつ、新しい要素を追加してください。
 // 元の配列を変更してはいけません（イミュータブルに処理する）。
-const numbers = [45, 3, 89, 23, 78];
-const newNumbers = [...numbers];
-const input = [99]
-Array.prototype.push.apply(newNumbers,input)
-console.log(newNumbers)
+// const numbers = [45, 3, 89, 23, 78];
+// const newNumbers = [...numbers];
+// const input = [99]
+// Array.prototype.push.apply(newNumbers,input)
+// console.log(newNumbers)
 // const newNumbers = Array.prototype.push.call(numbers, [99])
 
 // console.log(numbers)
@@ -85,8 +85,21 @@ console.log(newNumbers)
 // output
 // Original array: [45, 3, 89, 23, 78]
 // New array: [45, 3, 89, 23, 78, 99]
-
 // ------------------------------------------------------------------------------
+// 問題: 配列内の要素を動的に操作する
+// 要件
+// 配列numbersが与えられます。
+// 配列内のすべての要素を2倍にして、新しい配列を作成してください。
+// 元の配列は変更せず、新しい配列を生成する必要があります。
+// Array.prototype.map を使って解決してください。
+const numbers = [1, 2, 3, 4, 5];
+// const newNumbers = [...numbers]
+// const numbers2 = newNumbers.map(number => number * 2)
+const newNumbers = numbers.map(numbers=>{return numbers*2})
+console.log(numbers)
+console.log(newNumbers)
+// ここに新しい配列を作成するコードを追加
+
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
