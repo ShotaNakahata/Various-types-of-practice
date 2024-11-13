@@ -112,19 +112,50 @@
 // 共通の関数introduceを作成し、thisを明示的に指定して、各オブジェクトの情報を表示してください。
 // callやbindを活用して、person1とperson2を動的に操作してください。
 // applyも使って、引数が動的に渡されるケースを考慮してください。
-function introduce(job, country) {
-    console.log(`Hi, I am ${this.name}. I work as a ${job}, and I live in ${country}.`);
-}
+// function introduce(job, country) {
+//     console.log(`Hi, I am ${this.name}. I work as a ${job}, and I live in ${country}.`);
+// }
 
-const person1 = { name: 'Alice' };
-const person2 = { name: 'Bob' };
-introduce.call(person1, "Developer", "Japan")
-const person2Introduce = introduce.bind(person2,"Designer", "USA")
-person2Introduce()
+// const person1 = { name: 'Alice' };
+// const person2 = { name: 'Bob' };
+// introduce.call(person1, "Developer", "Japan")
+// const person2Introduce = introduce.bind(person2,"Designer", "USA")
+// person2Introduce()
 // 各オブジェクトを`introduce`関数で操作してください。
-
-
-
-
 // ------------------------------------------------------------------------------
+// 次の問題: 配列のデータを動的に操作する
+// 要件
+// 配列peopleが与えられます。この配列には、名前と年齢を持つオブジェクトが格納されています。
+// 各要素について、名前を大文字に変換し、年齢に10を加える操作を行い、新しい配列を作成してください。
+// mapを使用して新しい配列を生成しつつ、bindを活用して動的に操作できるようにしてください。
+const peoples = [
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 30 },
+    { name: 'Charlie', age: 35 }
+];
+function fixPeople(peoples) {
+    const OriginalArray = peoples.map(people => {
+        const UpperName = people.name.toUpperCase();
+        const age2 = people.age * 2
+        return { UpperName, age2 }
+    })
+    return OriginalArray
+}
+console.log(fixPeople(peoples));
+const bindFixPeople = fixPeople.bind(peoples)
+
+// const makeNewPeople = people.bind()
+// ここにコードを追加してください
+// Original array: [
+//     { name: 'Alice', age: 25 },
+//     { name: 'Bob', age: 30 },
+//     { name: 'Charlie', age: 35 }
+// ]
+
+// New array: [
+//     { name: 'ALICE', age: 35 },
+//     { name: 'BOB', age: 40 },
+//     { name: 'CHARLIE', age: 45 }
+// ]
+
 // ------------------------------------------------------------------------------
