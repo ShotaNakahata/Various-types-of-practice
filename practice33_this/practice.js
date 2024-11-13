@@ -92,20 +92,39 @@
 // 配列内のすべての要素を2倍にして、新しい配列を作成してください。
 // 元の配列は変更せず、新しい配列を生成する必要があります。
 // Array.prototype.map を使って解決してください。
-const numbers = [1, 2, 3, 4, 5];
-// const newNumbers = [...numbers]
-// const numbers2 = newNumbers.map(number => number * 2)
-const  multiplierObj={
-    multiplier:2
-}
-const doubledNumbers = Array.prototype.map.call(numbers, function (num) {
-    return num * this.multiplier
-}, multiplierObj)
+// const numbers = [1, 2, 3, 4, 5];
+// // const newNumbers = [...numbers]
+// // const numbers2 = newNumbers.map(number => number * 2)
+// const  multiplierObj={
+//     multiplier:2
+// }
+// const doubledNumbers = Array.prototype.map.call(numbers, function (num) {
+//     return num * this.multiplier
+// }, multiplierObj)
 
-console.log(doubledNumbers)
+// console.log(doubledNumbers)
 
 // ここに新しい配列を作成するコードを追加
-
 // ------------------------------------------------------------------------------
+// 問題: 複数のオブジェクトを動的に操作する
+// 要件
+// 複数のオブジェクト（person1とperson2）があります。
+// 共通の関数introduceを作成し、thisを明示的に指定して、各オブジェクトの情報を表示してください。
+// callやbindを活用して、person1とperson2を動的に操作してください。
+// applyも使って、引数が動的に渡されるケースを考慮してください。
+function introduce(job, country) {
+    console.log(`Hi, I am ${this.name}. I work as a ${job}, and I live in ${country}.`);
+}
+
+const person1 = { name: 'Alice' };
+const person2 = { name: 'Bob' };
+introduce.call(person1, "Developer", "Japan")
+const person2Introduce = introduce.bind(person2,"Designer", "USA")
+person2Introduce()
+// 各オブジェクトを`introduce`関数で操作してください。
+
+
+
+
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
