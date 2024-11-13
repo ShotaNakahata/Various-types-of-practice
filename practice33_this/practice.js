@@ -95,9 +95,15 @@
 const numbers = [1, 2, 3, 4, 5];
 // const newNumbers = [...numbers]
 // const numbers2 = newNumbers.map(number => number * 2)
-const newNumbers = numbers.map(numbers=>{return numbers*2})
-console.log(numbers)
-console.log(newNumbers)
+const  multiplierObj={
+    multiplier:2
+}
+const doubledNumbers = Array.prototype.map.call(numbers, function (num) {
+    return num * this.multiplier
+}, multiplierObj)
+
+console.log(doubledNumbers)
+
 // ここに新しい配列を作成するコードを追加
 
 // ------------------------------------------------------------------------------
