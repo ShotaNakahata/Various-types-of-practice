@@ -61,11 +61,31 @@
 // 要件
 // 配列numbersが与えられます。この配列の中で最大値を求めて出力してください。
 // Math.max関数を使います。ただし、Math.maxは配列を直接受け取れないため、**apply**を使って解決してください。
-const numbers = [45, 3, 89, 23, 78];
+// const numbers = [45, 3, 89, 23, 78];
 
 // console.log(Math.max.apply(null, numbers))
-console.log(Math.min.apply(null,numbers),Math.max.apply(null,numbers))
+// console.log(Math.min.apply(null,numbers),Math.max.apply(null,numbers))
 // ------------------------------------------------------------------------------
+// 問題: 配列のコピーと新しい要素の追加
+// 要件
+// 配列numbersがあります。
+// 新しい要素（例: 99）を追加した新しい配列を作成します。
+// **applyを活用してArray.prototype.pushを使い、既存の配列をコピーしつつ、新しい要素を追加してください。
+// 元の配列を変更してはいけません（イミュータブルに処理する）。
+const numbers = [45, 3, 89, 23, 78];
+const newNumbers = [...numbers];
+const input = [99]
+Array.prototype.push.apply(newNumbers,input)
+console.log(newNumbers)
+// const newNumbers = Array.prototype.push.call(numbers, [99])
+
+// console.log(numbers)
+// console.log(newNumbers)
+// ここに新しい配列を作成するコードを追加
+// output
+// Original array: [45, 3, 89, 23, 78]
+// New array: [45, 3, 89, 23, 78, 99]
+
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
