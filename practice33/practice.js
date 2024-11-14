@@ -4,25 +4,68 @@
 // 最小値
 // 最大値
 // 標準偏差
-const numbers = [10, 20, 30, 40, 51];
-function Calculate(numbers) {
-    const length = numbers.length;
-    const minNuber = Math.min(...numbers)
-    const maxNumber = Math.max(...numbers)
-    const sum = numbers.reduce((acc, number) => {
-        acc += number;
+// const numbers = [10, 20, 30, 40, 51];
+// function Calculate(numbers) {
+//     const length = numbers.length;
+//     const minNuber = Math.min(...numbers)
+//     const maxNumber = Math.max(...numbers)
+//     const sum = numbers.reduce((acc, number) => {
+//         acc += number;
+//         return acc
+//     }, 0)
+//     const average = (sum / length).toFixed()
+//     // console.log(average)
+//     // console.log(sum)
+//     const variance = numbers.reduce((acc, number) => {
+//         return acc + Math.pow(number - average, 2);
+//     },0)/length
+
+//     const standardDeviation = Math.sqrt(variance).toFixed(2)
+
+//     return { sum, average, minNuber, maxNumber ,standardDeviation}
+// }
+
+// console.log(Calculate(numbers))
+// --------------------------------------------------------------------------
+// ユニークな値の配列（重複を除いた新しい配列）
+// 合計（新しい配列の合計）
+// 平均値（新しい配列の平均値）
+// 最小値（新しい配列の最小値）
+// 最大値（新しい配列の最大値）
+// 標準偏差（新しい配列の標準偏差）
+const numbers = [10, 20, 30, 40, 30, 20, 10, 40, 51];
+
+function calculate(numbers) {
+    const newNumbers = numbers.reduce((acc, number) => {
+        if (acc.includes(number)) {
+            return acc
+        }
+        acc.push(number)
+        return acc
+    }, [])
+    const length = newNumbers.length
+    const sum = newNumbers.reduce((acc, number) => {
+        acc += number
         return acc
     }, 0)
-    const average = (sum / length).toFixed()
-    // console.log(average)
-    // console.log(sum)
-    const variance = numbers.reduce((acc, number) => {
-        return acc + Math.pow(number - average, 2);
+    const average = sum / length
+    const minNumber = Math.min(...newNumbers)
+    const maxNumber = Math.max(...newNumbers)
+    const variance = newNumbers.reduce((acc,number)=>{
+        return acc + Math.pow(number-average,2);
     },0)/length
+    const standardDeviation = Math.sqrt(variance).toFixed(2);
+    return {newNumbers,sum,average,minNumber,maxNumber,standardDeviation}
 
-    const standardDeviation = Math.sqrt(variance).toFixed(2)
-
-    return { sum, average, minNuber, maxNumber ,standardDeviation}
 }
-
-console.log(Calculate(numbers))
+// console.log(numbers)
+console.log(calculate(numbers));
+// output
+// {
+//     uniqueNumbers: [10, 20, 30, 40, 51],
+//         sum: 151,
+//             average: 30.2,
+//                 minNumber: 10,
+//                     maxNumber: 51,
+//                         standardDeviation: "14.43"
+// }
