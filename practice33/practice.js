@@ -129,6 +129,68 @@
 //     }
 // }
 
+// const products = [
+//     { name: "Product A", category: "Electronics", price: 1200 },
+//     { name: "Product B", category: "Electronics", price: 1800 },
+//     { name: "Product C", category: "Clothing", price: 50 },
+//     { name: "Product D", category: "Clothing", price: 80 },
+//     { name: "Product E", category: "Electronics", price: 1500 },
+//     { name: "Product F", category: "Furniture", price: 300 },
+//     { name: "Product G", category: "Furniture", price: 250 },
+//     { name: "Product H", category: "Clothing", price: 120 },
+// ];
+
+// function calculateCategoryStats(products) {
+//     return products.reduce((acc, product) => {
+//         const { name, category, price } = product;
+
+//         // カテゴリがまだ存在しない場合、初期化
+//         if (!acc[category]) {
+//             acc[category] = {
+//                 sumPrice: 0,
+//                 productCount: 0,
+//                 highestPrice: 0,
+//                 highestProduct: "",
+//             };
+//         }
+
+//         // 価格の合計と商品数をカウント
+//         acc[category].sumPrice += price;
+//         acc[category].productCount++;
+
+//         // 最も高い価格の商品を特定
+//         if (acc[category].highestPrice < price) {
+//             acc[category].highestPrice = price;
+//             acc[category].highestProduct = name;
+//         }
+
+//         return acc;
+//     }, {});
+// }
+
+// // 結果を計算
+// const categoryStats = calculateCategoryStats(products);
+
+// // 各カテゴリについて平均価格を計算
+// for (const category in categoryStats) {
+//     const stats = categoryStats[category];
+//     stats.averagePrice = (stats.sumPrice / stats.productCount).toFixed(2);
+// }
+
+// console.log(categoryStats);
+
+
+// --------------------------------------------------------------------------
+// 問題: 配列の中から特定の条件に一致する要素をフィルタリングし、特定の属性を集計する
+// 問題内容
+// 与えられた products 配列の中から、次の条件に一致する商品情報を抽出し、
+// それらの商品の合計価格 (sumPrice)、最も安い商品 (lowestPrice)、およびその商品の名前 (lowestProduct) を計算してください。
+
+// 条件:
+
+// category が "Electronics" または "Clothing" の商品
+// price が 100 以上の商品
+
 const products = [
     { name: "Product A", category: "Electronics", price: 1200 },
     { name: "Product B", category: "Electronics", price: 1800 },
@@ -139,48 +201,26 @@ const products = [
     { name: "Product G", category: "Furniture", price: 250 },
     { name: "Product H", category: "Clothing", price: 120 },
 ];
-
-function calculateCategoryStats(products) {
-    return products.reduce((acc, product) => {
-        const { name, category, price } = product;
-        
-        // カテゴリがまだ存在しない場合、初期化
-        if (!acc[category]) {
-            acc[category] = {
-                sumPrice: 0,
-                productCount: 0,
-                highestPrice: 0,
-                highestProduct: "",
-            };
+function calProduct(products) {
+    const filteredProduct = products.filter(product =>
+        (product.category === "Electronics" ||
+            product.category === "Clothing") &&
+        product.price > 100
+    )
+    const result = filteredProduct.reduce((acc, product) => {
+        const { name, category, price } = product
+        acc.sumPrice += price
+        if (acc.lowestPrice > price) {
+            acc.lowestPrice = price;
+            acc.lowestProduct = name
         }
-        
-        // 価格の合計と商品数をカウント
-        acc[category].sumPrice += price;
-        acc[category].productCount++;
-        
-        // 最も高い価格の商品を特定
-        if (acc[category].highestPrice < price) {
-            acc[category].highestPrice = price;
-            acc[category].highestProduct = name;
-        }
+        return acc
+    }, { sumPrice: 0, lowestPrice: Infinity, lowestProduct: null })
 
-        return acc;
-    }, {});
+    return result
 }
 
-// 結果を計算
-const categoryStats = calculateCategoryStats(products);
-
-// 各カテゴリについて平均価格を計算
-for (const category in categoryStats) {
-    const stats = categoryStats[category];
-    stats.averagePrice = (stats.sumPrice / stats.productCount).toFixed(2);
-}
-
-console.log(categoryStats);
-
-
-// --------------------------------------------------------------------------
+console.log(calProduct(products))
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
