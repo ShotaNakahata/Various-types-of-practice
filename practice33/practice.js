@@ -191,9 +191,47 @@
 // category が "Electronics" または "Clothing" の商品
 // price が 100 以上の商品
 
+// const products = [
+//     { name: "Product A", category: "Electronics", price: 1200 },
+//     { name: "Product B", category: "Electronics", price: 1800 },
+//     { name: "Product C", category: "Clothing", price: 50 },
+//     { name: "Product D", category: "Clothing", price: 80 },
+//     { name: "Product E", category: "Electronics", price: 1500 },
+//     { name: "Product F", category: "Furniture", price: 300 },
+//     { name: "Product G", category: "Furniture", price: 250 },
+//     { name: "Product H", category: "Clothing", price: 120 },
+// ];
+// function calProduct(products) {
+//     const filteredProduct = products.filter(product =>
+//         (product.category === "Electronics" ||
+//             product.category === "Clothing") &&
+//         product.price > 100
+//     )
+//     const result = filteredProduct.reduce((acc, product) => {
+//         const { name, category, price } = product
+//         acc.sumPrice += price
+//         if (acc.lowestPrice > price) {
+//             acc.lowestPrice = price;
+//             acc.lowestProduct = name
+//         }
+//         return acc
+//     }, { sumPrice: 0, lowestPrice: Infinity, lowestProduct: null })
+
+//     return result
+// }
+
+// console.log(calProduct(products))
+// --------------------------------------------------------------------------
+// 問題: 商品価格の統計
+// 以下のような商品データがあります。name、category、price の情報があります。このデータに基づいて、以下の統計情報を求めてください。
+
+// 最も高い価格の商品の名前と価格
+// 最も低い価格の商品の名前と価格
+// 商品の合計価格
+// 平均価格（小数点以下切り捨て）
 const products = [
     { name: "Product A", category: "Electronics", price: 1200 },
-    { name: "Product B", category: "Electronics", price: 1800 },
+    { name: "Product B", category: "Electronics", price: 200 },
     { name: "Product C", category: "Clothing", price: 50 },
     { name: "Product D", category: "Clothing", price: 80 },
     { name: "Product E", category: "Electronics", price: 1500 },
@@ -201,26 +239,31 @@ const products = [
     { name: "Product G", category: "Furniture", price: 250 },
     { name: "Product H", category: "Clothing", price: 120 },
 ];
-function calProduct(products) {
-    const filteredProduct = products.filter(product =>
-        (product.category === "Electronics" ||
-            product.category === "Clothing") &&
-        product.price > 100
-    )
-    const result = filteredProduct.reduce((acc, product) => {
-        const { name, category, price } = product
-        acc.sumPrice += price
-        if (acc.lowestPrice > price) {
-            acc.lowestPrice = price;
-            acc.lowestProduct = name
+function calcProduct(products) {
+    let result = {
+        highest: { name: null, price: 0 },
+        lowest: { name: null, price: Infinity },
+        sumPrice: 0,
+        averagePrice: 0,
+        count: 0
+    }
+    for (let product of products) {
+        const {name,category,price} = product
+        result.count++;
+        result.sumPrice += price;
+        if (price > result.highest.price) {
+            result.highest.price = price;
+            result.highest.name = name;
+        } else if (price < result.lowest.price) {
+            result.lowest.price = price;
+            result.lowest.name = name;
         }
-        return acc
-    }, { sumPrice: 0, lowestPrice: Infinity, lowestProduct: null })
-
+    }
+    const average = (result.sumPrice / result.count).toFixed()
+    
+    delete result.count
     return result
 }
-
-console.log(calProduct(products))
-// --------------------------------------------------------------------------
+console.log(calcProduct(products));
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
