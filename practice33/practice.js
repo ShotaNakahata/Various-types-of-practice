@@ -33,33 +33,33 @@
 // 最小値（新しい配列の最小値）
 // 最大値（新しい配列の最大値）
 // 標準偏差（新しい配列の標準偏差）
-const numbers = [10, 20, 30, 40, 30, 20, 10, 40, 51];
+// const numbers = [10, 20, 30, 40, 30, 20, 10, 40, 51];
 
-function calculate(numbers) {
-    const newNumbers = numbers.reduce((acc, number) => {
-        if (acc.includes(number)) {
-            return acc
-        }
-        acc.push(number)
-        return acc
-    }, [])
-    const length = newNumbers.length
-    const sum = newNumbers.reduce((acc, number) => {
-        acc += number
-        return acc
-    }, 0)
-    const average = sum / length
-    const minNumber = Math.min(...newNumbers)
-    const maxNumber = Math.max(...newNumbers)
-    const variance = newNumbers.reduce((acc,number)=>{
-        return acc + Math.pow(number-average,2);
-    },0)/length
-    const standardDeviation = Math.sqrt(variance).toFixed(2);
-    return {newNumbers,sum,average,minNumber,maxNumber,standardDeviation}
+// function calculate(numbers) {
+//     const newNumbers = numbers.reduce((acc, number) => {
+//         if (acc.includes(number)) {
+//             return acc
+//         }
+//         acc.push(number)
+//         return acc
+//     }, [])
+//     const length = newNumbers.length
+//     const sum = newNumbers.reduce((acc, number) => {
+//         acc += number
+//         return acc
+//     }, 0)
+//     const average = sum / length
+//     const minNumber = Math.min(...newNumbers)
+//     const maxNumber = Math.max(...newNumbers)
+//     const variance = newNumbers.reduce((acc,number)=>{
+//         return acc + Math.pow(number-average,2);
+//     },0)/length
+//     const standardDeviation = Math.sqrt(variance).toFixed(2);
+//     return {newNumbers,sum,average,minNumber,maxNumber,standardDeviation}
 
-}
-// console.log(numbers)
-console.log(calculate(numbers));
+// }
+// // console.log(numbers)
+// console.log(calculate(numbers));
 // output
 // {
 //     uniqueNumbers: [10, 20, 30, 40, 51],
@@ -69,3 +69,47 @@ console.log(calculate(numbers));
 //                     maxNumber: 51,
 //                         standardDeviation: "14.43"
 // }
+// --------------------------------------------------------------------------
+// 問題: 配列内で最も多く出現する数を求める
+// 問題文：
+// 与えられた整数の配列において、最も多く出現する数（最大頻度）を求め、その数が複数あった場合は、
+// 最小のその数を返す関数 findMostFrequentNumber を実装してください。
+
+// 配列内の数値がすべて異なる場合は、最小の数を返してください。
+// for と if を使用して解決してください。
+// 入力
+const numbers = [10, 20, 10, 30, 20, 10, 30, 40];
+function findMostFrequentNumber(numbers) {
+    const countNumAppend = numbers.reduce((acc, number) => {
+        console.log(number)
+        if (acc[number]) {
+            acc[number] += 1
+        }else{
+            acc[number] = 1
+        }
+        return acc
+    }, {})
+
+    console.log(countNumAppend)
+
+    const mostFrequent = Object.entries(countNumAppend)
+        .reduce((mostFrequent, [number, count]) => {
+            number = Number(number);
+            if (count > mostFrequent.count || count === mostFrequent.count && number < mostFrequent.number) {
+                mostFrequent.number = number;
+                mostFrequent.count = count;
+            }
+            return mostFrequent
+        }, { number: null, count: 0 })
+
+        return mostFrequent.number
+}
+// 出力
+// 10 (10が最も多く3回出現している)
+console.log(findMostFrequentNumber(numbers));  // 10
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
