@@ -184,22 +184,22 @@
 // 各商品の価格を変動させる関数adjustPriceを作成してください。
 // thisに適用ルール（増加率や減少率）を含むオブジェクトを渡すことで、価格調整ロジックを動的に変更できるようにしてください。
 // call、apply、bindを使ってそれぞれの方法で解決してください。
-const products = [
-    { name: 'Laptop', price: 1000 },
-    { name: 'Phone', price: 500 },
-    { name: 'Tablet', price: 750 }
-];
+// const products = [
+//     { name: 'Laptop', price: 1000 },
+//     { name: 'Phone', price: 500 },
+//     { name: 'Tablet', price: 750 }
+// ];
 
-function adjustPrice(product) {
-    const newProducts = product.reduce((acc, product) => {
-        const newPrice = product.price * 1.1
-        acc[product.name] = product.name
-        return {name:product.name,price:newPrice}
-    }, {})
-    return newProducts
-}
+// function adjustPrice(product) {
+//     const newProducts = product.reduce((acc, product) => {
+//         const newPrice = product.price * 1.1
+//         acc[product.name] = product.name
+//         return {name:product.name,price:newPrice}
+//     }, {})
+//     return newProducts
+// }
 
-console.log(adjustPrice())
+// console.log(adjustPrice())
 // 各商品の価格を調整し、新しい配列を作成してください
 // call, apply, bind をそれぞれ活用する
 
