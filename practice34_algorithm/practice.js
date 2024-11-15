@@ -46,39 +46,81 @@
 // 文字列の大文字小文字は区別しないものとします（例: "Listen" と "Silent" はアナグラムと見なす）。
 // 空文字列はアナグラムと見なします（例: isAnagram("", "") → true）。
 // 文字列の長さが異なる場合はアナグラムではありません。
-function isAnagram(str1, str2) {
-    if (str1 === "" && str2 === "") return true;
-    if(str1.length!==str1.length) return false;
-    return str1.toLowerCase().split("").sort().join("") ===
-    str2.toLowerCase().split("").sort().join("")
+// function isAnagram(str1, str2) {
+//     if (str1 === "" && str2 === "") return true;
+//     if(str1.length!==str1.length) return false;
+//     return str1.toLowerCase().split("").sort().join("") ===
+//     str2.toLowerCase().split("").sort().join("")
 
-    // const str1Arr=str1.toLowerCase().split("");
-    // const str2Arr=str2.toLowerCase().split("");
-    // // console.log(str1Arr.sort())
-    // // console.log(str2Arr.sort())
+//     // const str1Arr=str1.toLowerCase().split("");
+//     // const str2Arr=str2.toLowerCase().split("");
+//     // // console.log(str1Arr.sort())
+//     // // console.log(str2Arr.sort())
 
-    // if (str1Arr.length !== str2Arr.length) return false;
-    // if(str1Arr.sort().join("")===str2Arr.sort().join("")){
-    //     return true
-    // }else{
-    //     return false
-    // }
-    // const sort1 = str1Arr.sort().join("")
-    // const sort2 = str2Arr.sort().join("")
-    // console.log(sort1)
-    // console.log(sort2)
-    // if(sort1===sort2)return true
+//     // if (str1Arr.length !== str2Arr.length) return false;
+//     // if(str1Arr.sort().join("")===str2Arr.sort().join("")){
+//     //     return true
+//     // }else{
+//     //     return false
+//     // }
+//     // const sort1 = str1Arr.sort().join("")
+//     // const sort2 = str2Arr.sort().join("")
+//     // console.log(sort1)
+//     // console.log(sort2)
+//     // if(sort1===sort2)return true
+// }
+
+// // テスト用
+// console.log(isAnagram("listen", "silent")); // true
+// console.log(isAnagram("hello", "world"));  // false
+// console.log(isAnagram("triangle", "integral")); // true
+// console.log(isAnagram("aabb", "bbaa")); // true
+// console.log(isAnagram("abc", "abcc")); // false
+// console.log(isAnagram("", "")); // true
+
+// -----------------------------------------------------------
+// 問題 3: フィボナッチ数列のn番目を求める
+// 問題文:
+// フィボナッチ数列とは、次のように定義される数列です：
+
+// 最初の2つの項はそれぞれ 0 と 1。
+// それ以降の項は、直前の2つの項の和。
+// 数列の例:
+
+// コードをコピーする
+// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+// 与えられた整数 n に対して、フィボナッチ数列の n 番目の値を返す関数を作成してください。
+// （0番目を 0、1番目を 1 とします）
+
+// 要件
+// 再帰的な実装とループによる実装の両方を試してください。
+// n が 0 または 1 の場合、対応する値をすぐに返してください。
+// 計算量に注意してください。再帰では計算量が大きくなる場合があるため、効率化も考慮してください。
+// 再帰的に実装
+function fibonacciRecursive(n) {
+    // ここにコードを書いてください
+}
+
+// ループを使って実装
+function fibonacciIterative(n) {
+    let arr = []
+    //arr = [0,1]
+    for (let i = 0; i <= n - 1; i++) {
+        if(i===0||i===1){
+            arr.push(i)
+        }else{
+            arr.push(arr[i-2]+arr[i-1])
+        }
+        
+    }
+    console.log(arr)
+    return arr[n - 2] + arr[n - 1]
 }
 
 // テスト用
-console.log(isAnagram("listen", "silent")); // true
-console.log(isAnagram("hello", "world"));  // false
-console.log(isAnagram("triangle", "integral")); // true
-console.log(isAnagram("aabb", "bbaa")); // true
-console.log(isAnagram("abc", "abcc")); // false
-console.log(isAnagram("", "")); // true
+// console.log(fibonacciRecursive(10)); // 出力: 55
+console.log(fibonacciIterative(10)); // 出力: 55
 
-// -----------------------------------------------------------
 // -----------------------------------------------------------
 // -----------------------------------------------------------
 // -----------------------------------------------------------
