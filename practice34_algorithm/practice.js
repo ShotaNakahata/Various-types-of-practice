@@ -16,13 +16,15 @@
 // スペースや記号も逆順に含めてください。
 // 例: "abc 123!" → "!321 cba"
 function reverseString(input) {
-    if(input===""){
-        return `""`
-    }
-    const splitInputArr = input.split("");
-    splitInputArr.reverse();
-    const JoinStr = splitInputArr.join("");
-    return JoinStr
+    if(input ==="")return "";
+    return input.split("").reverse().join("");
+    // if(input===""){
+    //     return `""`
+    // }
+    // const splitInputArr = input.split("");
+    // splitInputArr.reverse();
+    // const JoinStr = splitInputArr.join("");
+    // return JoinStr
 
 }
 
