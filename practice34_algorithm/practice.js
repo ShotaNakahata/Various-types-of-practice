@@ -98,27 +98,37 @@
 // 計算量に注意してください。再帰では計算量が大きくなる場合があるため、効率化も考慮してください。
 // 再帰的に実装
 function fibonacciRecursive(n) {
-    // ここにコードを書いてください
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
 }
 
 // ループを使って実装
 function fibonacciIterative(n) {
-    let arr = []
-    //arr = [0,1]
-    for (let i = 0; i <= n - 1; i++) {
-        if(i===0||i===1){
-            arr.push(i)
-        }else{
-            arr.push(arr[i-2]+arr[i-1])
-        }
-        
+    let a = 0;
+    let b = 1;
+    for (let i = 2; i <= n; i++) {
+        let next = a + b
+        a = b
+        b = next
     }
-    console.log(arr)
-    return arr[n - 2] + arr[n - 1]
+    return b
+    // let arr = []
+    // //arr = [0,1]
+    // for (let i = 0; i <= n - 1; i++) {
+    //     if(i===0||i===1){
+    //         arr.push(i)
+    //     }else{
+    //         arr.push(arr[i-2]+arr[i-1])
+    //     }
+
+    // }
+    // console.log(arr)
+    // return arr[n - 2] + arr[n - 1]
 }
 
 // テスト用
-// console.log(fibonacciRecursive(10)); // 出力: 55
+console.log(fibonacciRecursive(10)); // 出力: 55
 console.log(fibonacciIterative(10)); // 出力: 55
 
 // -----------------------------------------------------------
