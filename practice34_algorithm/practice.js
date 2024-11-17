@@ -126,10 +126,16 @@ function fibonacciIterative(n) {
     // console.log(arr)
     // return arr[n - 2] + arr[n - 1]
 }
-
+function fibonacciRecursiveMemo(n,memo={}){
+    if(n in memo) return memo[n]
+    if(n===0) return 0;
+    if(n===1) return 1;
+    return  fibonacciRecursiveMemo(n - 1, memo) + fibonacciRecursiveMemo(n - 2, memo);
+}
 // テスト用
 console.log(fibonacciRecursive(10)); // 出力: 55
 console.log(fibonacciIterative(10)); // 出力: 55
+console.log(fibonacciRecursiveMemo(10)); // 出力: 55
 
 // -----------------------------------------------------------
 // -----------------------------------------------------------
