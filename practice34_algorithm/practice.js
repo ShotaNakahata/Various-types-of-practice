@@ -97,46 +97,56 @@
 // n が 0 または 1 の場合、対応する値をすぐに返してください。
 // 計算量に注意してください。再帰では計算量が大きくなる場合があるため、効率化も考慮してください。
 // 再帰的に実装
-function fibonacciRecursive(n) {
-    if (n === 0) return 0;
-    if (n === 1) return 1;
-    return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
-}
+// function fibonacciRecursive(n) {
+//     if (n === 0) return 0;
+//     if (n === 1) return 1;
+//     return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+// }
 
-// ループを使って実装
-function fibonacciIterative(n) {
-    let a = 0;
-    let b = 1;
-    for (let i = 2; i <= n; i++) {
-        let next = a + b
-        a = b
-        b = next
-    }
-    return b
-    // let arr = []
-    // //arr = [0,1]
-    // for (let i = 0; i <= n - 1; i++) {
-    //     if(i===0||i===1){
-    //         arr.push(i)
-    //     }else{
-    //         arr.push(arr[i-2]+arr[i-1])
-    //     }
+// // ループを使って実装
+// function fibonacciIterative(n) {
+//     let a = 0;
+//     let b = 1;
+//     for (let i = 2; i <= n; i++) {
+//         let next = a + b
+//         a = b
+//         b = next
+//     }
+//     return b
+//     // let arr = []
+//     // //arr = [0,1]
+//     // for (let i = 0; i <= n - 1; i++) {
+//     //     if(i===0||i===1){
+//     //         arr.push(i)
+//     //     }else{
+//     //         arr.push(arr[i-2]+arr[i-1])
+//     //     }
 
-    // }
-    // console.log(arr)
-    // return arr[n - 2] + arr[n - 1]
-}
-function fibonacciRecursiveMemo(n,memo={}){
-    if(n in memo) return memo[n]
-    if(n===0) return 0;
-    if(n===1) return 1;
-    return  fibonacciRecursiveMemo(n - 1, memo) + fibonacciRecursiveMemo(n - 2, memo);
-}
-// テスト用
-console.log(fibonacciRecursive(10)); // 出力: 55
-console.log(fibonacciIterative(10)); // 出力: 55
-console.log(fibonacciRecursiveMemo(10)); // 出力: 55
+//     // }
+//     // console.log(arr)
+//     // return arr[n - 2] + arr[n - 1]
+// }
+// function fibonacciRecursiveMemo(n,memo={}){
+//     if(n in memo) return memo[n]
+//     if(n===0) return 0;
+//     if(n===1) return 1;
+//     return  fibonacciRecursiveMemo(n - 1, memo) + fibonacciRecursiveMemo(n - 2, memo);
+// }
+// // テスト用
+// console.log(fibonacciRecursive(10)); // 出力: 55
+// console.log(fibonacciIterative(10)); // 出力: 55
+// console.log(fibonacciRecursiveMemo(10)); // 出力: 55
 
 // -----------------------------------------------------------
+function fibonacciDPArray(n) {
+    if (n === 0) return 0;
+    if (n === 1) return 1;
+    const dp = [0, 1];
+    for (let i = 2; i <= n; i++) {
+        dp[i]=dp[i-1]+dp[i-2];
+    }
+    return dp[n]
+}
+console.log(fibonacciDPArray(10)); // 出力: 55
 // -----------------------------------------------------------
 // -----------------------------------------------------------
