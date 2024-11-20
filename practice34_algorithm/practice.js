@@ -137,16 +137,93 @@
 // console.log(fibonacciIterative(10)); // 出力: 55
 // console.log(fibonacciRecursiveMemo(10)); // 出力: 55
 
+// // -----------------------------------------------------------
+// function fibonacciDPArray(n) {
+//     if (n === 0) return 0;
+//     if (n === 1) return 1;
+//     const dp = [0, 1];
+//     for (let i = 2; i <= n; i++) {
+//         dp[i]=dp[i-1]+dp[i-2];
+//     }
+//     return dp[n]
+// }
+// console.log(fibonacciDPArray(10)); // 出力: 55
 // -----------------------------------------------------------
-function fibonacciDPArray(n) {
-    if (n === 0) return 0;
-    if (n === 1) return 1;
-    const dp = [0, 1];
-    for (let i = 2; i <= n; i++) {
-        dp[i]=dp[i-1]+dp[i-2];
+// 問題: 部分文字列のアナグラム検出
+// 目的
+// スライディングウィンドウ法を使った効率的な文字列処理を学ぶ。
+// アナグラム検出の応用問題に挑戦。
+// ハッシュマップや配列の操作に慣れる。
+// 問題文
+// 文字列 A（部分文字列の基準）と、文字列 B（検索対象）が与えられます。
+// 文字列 B の中から、A と同じ文字の並び（アナグラム）を持つすべての部分文字列の開始インデックスを返してください。
+
+// 制約
+// 文字列 A と B は英小文字のみで構成されます。
+// 入力例:
+// A = "abc"
+// B = "cbaebabacd"
+// function findAnagrams(A, B) {
+//     const ALength = A.length
+//     // const newA = A.split("")
+//     //     .sort()
+//     //     .reduce((acc, element) => {
+//     //         if (!acc[element]) {
+//     //             acc[element] = 1;
+//     //         } else {
+//     //             acc[element] += 1
+//     //         }
+//     //         return acc
+//     //     }, {})
+//     const newA = A.split("").sort().join("")
+//     console.log("newA : ", newA)
+//     // return {newA,ALength}
+//     const newB = B.split("")
+//     const newBlength = newB.length
+//     const forcusB = newB.slice(0, ALength).sort().join("");
+//     console.log("forcusB : ", forcusB)
+//     // console.log("newA === forcusB : ", newA === forcusB)
+//     let output = []
+//     for (let i = 0 ; i < newBlength; i++) {
+//         let compareB = newB.slice(i,i+ALength).sort().join("")
+//         // console.log(newB.slice(i,i+ALength))
+//         console.log("newA ; ",newA," compareB : ",compareB)
+//         console.log(newA===compareB)
+//         if(newA===compareB){
+//             output.push(i)
+//         }
+//     }
+
+//     console.log("newB : ", newB)
+//     console.log("newB.slice(0,ALength) : ", newB.slice(0, ALength))
+//     console.log(output)
+// }
+
+// // テスト用
+// findAnagrams("abc", "cbaebabacd")
+// console.log(findAnagrams("abc", "cbaebabacd")); // 出力: [0, 6]
+// console.log(findAnagrams("ab", "abacbabc"));    // 出力: [0, 3, 4]
+
+// -----------------------------------------------------------
+function findAnagrams(A, B) {
+    const ALength = A.length;
+    const BLength = B.length;
+    if (ALength > BLength) return [];
+
+    const countA = Array(26).fill(0);
+    const countwindow = Array(26).fill(0);
+    const charCodeA = "a".charCodeAt(0)
+
+    for(char of A){
+        countA[char.charCodeAt(0)-charCodeA]++;
     }
-    return dp[n]
+    console.log(countA)
+
+
 }
-console.log(fibonacciDPArray(10)); // 出力: 55
+console.log(findAnagrams("abc", "cbaebabacd")); // 出力: [0, 6]
+// console.log(findAnagrams("ab", "abacbabc"));    // 出力: [0, 3, 4]
+// -----------------------------------------------------------
+// -----------------------------------------------------------
 // -----------------------------------------------------------
 // -----------------------------------------------------------
