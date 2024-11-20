@@ -284,7 +284,7 @@ function lengthOfLongestSubstring(s) {
     //s = "abcabcbb" / s.length = 8
     for (let end = 0; end < s.length; end++) {
         while(seen.has(s[end])){
-            seen.delete(s[end])
+            seen.delete(s[start])
             start++;
         }
         seen.add(s[end])
