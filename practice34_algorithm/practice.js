@@ -245,37 +245,61 @@
 // console.log(findAnagrams("abc", "cbaebabacd")); // 出力: [0, 6]
 // console.log(findAnagrams("ab", "abacbabc"));    // 出力: [0, 3, 4]
 // -----------------------------------------------------------
-function findAnagrams(A, B) {
-    const ALength = A.length;
-    const BLength = B.length;
-    if (ALength > BLength) return [];
-    const countA = Array(26).fill(0);
-    const countWindow = Array(26).fill(0);
-    const charCodeA = "a".charCodeAt(0);
-    for (let char of A) {
-        countA[char.charCodeAt(0) - charCodeA]++;
-    }
-    const output = [];
-    for (let i = 0; i < BLength; i++) {
-        countWindow[B.charCodeAt(i) - charCodeA]++;
-        if (i >= ALength) {
-            countWindow[B.charCodeAt(i - ALength) - charCodeA]--;
-        }
-        if (i >= ALength - 1 && arraysEqual(countA, countWindow)) {
-            output.push(i - ALength + 1);
-        }
-    }
-    return output
-}
-function arraysEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
-    }
-    return true
-}
-console.log(findAnagrams("ab", "abacbabc"));
+// function findAnagrams(A, B) {
+//     const ALength = A.length;
+//     const BLength = B.length;
+//     if (ALength > BLength) return [];
+//     const countA = Array(26).fill(0);
+//     const countWindow = Array(26).fill(0);
+//     const charCodeA = "a".charCodeAt(0);
+//     for (let char of A) {
+//         countA[char.charCodeAt(0) - charCodeA]++;
+//     }
+//     const output = [];
+//     for (let i = 0; i < BLength; i++) {
+//         countWindow[B.charCodeAt(i) - charCodeA]++;
+//         if (i >= ALength) {
+//             countWindow[B.charCodeAt(i - ALength) - charCodeA]--;
+//         }
+//         if (i >= ALength - 1 && arraysEqual(countA, countWindow)) {
+//             output.push(i - ALength + 1);
+//         }
+//     }
+//     return output
+// }
+// function arraysEqual(arr1, arr2) {
+//     if (arr1.length !== arr2.length) return false;
+//     for (let i = 0; i < arr1.length; i++) {
+//         if (arr1[i] !== arr2[i]) return false;
+//     }
+//     return true
+// }
+// console.log(findAnagrams("ab", "abacbabc"));
 // -----------------------------------------------------------
+function lengthOfLongestSubstring(s) {
+    let maxLength = 0; // 最長部分文字列の長さを記録
+    let start = 0; // 現在のウィンドウの開始位置
+    const seen = new Set(); // ウィンドウ内の文字を記録
+
+    //s = "abcabcbb" / s.length = 8
+    for (let end = 0; end < s.length; end++) {
+        while(seen.has(s[end])){
+            seen.delete(s[end])
+            start++;
+        }
+        seen.add(s[end])
+        maxLength = Math.max(maxLength, end - start + 1);
+        // console.log(maxLength)
+    }
+
+    return maxLength;
+}
+
+// テストケース
+console.log(lengthOfLongestSubstring("abcabcbb")); // 出力: 3
+// console.log(lengthOfLongestSubstring("bbbbb"));    // 出力: 1
+// console.log(lengthOfLongestSubstring("pwwkew"));   // 出力: 3
+
 // -----------------------------------------------------------
 // -----------------------------------------------------------
 // -----------------------------------------------------------
