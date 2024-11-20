@@ -221,9 +221,19 @@ function findAnagrams(A, B) {
         countwindow[B.charCodeAt(i) - charCodeA]++;
     }
     const output = []
-    if(arraysEqual(countA,countwindow)){
+    if (arraysEqual(countA, countwindow)) {
         output.push(0)
     }
+
+    for (let i = ALength; i < BLength; i++) {
+        countwindow[B.charCodeAt(i) - charCodeA]++;
+        countwindow[B.charCodeAt(i - ALength) - charCodeA]--;
+
+        if (arraysEqual(countA, countwindow)) {
+            output.push(i - ALength + 1)
+        }
+    }
+    return output;
 }
 function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
