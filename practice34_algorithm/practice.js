@@ -214,12 +214,23 @@ function findAnagrams(A, B) {
     const countwindow = Array(26).fill(0);
     const charCodeA = "a".charCodeAt(0)
 
-    for(char of A){
-        countA[char.charCodeAt(0)-charCodeA]++;
+    for (let char of A) {
+        countA[char.charCodeAt(0) - charCodeA]++;
     }
-    console.log(countA)
-
-
+    for (let i = 0; i < ALength; i++) {
+        countwindow[B.charCodeAt(i) - charCodeA]++;
+    }
+    const output = []
+    if(arraysEqual(countA,countwindow)){
+        output.push(0)
+    }
+}
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true
 }
 console.log(findAnagrams("abc", "cbaebabacd")); // 出力: [0, 6]
 // console.log(findAnagrams("ab", "abacbabc"));    // 出力: [0, 3, 4]
