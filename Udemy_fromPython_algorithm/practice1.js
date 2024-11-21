@@ -19,17 +19,26 @@
 // On([1,2,3,4,5])
 //-------------------------------------------------------
 // O(n*log(n))
-function OnLogn(numbers) {
-    for (let i = 0; i < numbers; i++) {
-        console.log(i)
-    }
-    if (numbers <= 1) {
-        return;
-    } else {
-        OnLogn(Math.floor(numbers / 2))
+// function OnLogn(numbers) {
+//     for (let i = 0; i < numbers; i++) {
+//         console.log(i)
+//     }
+//     if (numbers <= 1) {
+//         return;
+//     } else {
+//         OnLogn(Math.floor(numbers / 2))
+//     }
+// }
+// OnLogn(10)
+//-------------------------------------------------------
+// O(n*n)
+function OnO(numbers) {
+    for(let i of numbers){
+        for(j of numbers){
+            console.log(i,j)
+        }
     }
 }
-OnLogn(10)
-//-------------------------------------------------------
+OnO([1,2,3,4,5])
 //-------------------------------------------------------
 //-------------------------------------------------------
