@@ -32,13 +32,28 @@
 // OnLogn(10)
 //-------------------------------------------------------
 // O(n*n)
-function OnO(numbers) {
-    for(let i of numbers){
-        for(j of numbers){
-            console.log(i,j)
+// function OnO(numbers) {
+//     for(let i of numbers){
+//         for(j of numbers){
+//             console.log(i,j)
+//         }
+//     }
+// }
+// OnO([1,2,3,4,5])
+//-------------------------------------------------------
+
+function BubbleSort(numbers) {
+    for(let j = 0; j<numbers.length; j++){
+        for (let i = 0; i <= numbers.length - 1; i++) {
+            if (numbers[i] > numbers[i + 1]) {
+                [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]]
+            }
         }
     }
+    console.log(numbers)
 }
-OnO([1,2,3,4,5])
+BubbleSort([6, 4, 5, 3, 1, 2])
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
