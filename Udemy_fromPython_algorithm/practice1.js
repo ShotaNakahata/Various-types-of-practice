@@ -60,40 +60,74 @@
 // }
 // BubbleSort([6, 4, 5, 3, 1, 2])
 //-------------------------------------------------------
-function cocktailsort(numbers) {
-    let count = 1
-    let outsideCount = 1
-    let insideCount = 1
-    let end = numbers.length - 1
-    let start = 0
-    let swap = false;
-    // let derection = ture
-    for (let i = 0; i < numbers.length; i++) {
-        console.log("from 外側 : ", outsideCount, "回目")
-        for (let j = 0; j < numbers.length - 1; j++) {
-            if (numbers[j] > numbers[j + 1]) {
-                [numbers[j], numbers[j + 1]] = [numbers[j + 1], numbers[j]]
-                swap = true
-            }
-            console.log("from 内側 : ", insideCount, "回目")
-            insideCount++
-            count++
-        }
-        if (swap === false){
-            console.log(`最終回数：${count}回 swap is false`)
-            return console.log(numbers)
+// function cocktailsort(numbers) {
+//     let count = 1
+//     let outsideCount = 1
+//     let insideCount = 1
+//     let end = numbers.length - 1
+//     let start = 0
+//     let swap = false;
+//     // let derection = ture
+//     for (let i = 0; i < numbers.length; i++) {
+//         swap = false
+//         console.log("from 外側 : ", outsideCount, "回目")
+//         for (let j = 0; j < numbers.length - 1; j++) {
+//             if (numbers[j] > numbers[j + 1]) {
+//                 [numbers[j], numbers[j + 1]] = [numbers[j + 1], numbers[j]]
+//                 swap = true
+//             }
+//             console.log("from 内側 : ", insideCount, "回目")
+//             insideCount++
+//             count++
+//         }
+//         if (swap === false){
+//             console.log(`最終回数：${count}回 swap is false`)
+//             return console.log(numbers)
             
-        };
-        swap = false
-        // derection = !derection
-        outsideCount++
-        count++
-    }
-    console.log(`最終回数：${count}回`)
-    console.log(numbers)
-}
-// console.log(cocktailsort([1, 5, 3, 2, 4]))
-cocktailsort([1, 5, 3, 2, 4])
+//         };
+//         // derection = !derection
+//         outsideCount++
+//         count++
+//     }
+//     console.log(`最終回数：${count}回`)
+//     console.log(numbers)
+// }
+// // console.log(cocktailsort([1, 5, 3, 2, 4]))
+// cocktailsort([1, 5, 3, 2, 4])
 //-------------------------------------------------------
+function bubbleSort(numbers) {
+    let swap=true;
+    let count = 0; // ループ回数のカウント
+    let start =0;
+    let end = numbers.length-1
+    while(swap){
+        for (let i = start; i < end; i++) { // 範囲を調整
+            count++;
+            if (numbers[i] > numbers[i + 1]) {
+                [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]];
+                swap = true; // 交換があった場合、フラグをtrueに
+            }
+        }
+        if (!swap) break;
+        swap = false;
+        end--
+        
+        for (let j = end; j > start; j--) { // 範囲を調整
+            count++;
+            if (numbers[j] < numbers[j - 1]) {
+                [numbers[j], numbers[j - 1]] = [numbers[j - 1], numbers[j]];
+                swap = true; // 交換があった場合、フラグをtrueに
+            }
+        }
+        if (!swap) break;
+        swap = false;
+        start++
+    }
+    console.log(`最終回数：${count}回`);
+    console.log(numbers); // ソートされた配列を出力
+}
+
+bubbleSort([1, 5, 3, 2, 4]);
+
 //-------------------------------------------------------
 //-------------------------------------------------------
