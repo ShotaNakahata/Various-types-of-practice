@@ -43,17 +43,43 @@
 //-------------------------------------------------------
 
 function BubbleSort(numbers) {
+    let count = 0
     for(let j = 0; j<numbers.length; j++){
-        for (let i = 0; i <= numbers.length - 1; i++) {
+        console.log(j+1,"回目（外側）")
+        count++
+        for (let i = 0; i < numbers.length -j - 1; i++) {
             if (numbers[i] > numbers[i + 1]) {
                 [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]]
             }
+            console.log(j+1,"回目（内側) ",i,"文字目から ",`${numbers.length -j - 1}`," 文字目まで調べた")
+            count++
         }
     }
+    console.log(`最終回数：${count}回`)
     console.log(numbers)
 }
 BubbleSort([6, 4, 5, 3, 1, 2])
 //-------------------------------------------------------
+// function cocktailsort(numbers) {
+//     let end = numbers.length-1
+//     let start = 0
+//     let swap = false;
+//     let derection = ture
+//     for (let i = 0; i < numbers.length; i++) {
+//         for (let j = 0; j < numbers.length - 1; j++) {
+//             if (numbers[j] > numbers[j + 1]) {
+//                 [numbers[j], numbers[j + 1]] = [numbers[j + 1], numbers[j]]
+//                 swap = ture
+//             }
+//             if(swap!=ture) return console.log(numbers);
+//             swap = false
+//         }
+//         derection = !derection
+//     }
+//     console.log(numbers)
+// }
+// // console.log(cocktailsort([1, 5, 3, 2, 4]))
+// cocktailsort([1, 5, 3, 2, 4])
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
