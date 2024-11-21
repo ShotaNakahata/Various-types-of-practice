@@ -95,39 +95,39 @@
 // // console.log(cocktailsort([1, 5, 3, 2, 4]))
 // cocktailsort([1, 5, 3, 2, 4])
 //-------------------------------------------------------
-function bubbleSort(numbers) {
-    let swap=true;
-    let count = 0; // ループ回数のカウント
-    let start =0;
-    let end = numbers.length-1
-    while(swap){
-        for (let i = start; i < end; i++) { // 範囲を調整
-            count++;
-            if (numbers[i] > numbers[i + 1]) {
-                [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]];
-                swap = true; // 交換があった場合、フラグをtrueに
-            }
-        }
-        if (!swap) break;
-        swap = false;
-        end--
+// function bubbleSort(numbers) {
+//     let swap=true;
+//     let count = 0; // ループ回数のカウント
+//     let start =0;
+//     let end = numbers.length-1
+//     while(swap){
+//         for (let i = start; i < end; i++) { // 範囲を調整
+//             count++;
+//             if (numbers[i] > numbers[i + 1]) {
+//                 [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]];
+//                 swap = true; // 交換があった場合、フラグをtrueに
+//             }
+//         }
+//         if (!swap) break;
+//         swap = false;
+//         end--
         
-        for (let j = end; j > start; j--) { // 範囲を調整
-            count++;
-            if (numbers[j] < numbers[j - 1]) {
-                [numbers[j], numbers[j - 1]] = [numbers[j - 1], numbers[j]];
-                swap = true; // 交換があった場合、フラグをtrueに
-            }
-        }
-        if (!swap) break;
-        swap = false;
-        start++
-    }
-    console.log(`最終回数：${count}回`);
-    console.log(numbers); // ソートされた配列を出力
-}
+//         for (let j = end; j > start; j--) { // 範囲を調整
+//             count++;
+//             if (numbers[j] < numbers[j - 1]) {
+//                 [numbers[j], numbers[j - 1]] = [numbers[j - 1], numbers[j]];
+//                 swap = true; // 交換があった場合、フラグをtrueに
+//             }
+//         }
+//         if (!swap) break;
+//         swap = false;
+//         start++
+//     }
+//     console.log(`最終回数：${count}回`);
+//     console.log(numbers); // ソートされた配列を出力
+// }
 
-bubbleSort([1, 5, 3, 2, 4]);
+// bubbleSort([1, 5, 3, 2, 4]);
 
 //-------------------------------------------------------
 //-------------------------------------------------------
