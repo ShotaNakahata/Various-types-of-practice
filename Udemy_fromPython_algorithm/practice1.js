@@ -130,28 +130,45 @@
 // bubbleSort([1, 5, 3, 2, 4]);
 
 //-------------------------------------------------------
+// const numbers = [11, 2, 5, 9, 10, 3];
+// const sum = 12;
+// function getPair(numbers, sum) {
+//     let A = null
+//     let B = null
+//     let outPut = []
+//     let count=0;
+
+//     for (let j = 0; j < numbers.length - 1; j++) {
+//         count++
+//         for (let i = j + 1; i < numbers.length; i++) {
+//             count++
+//             // console.log(numbers[i])
+//             let newSum = numbers[j] + numbers[i];
+//             if (newSum === sum) {
+//                 outPut.push([numbers[j], numbers[i]])
+//             }
+//         }
+//     }
+//     return {outPut,count}
+// }
+// console.log(getPair(numbers, sum))
+//-------------------------------------------------------
 const numbers = [11, 2, 5, 9, 10, 3];
 const sum = 12;
-function getPair(numbers, sum) {
-    let A = null
-    let B = null
-    let outPut = []
-    let count=0;
-
-    for (let j = 0; j < numbers.length - 1; j++) {
-        count++
-        for (let i = j + 1; i < numbers.length; i++) {
-            count++
-            // console.log(numbers[i])
-            let newSum = numbers[j] + numbers[i];
-            if (newSum === sum) {
-                outPut.push([numbers[j], numbers[i]])
-            }
+function getPair(numbers,sum) {
+    let output =[]
+    let seen = new Set();
+    let count = 0;
+    for(let number of numbers){
+        const pairNumber = sum - number;
+        if(seen.has(pairNumber)){
+            output.push([pairNumber,number])
         }
+        seen.add(number)
+        count++
     }
-    return {outPut,count}
+    return {output,count}
 }
-console.log(getPair(numbers, sum))
-//-------------------------------------------------------
+console.log(getPair(numbers,sum))
 //-------------------------------------------------------
 //-------------------------------------------------------
