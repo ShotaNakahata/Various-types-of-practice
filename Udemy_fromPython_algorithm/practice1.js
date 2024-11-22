@@ -192,29 +192,42 @@
 
 // console.log(getPair(numbers))
 //-------------------------------------------------------
-function memoize(func) {
-    const cash = new Map();
+// function memoize(func) {
+//     const cash = new Map();
 
-    return function (...args) {
-        const key = JSON.stringify(args)
-        if(cash.has(key)){
-            console.log(`Cache hit for arguments: ${args}`);
-            return cash.get(key);
-        }
-        console.log(`Cache miss for arguments: ${args}`);
-        const result = func(...args)
-        cash.set(key,result)
-        return result
-    }
-}
-function heavyCalculation(num) {
-    console.log(`Performing calculation for: ${num}`);
-    return num * 2; // 簡単な計算
-}
-const cachedCalculation = memoize(heavyCalculation) ;
+//     return function (...args) {
+//         const key = JSON.stringify(args)
+//         if(cash.has(key)){
+//             console.log(`Cache hit for arguments: ${args}`);
+//             return cash.get(key);
+//         }
+//         console.log(`Cache miss for arguments: ${args}`);
+//         const result = func(...args)
+//         cash.set(key,result)
+//         return result
+//     }
+// }
+// function heavyCalculation(num) {
+//     console.log(`Performing calculation for: ${num}`);
+//     return num * 2; // 簡単な計算
+// }
+// const cachedCalculation = memoize(heavyCalculation) ;
 
-console.log(cachedCalculation(5)); 
-console.log(cachedCalculation(5)); 
+// console.log(cachedCalculation(5)); 
+// console.log(cachedCalculation(5)); 
 //-------------------------------------------------------
+function isPrime(number) {
+    if (number <= 1) return false;
+    for (let i = 2; i < number; i++){
+        if(number%i===0){
+            return false
+        }else{
+            return true;
+        }
+    }
+
+}
+// console.log(isPrime([1,2,3,4,5,6,7,8,9,10]))
+console.log(isPrime(11))
 //-------------------------------------------------------
 //-------------------------------------------------------
