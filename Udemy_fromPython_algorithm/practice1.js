@@ -171,24 +171,50 @@
 // }
 // console.log(getPair(numbers,sum))
 //-------------------------------------------------------
-const numbers = [11, 2, 5, 9, 10, 3];
-function getPair(numbers) {
-    const sum = numbers.reduce((acc, number) => acc + number, 0);
-    if (sum % 2 !== 0) return null;
+// const numbers = [11, 2, 5, 9, 10, 3];
+// function getPair(numbers) {
+//     const sum = numbers.reduce((acc, number) => acc + number, 0);
+//     if (sum % 2 !== 0) return null;
 
-    const harfSum = sum/2
-    let cash = new Set();
-    const output = []
-    for(let number of numbers){
-        let pairNumber = harfSum - number
-        if(cash.has(pairNumber)){
-            output.push([pairNumber,number])
-        }else{
-            cash.add(number);
+//     const harfSum = sum/2
+//     let cash = new Set();
+//     const output = []
+//     for(let number of numbers){
+//         let pairNumber = harfSum - number
+//         if(cash.has(pairNumber)){
+//             output.push([pairNumber,number])
+//         }else{
+//             cash.add(number);
+//         }
+//     }
+//     return output
+// }
+
+// console.log(getPair(numbers))
+//-------------------------------------------------------
+function memoize(func) {
+    const cash = new Map();
+
+    return function (...args) {
+        const key = JSON.stringify(args)
+        if(cash.has(key)){
+            console.log(`Cache hit for arguments: ${args}`);
+            return cash.get(key);
         }
+        console.log(`Cache miss for arguments: ${args}`);
+        const result = func(...args)
+        cash.set(key,result)
+        return result
     }
-    return output
 }
+function heavyCalculation(num) {
+    console.log(`Performing calculation for: ${num}`);
+    return num * 2; // 簡単な計算
+}
+const cachedCalculation = memoize(heavyCalculation) ;
 
-console.log(getPair(numbers))
+console.log(cachedCalculation(5)); 
+console.log(cachedCalculation(5)); 
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
