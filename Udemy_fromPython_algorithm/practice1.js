@@ -153,22 +153,42 @@
 // }
 // console.log(getPair(numbers, sum))
 //-------------------------------------------------------
-const numbers = [11, 2, 5, 9, 10, 3];
-const sum = 12;
-function getPair(numbers,sum) {
-    let output =[]
-    let seen = new Set();
-    let count = 0;
-    for(let number of numbers){
-        const pairNumber = sum - number;
-        if(seen.has(pairNumber)){
-            output.push([pairNumber,number])
-        }
-        seen.add(number)
-        count++
-    }
-    return {output,count}
-}
-console.log(getPair(numbers,sum))
+// const numbers = [11, 2, 5, 9, 10, 3];
+// const sum = 12;
+// function getPair(numbers,sum) {
+//     let output =[]
+//     let seen = new Set();
+//     let count = 0;
+//     for(let number of numbers){
+//         const pairNumber = sum - number;
+//         if(seen.has(pairNumber)){
+//             output.push([pairNumber,number])
+//         }
+//         seen.add(number)
+//         count++
+//     }
+//     return {output,count}
+// }
+// console.log(getPair(numbers,sum))
 //-------------------------------------------------------
+const numbers = [11, 2, 5, 9, 10, 3];
+function getPair(numbers) {
+    const sum = numbers.reduce((acc, number) => acc + number, 0);
+    if (sum % 2 !== 0) return null;
+
+    const harfSum = sum/2
+    let cash = new Set();
+    const output = []
+    for(let number of numbers){
+        let pairNumber = harfSum - number
+        if(cash.has(pairNumber)){
+            output.push([pairNumber,number])
+        }else{
+            cash.add(number);
+        }
+    }
+    return output
+}
+
+console.log(getPair(numbers))
 //-------------------------------------------------------
