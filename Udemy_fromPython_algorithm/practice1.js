@@ -216,18 +216,43 @@
 // console.log(cachedCalculation(5)); 
 // console.log(cachedCalculation(5)); 
 //-------------------------------------------------------
-function isPrime(number) {
-    if (number <= 1) return false;
-    for (let i = 2; i < number; i++){
-        if(number%i===0){
-            return false
-        }else{
-            return true;
-        }
-    }
+// function isPrime(number) {
+//     if (number <= 1) return false;
+//     for (let i = 2; i < number; i++){
+//         if(number%i===0){
+//             return false
+//         }else{
+//             return true;
+//         }
+//     }
 
+// }
+// // console.log(isPrime([1,2,3,4,5,6,7,8,9,10]))
+// console.log(isPrime(11))
+//-------------------------------------------------------
+function isPrime(numbers) {
+    let output = {}
+    for (number of numbers) {
+
+        if (number <= 1) output[number]=false;
+
+        let isPrime = true;
+        for (let i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i === 0) {
+                isPrime=false
+                break;
+            } 
+        }
+        output[number]=isPrime;
+    }
+    return output
 }
-// console.log(isPrime([1,2,3,4,5,6,7,8,9,10]))
-console.log(isPrime(11))
+console.log(isPrime([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+// console.log(isPrime(11))
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
