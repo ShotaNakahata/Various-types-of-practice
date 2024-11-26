@@ -270,26 +270,43 @@
 // console.log(SlectSort(numbers))
 //-------------------------------------------------------
 //gnome Sort
+// const numbers = [5, 4, 2, 3, 1]
+// function gnomeSort(numbers) {
+//     let index = 0
+//     let numLength = numbers.length;
+//     while (index < numLength) {
+//         if (index === 0) {
+//             index++
+//         } else {
+//             if (numbers[index] < numbers[index - 1]) {
+//                 [numbers[index], numbers[index - 1]] = [numbers[index - 1], numbers[index]]
+//                 index--
+//             }else{
+//                 index++
+//             }
+//         }
+//     }
+//     return numbers
+// }
+// console.log(gnomeSort(numbers));
+//number=[1,2,3,4,5,0]
+//-------------------------------------------------------
 const numbers = [5, 4, 2, 3, 1]
-function gnomeSort(numbers) {
-    let index = 0
-    let numLength = numbers.length;
-    while (index < numLength) {
-        if (index === 0) {
-            index++
-        } else {
-            if (numbers[index] < numbers[index - 1]) {
-                [numbers[index], numbers[index - 1]] = [numbers[index - 1], numbers[index]]
-                index--
-            }else{
-                index++
-            }
+function insertSort(numbers) {
+
+    const numLength = numbers.length;
+    for (let i = 1; i < numLength; i++) {
+        let forcusNunber = numbers[i]
+        let finalIdx = i - 1
+        while (finalIdx >= 0 && numbers[finalIdx] > forcusNunber) {
+            numbers[finalIdx + 1] = numbers[finalIdx];
+            finalIdx--
         }
+        numbers[finalIdx + 1] = forcusNunber
     }
     return numbers
 }
-console.log(gnomeSort(numbers));
-//-------------------------------------------------------
+console.log(insertSort(numbers));
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
