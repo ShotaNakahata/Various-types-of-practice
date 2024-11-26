@@ -250,25 +250,45 @@
 // console.log(isPrime([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 // console.log(isPrime(11))
 //-------------------------------------------------------
-const numbers = [1, 5, 2, 3, 6, 4]
+//SelectSort 計算量O(n**2)
+// const numbers = [1, 5, 2, 3, 6, 4]
 
-function SlectSort(numbers) {
-    const numsLength = numbers.length
-    for (let i = 0; i < numsLength - 1; i++) {
-        let min_idx = i
-        // console.log(numbers[i])
-        for (let j = i+1; j < numsLength; j++) {
-            if (numbers[min_idx] > numbers[j]) {
-                min_idx = j
+// function SlectSort(numbers) {
+//     const numsLength = numbers.length
+//     for (let i = 0; i < numsLength - 1; i++) {
+//         let min_idx = i
+//         // console.log(numbers[i])
+//         for (let j = i+1; j < numsLength; j++) {
+//             if (numbers[min_idx] > numbers[j]) {
+//                 min_idx = j
+//             }
+//         }
+//         [numbers[i], numbers[min_idx]] = [numbers[min_idx], numbers[i]];
+//     }
+//     return numbers
+// }
+// console.log(SlectSort(numbers))
+//-------------------------------------------------------
+//gnome Sort
+const numbers = [5, 4, 2, 3, 1]
+function gnomeSort(numbers) {
+    let index = 0
+    let numLength = numbers.length;
+    while (index < numLength) {
+        if (index === 0) {
+            index++
+        } else {
+            if (numbers[index] < numbers[index - 1]) {
+                [numbers[index], numbers[index - 1]] = [numbers[index - 1], numbers[index]]
+                index--
+            }else{
+                index++
             }
         }
-        [numbers[i], numbers[min_idx]] = [numbers[min_idx], numbers[i]];
     }
     return numbers
 }
-console.log(SlectSort(numbers))
-
-//-------------------------------------------------------
+console.log(gnomeSort(numbers));
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
