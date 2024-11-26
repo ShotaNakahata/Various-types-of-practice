@@ -230,26 +230,44 @@
 // // console.log(isPrime([1,2,3,4,5,6,7,8,9,10]))
 // console.log(isPrime(11))
 //-------------------------------------------------------
-function isPrime(numbers) {
-    let output = {}
-    for (number of numbers) {
+// function isPrime(numbers) {
+//     let output = {}
+//     for (number of numbers) {
 
-        if (number <= 1) output[number]=false;
+//         if (number <= 1) output[number]=false;
 
-        let isPrime = true;
-        for (let i = 2; i <= Math.sqrt(number); i++) {
-            if (number % i === 0) {
-                isPrime=false
-                break;
-            } 
-        }
-        output[number]=isPrime;
-    }
-    return output
-}
-console.log(isPrime([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+//         let isPrime = true;
+//         for (let i = 2; i <= Math.sqrt(number); i++) {
+//             if (number % i === 0) {
+//                 isPrime=false
+//                 break;
+//             } 
+//         }
+//         output[number]=isPrime;
+//     }
+//     return output
+// }
+// console.log(isPrime([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
 // console.log(isPrime(11))
 //-------------------------------------------------------
+const numbers = [1, 5, 2, 3, 6, 4]
+
+function SlectSort(numbers) {
+    const numsLength = numbers.length
+    for (let i = 0; i < numsLength - 1; i++) {
+        let min_idx = i
+        // console.log(numbers[i])
+        for (let j = i+1; j < numsLength; j++) {
+            if (numbers[min_idx] > numbers[j]) {
+                min_idx = j
+            }
+        }
+        [numbers[i], numbers[min_idx]] = [numbers[min_idx], numbers[i]];
+    }
+    return numbers
+}
+console.log(SlectSort(numbers))
+
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
