@@ -291,23 +291,49 @@
 // console.log(gnomeSort(numbers));
 //number=[1,2,3,4,5,0]
 //-------------------------------------------------------
-const numbers = [5, 4, 2, 3, 1]
-function insertSort(numbers) {
+// const numbers = [5, 4, 2, 3, 1]
+// function insertSort(numbers) {
 
-    const numLength = numbers.length;
-    for (let i = 1; i < numLength; i++) {
-        let forcusNunber = numbers[i]
-        let finalIdx = i - 1
-        while (finalIdx >= 0 && numbers[finalIdx] > forcusNunber) {
-            numbers[finalIdx + 1] = numbers[finalIdx];
-            finalIdx--
-        }
-        numbers[finalIdx + 1] = forcusNunber
-    }
-    return numbers
-}
-console.log(insertSort(numbers));
+//     const numLength = numbers.length;
+//     for (let i = 1; i < numLength; i++) {
+//         let forcusNunber = numbers[i]
+//         let finalIdx = i - 1
+//         while (finalIdx >= 0 && numbers[finalIdx] > forcusNunber) {
+//             numbers[finalIdx + 1] = numbers[finalIdx];
+//             finalIdx--
+//         }
+//         numbers[finalIdx + 1] = forcusNunber
+//     }
+//     return numbers
+// }
+// console.log(insertSort(numbers));
 //-------------------------------------------------------
+const numbers = [4, 3, 6, 2, 3, 4, 7];
+function countingSort(numbers) {
+    const numLength = numbers.length
+    const maxNum = Math.max(...numbers)
+    const counts = Array(maxNum + 1).fill(0);
+    const result = Array(numLength).fill(0);
+
+    // 出現回数をカウント
+    for (let num of numbers) {
+        counts[num]++
+    }
+
+    // 累積カウントを計算
+    for (let i = 1; i < counts.length; i++) {
+        counts[i] += counts[i - 1]
+    }
+
+    for (let i = numLength - 1; i >= 0; i--) {
+        const index = numbers[i];
+        // console.log(index)
+        result[counts[index] - 1] = numbers[i]
+        counts[index]--
+    }
+    return result
+}
+console.log(countingSort(numbers))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
