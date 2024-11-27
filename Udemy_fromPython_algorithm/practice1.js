@@ -379,27 +379,59 @@
 // console.log(RadixSort(numbers))
 //-------------------------------------------------------
 //Quiq Sort 
-const num = [1, 8, 3, 9, 4, 5, 7]
-function partition(num, low, high) {
-    let pivot = num[high]
-    let i = low - 1
-    for (let j = low; j < high; j++) {
-        // console.log(num[j])
-        if (num[j] < pivot) {
+// const num = [1, 8, 3, 9, 4, 5, 7]
+// function partition(num, low, high) {
+//     let pivot = num[high]
+//     let i = low - 1
+//     for (let j = low; j < high; j++) {
+//         // console.log(num[j])
+//         if (num[j] < pivot) {
+//             i++
+//             [num[i], num[j]] = [num[j], num[i]];
+//         }
+//     }
+//     [num[high], num[i + 1]] = [num[i + 1], num[high]];
+//     return i + 1
+// }
+// function quickSort(num, low = 0, high = num.length - 1) {
+//     if (low < high) {
+//         const partitionIdx = partition(num, low, high)
+//         quickSort(num, low, partitionIdx - 1);
+//         quickSort(num, partitionIdx + 1, high);
+//     }
+//     return num
+// }
+// console.log(quickSort(num));
+//-------------------------------------------------------
+//mergeSort
+const nums = [5, 4, 1, 8, 7, 3, 2, 9]
+function merge(left, right) {
+    const result = []
+    let i = 0;
+    let j = 0;
+    while (i < left.length && j < right.length) {
+        if (left[i] < right[j]){
+            result.push(left[i]);
             i++
-            [num[i], num[j]] = [num[j], num[i]];
+        }else{
+            result.push(right[j]);
+            j++
         }
     }
-    [num[high], num[i + 1]] = [num[i + 1], num[high]];
-    return i + 1
+    return result.concat(left.slice(i).concat(right.slice(j)));
 }
-function quickSort(num, low = 0, high = num.length - 1) {
-    if (low < high) {
-        const partitionIdx = partition(num, low, high)
-        quickSort(num, low, partitionIdx - 1);
-        quickSort(num, partitionIdx + 1, high);
+function mergeSort(nums) {
+    if (nums.length <= 1) {
+        return nums
     }
-    return num
+    const mid = Math.floor(nums.length / 2);
+    const left = nums.slice(0, mid);
+    const right = nums.slice(mid)
+    return merge(mergeSort(left), mergeSort(right))
 }
-console.log(quickSort(num));
+console.log(mergeSort(nums));
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
