@@ -308,16 +308,48 @@
 // }
 // console.log(insertSort(numbers));
 //-------------------------------------------------------
-const numbers = [4, 3, 6, 2, 3, 4, 7];
-function countingSort(numbers) {
+// Counting Sort
+
+// const numbers = [4, 3, 6, 2, 3, 4, 7];
+// function countingSort(numbers) {
+//     const numLength = numbers.length
+//     const maxNum = Math.max(...numbers)
+//     const counts = Array(maxNum + 1).fill(0);
+//     const result = Array(numLength).fill(0);
+
+//     // 出現回数をカウント
+//     for (let num of numbers) {
+//         counts[num]++
+//     }
+
+//     // 累積カウントを計算
+//     for (let i = 1; i < counts.length; i++) {
+//         counts[i] += counts[i - 1]
+//     }
+
+//     for (let i = numLength - 1; i >= 0; i--) {
+//         const index = numbers[i];
+//         // console.log(index)
+//         result[counts[index] - 1] = numbers[i]
+//         // console.log(counts[index]-1)
+//         counts[index]--
+//     }
+//     // return result
+// }
+// console.log(countingSort(numbers))
+//-------------------------------------------------------
+
+// Radix Sort
+const numbers = [20, 10, 320, 200, 4, 555, 1234];
+function countingSort(numbers, place) {
     const numLength = numbers.length
-    const maxNum = Math.max(...numbers)
-    const counts = Array(maxNum + 1).fill(0);
+    const counts = Array(10).fill(0);
     const result = Array(numLength).fill(0);
 
     // 出現回数をカウント
     for (let num of numbers) {
-        counts[num]++
+        const index = Math.floor(num / place) % 10
+        counts[index]++
     }
 
     // 累積カウントを計算
@@ -326,14 +358,24 @@ function countingSort(numbers) {
     }
 
     for (let i = numLength - 1; i >= 0; i--) {
-        const index = numbers[i];
+        const index = Math.floor(numbers[i] / place) % 10;
         // console.log(index)
         result[counts[index] - 1] = numbers[i]
+        // console.log(counts[index]-1)
         counts[index]--
     }
     return result
 }
-console.log(countingSort(numbers))
-//-------------------------------------------------------
+// const numbers = [20, 10, 320, 200, 4, 555];
+function RadixSort(numbers) {
+    const maxNum = Math.max(...numbers);
+    let place = 1
+    while (place < maxNum) {
+        numbers = countingSort(numbers, place)
+        place *= 10
+    }
+    return numbers
+}
+console.log(RadixSort(numbers))
 //-------------------------------------------------------
 //-------------------------------------------------------
