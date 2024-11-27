@@ -432,24 +432,42 @@
 // console.log(mergeSort(nums));
 //-------------------------------------------------------
 //BinarySerch
-const nums = [1, 2, 3, 4, 5, 6, 7]
-function BinarySerch(numbs, value) {
-    let min = 0;
-    let max = nums.length - 1;
-    while (min <= max) {
-        let mid = Math.floor((max + min) / 2);
-        if (nums[mid] === value) {
-            return mid
-        } else if (value < nums[mid]) {
-            max = mid - 1
-        } else {
-            min = mid + 1
-        }
-    }
-    return null
-}
-console.log(BinarySerch(nums, 6))
+// const nums = [1, 2, 3, 4, 5, 6, 7]
+// function BinarySerch(numbs, value) {
+//     let min = 0;
+//     let max = nums.length - 1;
+//     while (min <= max) {
+//         let mid = Math.floor((max + min) / 2);
+//         if (nums[mid] === value) {
+//             return mid
+//         } else if (value < nums[mid]) {
+//             max = mid - 1
+//         } else {
+//             min = mid + 1
+//         }
+//     }
+//     return null
+// }
+// console.log(BinarySerch(nums, 6))
 //-------------------------------------------------------
+//BinarySerch 再帰的に解決
+const nums = [1, 2, 3, 4, 5, 6, 7];
+function binarySearchRecursive(nums, value, min = 0, max = nums.length - 1) {
+    if (min > max) return null
+    
+    let mid = Math.floor((min + max) / 2);
+    let midNum = nums[mid]
+    if (midNum === value) return mid
+    if (value > midNum) {
+        min = mid + 1
+        return binarySearchRecursive(nums, value, min, max);
+    } else {
+        max = mid - 1
+        return binarySearchRecursive(nums, value, min, max);
+    }
+}
+console.log(binarySearchRecursive(nums, 6)); // 出力: 5
+console.log(binarySearchRecursive(nums, 10)); // 出力: null
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
