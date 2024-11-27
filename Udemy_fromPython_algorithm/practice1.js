@@ -404,33 +404,51 @@
 // console.log(quickSort(num));
 //-------------------------------------------------------
 //mergeSort
-const nums = [5, 4, 1, 8, 7, 3, 2, 9]
-function merge(left, right) {
-    const result = []
-    let i = 0;
-    let j = 0;
-    while (i < left.length && j < right.length) {
-        if (left[i] < right[j]){
-            result.push(left[i]);
-            i++
-        }else{
-            result.push(right[j]);
-            j++
+// const nums = [5, 4, 1, 8, 7, 3, 2, 9]
+// function merge(left, right) {
+//     const result = []
+//     let i = 0;
+//     let j = 0;
+//     while (i < left.length && j < right.length) {
+//         if (left[i] < right[j]){
+//             result.push(left[i]);
+//             i++
+//         }else{
+//             result.push(right[j]);
+//             j++
+//         }
+//     }
+//     return result.concat(left.slice(i).concat(right.slice(j)));
+// }
+// function mergeSort(nums) {
+//     if (nums.length <= 1) {
+//         return nums
+//     }
+//     const mid = Math.floor(nums.length / 2);
+//     const left = nums.slice(0, mid);
+//     const right = nums.slice(mid)
+//     return merge(mergeSort(left), mergeSort(right))
+// }
+// console.log(mergeSort(nums));
+//-------------------------------------------------------
+//BinarySerch
+const nums = [1, 2, 3, 4, 5, 6, 7]
+function BinarySerch(numbs, value) {
+    let min = 0;
+    let max = nums.length - 1;
+    while (min <= max) {
+        let mid = Math.floor((max + min) / 2);
+        if (nums[mid] === value) {
+            return mid
+        } else if (value < nums[mid]) {
+            max = mid - 1
+        } else {
+            min = mid + 1
         }
     }
-    return result.concat(left.slice(i).concat(right.slice(j)));
+    return null
 }
-function mergeSort(nums) {
-    if (nums.length <= 1) {
-        return nums
-    }
-    const mid = Math.floor(nums.length / 2);
-    const left = nums.slice(0, mid);
-    const right = nums.slice(mid)
-    return merge(mergeSort(left), mergeSort(right))
-}
-console.log(mergeSort(nums));
-//-------------------------------------------------------
+console.log(BinarySerch(nums, 6))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
