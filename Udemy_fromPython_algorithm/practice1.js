@@ -486,12 +486,21 @@ class hashtable {
     set(key, value) {
         const index = this.hash(key);
         for (let pair of this.table[index]) {
-            if (pair(0) === key) {
-                pair(1)=value;
+            if (pair[0] === key) {
+                pair[1] = value;
                 return;
             }
         }
-        this.table[index].push([key,value])
+        this.table[index].push([key, value])
+    }
+    get(key) {
+        const index = this.hash(key);
+        for (let pair of this.table[index]) {
+            if (pair[0] === key){
+                return pair(1)
+            }
+        }
+        return null
     }
 }
 
