@@ -496,11 +496,20 @@ class hashtable {
     get(key) {
         const index = this.hash(key);
         for (let pair of this.table[index]) {
-            if (pair[0] === key){
+            if (pair[0] === key) {
                 return pair[1]
             }
         }
         return null
+    }
+    delete(key, value) {
+        const index = this.hash(key);
+        const pairIndex = this.table[index].findIndex(pair => pair[0] === key);
+        if (pairIndex !== -1) {
+            this.table[index].splice(pairIndex,1);
+            return true;
+        }
+        return false
     }
 }
 
