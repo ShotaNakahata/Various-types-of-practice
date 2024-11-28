@@ -502,7 +502,7 @@ class hashtable {
         }
         return null
     }
-    delete(key, value) {
+    delete(key) {
         const index = this.hash(key);
         const pairIndex = this.table[index].findIndex(pair => pair[0] === key);
         if (pairIndex !== -1) {
