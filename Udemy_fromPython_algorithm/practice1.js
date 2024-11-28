@@ -497,7 +497,7 @@ class hashtable {
         const index = this.hash(key);
         for (let pair of this.table[index]) {
             if (pair[0] === key){
-                return pair(1)
+                return pair[1]
             }
         }
         return null
