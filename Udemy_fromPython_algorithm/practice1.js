@@ -451,23 +451,49 @@
 // console.log(BinarySerch(nums, 6))
 //-------------------------------------------------------
 //BinarySerch 再帰的に解決
-const nums = [1, 2, 3, 4, 5, 6, 7];
-function binarySearchRecursive(nums, value, min = 0, max = nums.length - 1) {
-    if (min > max) return null
-    
-    let mid = Math.floor((min + max) / 2);
-    let midNum = nums[mid]
-    if (midNum === value) return mid
-    if (value > midNum) {
-        min = mid + 1
-        return binarySearchRecursive(nums, value, min, max);
-    } else {
-        max = mid - 1
-        return binarySearchRecursive(nums, value, min, max);
+// const nums = [1, 2, 3, 4, 5, 6, 7];
+// function binarySearchRecursive(nums, value, min = 0, max = nums.length - 1) {
+//     if (min > max) return null
+
+//     let mid = Math.floor((min + max) / 2);
+//     let midNum = nums[mid]
+//     if (midNum === value) return mid
+//     if (value > midNum) {
+//         min = mid + 1
+//         return binarySearchRecursive(nums, value, min, max);
+//     } else {
+//         max = mid - 1
+//         return binarySearchRecursive(nums, value, min, max);
+//     }
+// }
+// console.log(binarySearchRecursive(nums, 6)); // 出力: 5
+// console.log(binarySearchRecursive(nums, 10)); // 出力: null
+//-------------------------------------------------------
+//Hashtable
+class hashtable {
+    constructor(size = 10) {
+        this.size = size;
+        this.table = Array.from({ length: size }, () => []);
+    }
+    hash(key) {
+        let hash = 0;
+        let prime = 31;
+        for (let i = 0; i < key.length; i++) {
+            hash = (hash * prime + key.charCodeAt(i)) % this.size;
+        }
+        return hash
+    }
+    set(key, value) {
+        const index = this.hash(key);
+        for (let pair of this.table[index]) {
+            if (pair(0) === key) {
+                pair(1)=value;
+                return;
+            }
+        }
+        this.table[index].push([key,value])
     }
 }
-console.log(binarySearchRecursive(nums, 6)); // 出力: 5
-console.log(binarySearchRecursive(nums, 10)); // 出力: null
-//-------------------------------------------------------
+
 //-------------------------------------------------------
 //-------------------------------------------------------
