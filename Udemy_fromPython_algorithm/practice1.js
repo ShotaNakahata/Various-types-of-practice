@@ -470,56 +470,58 @@
 // console.log(binarySearchRecursive(nums, 10)); // 出力: null
 //-------------------------------------------------------
 //Hashtable
-class Hashtable {
-    constructor(size = 10) {
-        this.size = size;
-        this.table = Array.from({ length: size }, () => []);
-    }
-    hash(key) {
-        let hash = 0;
-        let prime = 31;
-        for (let i = 0; i < key.length; i++) {
-            hash = (hash * prime + key.charCodeAt(i)) % this.size;
-        }
-        return hash
-    }
-    set(key, value) {
-        const index = this.hash(key);
-        for (let pair of this.table[index]) {
-            if (pair[0] === key) {
-                pair[1] = value;
-                return;
-            }
-        }
-        this.table[index].push([key, value])
-    }
-    get(key) {
-        const index = this.hash(key);
-        for (let pair of this.table[index]) {
-            if (pair[0] === key) {
-                return pair[1]
-            }
-        }
-        return null
-    }
-    getAll(){
-        return console.log(this.table)
-    }
-    delete(key) {
-        const index = this.hash(key);
-        const pairIndex = this.table[index].findIndex(pair => pair[0] === key);
-        if (pairIndex !== -1) {
-            this.table[index].splice(pairIndex,1);
-            return true;
-        }
-        return false
-    }
-}
-const hashTable = new Hashtable();
+// class Hashtable {
+//     constructor(size = 10) {
+//         this.size = size;
+//         this.table = Array.from({ length: size }, () => []);
+//     }
+//     hash(key) {
+//         let hash = 0;
+//         let prime = 31;
+//         for (let i = 0; i < key.length; i++) {
+//             hash = (hash * prime + key.charCodeAt(i)) % this.size;
+//         }
+//         return hash
+//     }
+//     set(key, value) {
+//         const index = this.hash(key);
+//         for (let pair of this.table[index]) {
+//             if (pair[0] === key) {
+//                 pair[1] = value;
+//                 return;
+//             }
+//         }
+//         this.table[index].push([key, value])
+//     }
+//     get(key) {
+//         const index = this.hash(key);
+//         for (let pair of this.table[index]) {
+//             if (pair[0] === key) {
+//                 return pair[1]
+//             }
+//         }
+//         return null
+//     }
+//     getAll() {
+//         for (let idx = 0; idx < this.size; idx++) {
+//             console.log(`${idx} : ${this.table[idx]}`)
+//         }
+//     }
+//     delete(key) {
+//         const index = this.hash(key);
+//         const pairIndex = this.table[index].findIndex(pair => pair[0] === key);
+//         if (pairIndex !== -1) {
+//             this.table[index].splice(pairIndex, 1);
+//             return true;
+//         }
+//         return false
+//     }
+// }
+// const hashTable = new Hashtable();
 
-hashTable.set("name", "Alice");
-hashTable.set("age", 25);
-hashTable.getAll()
+// hashTable.set("name", "Alice");
+// hashTable.set("age", 25);
+// hashTable.getAll()
 
 // console.log(hashTable.get("name")); // "Alice"
 // console.log(hashTable.get("age")); // 25
@@ -529,5 +531,32 @@ hashTable.getAll()
 // console.log(hashTable.get("age")); // null
 // console.log(hashTable.delete("age")); // false
 
+//-------------------------------------------------------
+class Stack {
+    constructor() {
+        this.stack = [];
+    }
+    push(data){
+        this.stack.push(data);
+    }
+    pop(){
+        if(this.stack.length>0){
+            return this.stack.pop()
+        }
+        return console.log("no data")
+    }
+    getStack(){
+        return this.stack
+    }
+}
+const newStack = new Stack()
+console.log(newStack.getStack());
+newStack.push(10)
+console.log(newStack.getStack());
+newStack.push(2)
+console.log(newStack.getStack());
+console.log(newStack.pop())
+console.log(newStack.getStack());
+//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
