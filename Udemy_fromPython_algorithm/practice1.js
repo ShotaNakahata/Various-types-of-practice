@@ -580,7 +580,7 @@ class Queue {
         return console.log(`from enqueue : queue is ${this.getQueue()}`)
     }
     dequeue() {
-        if(this.isEmpty()){
+        if (this.isEmpty()) {
             console.log("Queue is empty");
             return null
         }
@@ -589,13 +589,20 @@ class Queue {
     isEmpty() {
         return this.queue.length === 0
     }
-    getQueue(){
+    getQueue() {
         return this.queue;
+    }
+    reverse() {
+        const reverseQueue = [...this.queue].reverse()
+        return console.log(reverseQueue)
     }
 }
 const queue = new Queue()
-queue.enqueue(2)
 queue.enqueue(1)
-queue.dequeue()
-console.log(queue.getQueue())
+queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+queue.enqueue(5)
+console.log("original", queue.getQueue())
+queue.reverse()
 //-------------------------------------------------------
