@@ -470,7 +470,7 @@
 // console.log(binarySearchRecursive(nums, 10)); // 出力: null
 //-------------------------------------------------------
 //Hashtable
-class hashtable {
+class Hashtable {
     constructor(size = 10) {
         this.size = size;
         this.table = Array.from({ length: size }, () => []);
@@ -502,6 +502,9 @@ class hashtable {
         }
         return null
     }
+    getAll(){
+        return console.log(this.table)
+    }
     delete(key) {
         const index = this.hash(key);
         const pairIndex = this.table[index].findIndex(pair => pair[0] === key);
@@ -512,6 +515,19 @@ class hashtable {
         return false
     }
 }
+const hashTable = new Hashtable();
+
+hashTable.set("name", "Alice");
+hashTable.set("age", 25);
+hashTable.getAll()
+
+// console.log(hashTable.get("name")); // "Alice"
+// console.log(hashTable.get("age")); // 25
+// console.log(hashTable.get("gender")); // null
+
+// console.log(hashTable.delete("age")); // true
+// console.log(hashTable.get("age")); // null
+// console.log(hashTable.delete("age")); // false
 
 //-------------------------------------------------------
 //-------------------------------------------------------
