@@ -532,31 +532,70 @@
 // console.log(hashTable.delete("age")); // false
 
 //-------------------------------------------------------
-class Stack {
+// class Stack {
+//     constructor() {
+//         this.stack = [];
+//     }
+//     push(data){
+//         this.stack.push(data);
+//     }
+//     pop(){
+//         if(this.stack.length>0){
+//             return this.stack.pop()
+//         }
+//         return console.log("no data")
+//     }
+//     getStack(){
+//         return this.stack
+//     }
+// }
+// const newStack = new Stack()
+// console.log(newStack.getStack());
+// newStack.push(10)
+// console.log(newStack.getStack());
+// newStack.push(2)
+// console.log(newStack.getStack());
+// console.log(newStack.pop())
+// console.log(newStack.getStack());
+//-------------------------------------------------------
+// const Input = { 'key1': 'value1', 'key2': [1, 2, 3], 'key3': (1, 2, 3) } 
+// const Input2 = { 'key1': ['value1'], 'key2': [1, 2, 3], 'key3': (1, 2, 3) } 
+// function chackFormat(input) {
+//     const JsonStr = JSON.stringify(input)
+//     console.log
+//     // for(char in JsonStr){
+//     //     console.log(char)
+//     // }
+// }
+// chackFormat(Input)
+//-------------------------------------------------------
+//Queue
+class Queue {
     constructor() {
-        this.stack = [];
+        this.queue = []
     }
-    push(data){
-        this.stack.push(data);
+    enqueue(data) {
+        // console.log(` enqueue ${this.enqueue.push(data)} queue is ${this.getQueue()}`)
+        this.queue.push(data)
+        return console.log(`from enqueue : queue is ${this.getQueue()}`)
     }
-    pop(){
-        if(this.stack.length>0){
-            return this.stack.pop()
+    dequeue() {
+        if(this.isEmpty()){
+            console.log("Queue is empty");
+            return null
         }
-        return console.log("no data")
+        return console.log(`dequeue : ${this.queue.shift()}`)
     }
-    getStack(){
-        return this.stack
+    isEmpty() {
+        return this.queue.length === 0
+    }
+    getQueue(){
+        return this.queue;
     }
 }
-const newStack = new Stack()
-console.log(newStack.getStack());
-newStack.push(10)
-console.log(newStack.getStack());
-newStack.push(2)
-console.log(newStack.getStack());
-console.log(newStack.pop())
-console.log(newStack.getStack());
-//-------------------------------------------------------
-//-------------------------------------------------------
+const queue = new Queue()
+queue.enqueue(2)
+queue.enqueue(1)
+queue.dequeue()
+console.log(queue.getQueue())
 //-------------------------------------------------------
