@@ -685,6 +685,64 @@
 
 // console.log(insert(root,5));
 //-------------------------------------------------------
+// class Node {
+//     constructor(value) {
+//         this.value = value; // ノードの値
+//         this.left = null;   // 左の子ノード
+//         this.right = null;  // 右の子ノード
+//     }
+// }
+// class BinaryTree {
+//     constructor() {
+//         this.root = null;
+//     }
+//     insert(value) {
+//         this.root = this.insertNode(this.root, value)
+//     }
+//     insertNode(node, value) {
+//         if (node === null) {
+//             return new Node(value);
+//         }
+//         if (value < node.value) {
+//             node.left = this.insertNode(node.left, value); // 左に挿入
+//         } else if (value > node.value) {
+//             node.right = this.insertNode(node.right, value); // 右に挿入
+//         }
+//         return node
+//     }
+//     printTree(node = this.root, level = 0) {
+//         if (node === null) return;
+//         this.printTree(node.right, level + 1); // 右の子を表示
+//         console.log("  ".repeat(level) + node.value); // 現在のノードを表示
+//         this.printTree(node.left, level + 1); // 左の子を表示
+//     }
+//     search(value, node = this.root) {
+//         if (node === null) {
+//             return false;
+//         }
+//         if (node.value === value) return true;
+//         if (node.value > value) {
+//             return this.search(value,node.left);
+//         } else if (node.value < value) {
+//             return this.search(value,node.right);
+//         }
+//     }
+// }
+// // 3. ツリーを作成して値を挿入
+// const tree = new BinaryTree();
+// tree.insert(10); // ルートに10を挿入
+// tree.insert(5);  // 左の子に5を挿入
+// tree.insert(15); // 右の子に15を挿入
+// tree.insert(3);  // さらに左に3を挿入
+// tree.insert(8);  // さらに左に8を挿入
+// tree.insert(12); // さらに右に12を挿入
+// tree.insert(20); // さらに右に20を挿入
+
+// // 4. ツリーの状態を出力
+// console.log("Tree Root:", tree.root);
+// // tree.printTree(); // ツリー全体を表示
+// console.log(tree.search(5))
+//-------------------------------------------------------
 class Node {
     constructor(value) {
         this.value = value; // ノードの値
@@ -720,29 +778,69 @@ class BinaryTree {
         if (node === null) {
             return false;
         }
-        if (node.value === value) return true;
+        if (node.value === value) return node;
         if (node.value > value) {
-            return this.search(value,node.left);
+            return this.search(value, node.left);
         } else if (node.value < value) {
-            return this.search(value,node.right);
+            return this.search(value, node.right);
         }
     }
+    remove(value) {
+        this.root = this._removeNode(this.root, value)
+    }
+    _removeNode(node, value) {
+        if (node === null) {
+            return null
+        }
+        if (node.value > value) {
+            node.left = this._removeNode(node.left, value)
+        } else if (node.value < value) {
+            node.right = this._removeNode(node.right, value)
+        } else if (node.value === value) {
+            if (node.left === null && node.right === null) {
+                return null
+            } else if (node.left === null) {
+                return node.right
+            } else if (node.right === null) {
+                return node.left
+            } else {
+                const temp = this._minValue(node.right);
+                node.value = temp.value
+                node.right = this._removeNode(node.right,temp.value)
+            }
+        }
+        return node
+    }
+    _minValue(node) {
+        let current = node;
+        while (current.left !== null) {
+            current = current.left
+        }
+        return current
+    }
 }
-// 3. ツリーを作成して値を挿入
 const tree = new BinaryTree();
-tree.insert(10); // ルートに10を挿入
-tree.insert(5);  // 左の子に5を挿入
-tree.insert(15); // 右の子に15を挿入
-tree.insert(3);  // さらに左に3を挿入
-tree.insert(8);  // さらに左に8を挿入
-tree.insert(12); // さらに右に12を挿入
-tree.insert(20); // さらに右に20を挿入
+tree.insert(10);
+tree.insert(5);
+tree.insert(15);
+tree.insert(3);
+tree.insert(7);
+tree.insert(12);
+tree.insert(20);
 
-// 4. ツリーの状態を出力
-console.log("Tree Root:", tree.root);
-// tree.printTree(); // ツリー全体を表示
-console.log(tree.search(5))
-//-------------------------------------------------------
+// 削除前のツリー
+console.log("Before Removal:");
+tree.printTree();
+
+// ノードを削除
+tree.remove(15); // ノード15を削除
+tree.remove(5);  // ノード5を削除
+tree.remove(25); // 存在しないノード25を削除（何もしない）
+
+// 削除後のツリー
+console.log("\nAfter Removal:");
+tree.printTree();
+
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
