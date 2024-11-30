@@ -696,11 +696,11 @@ class BinaryTree {
     constructor() {
         this.root = null;
     }
-    insert(value){
-        this.root = this.insertNode(this.root,value)
+    insert(value) {
+        this.root = this.insertNode(this.root, value)
     }
-    insertNode(node,value){
-        if(node === null){
+    insertNode(node, value) {
+        if (node === null) {
             return new Node(value);
         }
         if (value < node.value) {
@@ -716,6 +716,17 @@ class BinaryTree {
         console.log("  ".repeat(level) + node.value); // 現在のノードを表示
         this.printTree(node.left, level + 1); // 左の子を表示
     }
+    search(value, node = this.root) {
+        if (node === null) {
+            return false;
+        }
+        if (node.value === value) return true;
+        if (node.value > value) {
+            return this.search(value,node.left);
+        } else if (node.value < value) {
+            return this.search(value,node.right);
+        }
+    }
 }
 // 3. ツリーを作成して値を挿入
 const tree = new BinaryTree();
@@ -729,7 +740,8 @@ tree.insert(20); // さらに右に20を挿入
 
 // 4. ツリーの状態を出力
 console.log("Tree Root:", tree.root);
-tree.printTree(); // ツリー全体を表示
+// tree.printTree(); // ツリー全体を表示
+console.log(tree.search(5))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
