@@ -647,44 +647,89 @@
 // queue.reverse()
 //-------------------------------------------------------
 //Binary tree
-class Node {
-    constructor(value) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-}
-function insert(node, value) {
-    if (node === null) {
-        return new Node(value);
-    }
+// class Node {
+//     constructor(value) {
+//         this.value = value;
+//         this.left = null;
+//         this.right = null;
+//     }
+// }
+// function insert(node, value) {
+//     if (node === null) {
+//         return new Node(value);
+//     }
 
-    if (node.value >value) {
-        node.left=insert(node.left,value);
-    }else if(node.value < value){
-        node.right= insert(node.right,value);
-    }
-    return node
-}
+//     if (node.value >value) {
+//         node.left=insert(node.left,value);
+//     }else if(node.value < value){
+//         node.right= insert(node.right,value);
+//     }
+//     return node
+// }
 
-let root = null; // 初期状態では root は null
+// let root = null; // 初期状態では root は null
 
-// 修正：`insert` の結果を root に代入
-root = insert(root, 3); // root を更新
-root = insert(root, 6); // root に新しいノードが挿入されたツリーを代入
-root = insert(root, 5); // root を更新
+// // 修正：`insert` の結果を root に代入
+// root = insert(root, 3); // root を更新
+// root = insert(root, 6); // root に新しいノードが挿入されたツリーを代入
+// root = insert(root, 5); // root を更新
 
-// ルートノードを表示
-console.log("Root Node:", root);
+// // ルートノードを表示
+// console.log("Root Node:", root);
 
-// ルートの右の子ノードを表示
-console.log("Root's right child:", root.right);
+// // ルートの右の子ノードを表示
+// console.log("Root's right child:", root.right);
 
-// ルートの右の子の左の子ノードを表示
-console.log("Root's right child's left child:", root.right.left);
+// // ルートの右の子の左の子ノードを表示
+// console.log("Root's right child's left child:", root.right.left);
 
 // console.log(insert(root,5));
 //-------------------------------------------------------
+class Node {
+    constructor(value) {
+        this.value = value; // ノードの値
+        this.left = null;   // 左の子ノード
+        this.right = null;  // 右の子ノード
+    }
+}
+class BinaryTree {
+    constructor() {
+        this.root = null;
+    }
+    insert(value){
+        this.root = this.insertNode(this.root,value)
+    }
+    insertNode(node,value){
+        if(node === null){
+            return new Node(value);
+        }
+        if (value < node.value) {
+            node.left = this.insertNode(node.left, value); // 左に挿入
+        } else if (value > node.value) {
+            node.right = this.insertNode(node.right, value); // 右に挿入
+        }
+        return node
+    }
+    printTree(node = this.root, level = 0) {
+        if (node === null) return;
+        this.printTree(node.right, level + 1); // 右の子を表示
+        console.log("  ".repeat(level) + node.value); // 現在のノードを表示
+        this.printTree(node.left, level + 1); // 左の子を表示
+    }
+}
+// 3. ツリーを作成して値を挿入
+const tree = new BinaryTree();
+tree.insert(10); // ルートに10を挿入
+tree.insert(5);  // 左の子に5を挿入
+tree.insert(15); // 右の子に15を挿入
+tree.insert(3);  // さらに左に3を挿入
+tree.insert(8);  // さらに左に8を挿入
+tree.insert(12); // さらに右に12を挿入
+tree.insert(20); // さらに右に20を挿入
+
+// 4. ツリーの状態を出力
+console.log("Tree Root:", tree.root);
+tree.printTree(); // ツリー全体を表示
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
