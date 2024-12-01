@@ -992,45 +992,93 @@
 // console.log(countStr(input));
 //-------------------------------------------------------
 //Cash
-function longFunc(num) {
-    let r = 0;
-    for (let i = 0; i < 10000000; i++) {
-        r += num * i;
-    }
-    return r;
-}
-class Memoizer {
-    constructor() {
-        this.cash = new Map()
-    }
-    memoize(fn){
-        return (...args)=>{
-            const key = JSON.stringify(args);
-            if(this.cash.has(key)){
-                return this.cash.get(key);
-            }
-            const result = fn(...args);
-            this.cash.set(key,result);
-            return result
-        }
-    }
-}
-const memoizer = new Memoizer();
-const memoizedLongFunc =memoizer.memoize(longFunc)
+// function longFunc(num) {
+//     let r = 0;
+//     for (let i = 0; i < 10000000; i++) {
+//         r += num * i;
+//     }
+//     return r;
+// }
+// class Memoizer {
+//     constructor() {
+//         this.cash = new Map()
+//     }
+//     memoize(fn){
+//         return (...args)=>{
+//             const key = JSON.stringify(args);
+//             if(this.cash.has(key)){
+//                 return this.cash.get(key);
+//             }
+//             const result = fn(...args);
+//             this.cash.set(key,result);
+//             return result
+//         }
+//     }
+// }
+// const memoizer = new Memoizer();
+// const memoizedLongFunc =memoizer.memoize(longFunc)
 
-console.log("Initial Calls:");
-for (let i = 0; i < 10; i++) {
-    console.time(`Call ${i}`);
-    console.log(memoizedLongFunc(i)); // キャッシュがない場合
-    console.timeEnd(`Call ${i}`);
-}
+// console.log("Initial Calls:");
+// for (let i = 0; i < 10; i++) {
+//     console.time(`Call ${i}`);
+//     console.log(memoizedLongFunc(i)); // キャッシュがない場合
+//     console.timeEnd(`Call ${i}`);
+// }
 
-console.log("\nCached Calls:");
-for (let i = 0; i < 10; i++) {
-    console.time(`Cached Call ${i}`);
-    console.log(memoizedLongFunc(i)); // キャッシュが使われる場合
-    console.timeEnd(`Cached Call ${i}`);
-}
+// console.log("\nCached Calls:");
+// for (let i = 0; i < 10; i++) {
+//     console.time(`Cached Call ${i}`);
+//     console.log(memoizedLongFunc(i)); // キャッシュが使われる場合
+//     console.timeEnd(`Cached Call ${i}`);
+// }
 //-------------------------------------------------------
+const x = [1, 2, 3, 4, 4, 5, 5, 8, 10]
+const y = [4, 5, 5, 5, 6, 7, 8, 8, 10]
+
+function min_count_remove(x, y) {
+    const xSet = new Map();
+    const ySet = new Map();
+    const xResult = []
+    const yResult = []
+    x.forEach((num) => {
+        xSet.set(num, (xSet.get(num) || 0) + 1);
+    })
+    y.forEach((num) => {
+        ySet.set(num, (ySet.get(num) || 0) + 1);
+    })
+    xSet.entries().forEach(([Xkey, Xval]) => {
+        if (!ySet.has(Xkey)) {
+            for (let i = 1; i <= Xval; i++) {
+                xResult.push(Xkey);
+            }
+        } else if (ySet.get(Xkey) < Xval){
+            for (let i = 1; i <= Xval; i++) {
+                xResult.push(Xkey);
+            }
+        }else if (ySet.get(Xkey) === Xval){
+            for (let i = 1; i <= Xval; i++) {
+                xResult.push(Xkey);
+            }
+        }
+    })
+    ySet.entries().forEach(([Ykey, Yval])=> {
+        if (!xSet.has(Ykey)) {
+            for (let i = 1; i <= Yval; i++) {
+                yResult.push(Ykey);
+            }
+        } else if (xSet.get(Ykey) < Yval){
+            for (let i = 1; i <= Yval; i++) {
+                yResult.push(Ykey);
+            }
+        }else if (xSet.get(Ykey) === Yval){
+            for (let i = 1; i <= Yval; i++) {
+                yResult.push(Ykey);
+            }
+        }
+    })
+    return {xResult,yResult}
+}
+console.log(min_count_remove(x, y))
+
 //-------------------------------------------------------
 //-------------------------------------------------------
