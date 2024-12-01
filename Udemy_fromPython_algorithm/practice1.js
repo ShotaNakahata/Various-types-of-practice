@@ -944,22 +944,36 @@
 // console.log(count_top_n(words, 3))
 //-------------------------------------------------------
 //シンメトリック
-const input = [[1,2],[2,3],[3,5],[4,7],[5,3],[7,4]]
-// output = [[5,3],[7,4]]
+// const input = [[1,2],[2,3],[3,5],[4,7],[5,3],[7,4]]
+// // output = [[5,3],[7,4]]
 
+// function symmetric(nums) {
+//     const set = new Set();
+//     let result = []
+//     nums.forEach((num)=>{
+//         let currentPair = `${num[0]},${num[1]}`
+//         let symmetricPair = `${num[1]},${num[0]}`
+//         if(set.has(symmetricPair)){
+//             result.push([num[0],num[1]]);
+//         }
+//         set.add(currentPair)
+//     })
+//     return result
+// }
+// console.log(symmetric(input))
+//-------------------------------------------------------
+const input = [[1, 2], [2, 3], [3, 5], [4, 7], [5, 3], [7, 4]]
 function symmetric(nums) {
-    const set = new Set();
-    let result = []
-    nums.forEach((num)=>{
-        let currentPair = `${num[0]},${num[1]}`
-        let symmetricPair = `${num[1]},${num[0]}`
-        if(set.has(symmetricPair)){
-            result.push([num[0],num[1]]);
+    const set = new Map();
+    const result = []
+    nums.forEach(([index0, index1]) => {
+        if (set.has(index1) && set.get(index1) === index0){
+            result.push([index0, index1]);
         }
-        set.add(currentPair)
+        set.set(index0,index1)
     })
     return result
 }
+// symmetric(input)
 console.log(symmetric(input))
-//-------------------------------------------------------
 //-------------------------------------------------------
