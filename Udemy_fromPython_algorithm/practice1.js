@@ -768,6 +768,15 @@ class BinaryTree {
         }
         return node
     }
+    getInOrder(node = this.root, result = []) {
+        if (node === null) {
+            return result
+        }
+        this.getInOrder(node.left, result)
+        result.push(node.value)
+        this.getInOrder(node.right, result)
+        return result
+    }
     printTree(node = this.root, level = 0) {
         if (node === null) return;
         this.printTree(node.right, level + 1); // 右の子を表示
@@ -806,7 +815,7 @@ class BinaryTree {
             } else {
                 const temp = this._minValue(node.right);
                 node.value = temp.value
-                node.right = this._removeNode(node.right,temp.value)
+                node.right = this._removeNode(node.right, temp.value)
             }
         }
         return node
@@ -828,18 +837,19 @@ tree.insert(7);
 tree.insert(12);
 tree.insert(20);
 
-// 削除前のツリー
-console.log("Before Removal:");
-tree.printTree();
+// // 削除前のツリー
+// console.log("Before Removal:");
+// tree.printTree();
 
-// ノードを削除
-tree.remove(15); // ノード15を削除
-tree.remove(5);  // ノード5を削除
-tree.remove(25); // 存在しないノード25を削除（何もしない）
+// // ノードを削除
+// tree.remove(15); // ノード15を削除
+// tree.remove(5);  // ノード5を削除
+// tree.remove(25); // 存在しないノード25を削除（何もしない）
 
-// 削除後のツリー
-console.log("\nAfter Removal:");
-tree.printTree();
+// // 削除後のツリー
+// console.log("\nAfter Removal:");
+// tree.printTree();
+console.log(tree.getInOrder())
 
 //-------------------------------------------------------
 //-------------------------------------------------------
