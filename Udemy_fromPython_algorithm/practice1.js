@@ -1032,53 +1032,87 @@
 //     console.timeEnd(`Cached Call ${i}`);
 // }
 //-------------------------------------------------------
+// const x = [1, 2, 3, 4, 4, 5, 5, 8, 10]
+// const y = [4, 5, 5, 5, 6, 7, 8, 8, 10]
+
+// function min_count_remove(x, y) {
+//     const xSet = new Map();
+//     const ySet = new Map();
+//     const xResult = []
+//     const yResult = []
+//     x.forEach((num) => {
+//         xSet.set(num, (xSet.get(num) || 0) + 1);
+//     })
+//     y.forEach((num) => {
+//         ySet.set(num, (ySet.get(num) || 0) + 1);
+//     })
+//     xSet.entries().forEach(([Xkey, Xval]) => {
+//         if (!ySet.has(Xkey)) {
+//             for (let i = 1; i <= Xval; i++) {
+//                 xResult.push(Xkey);
+//             }
+//         } else if (ySet.get(Xkey) < Xval){
+//             for (let i = 1; i <= Xval; i++) {
+//                 xResult.push(Xkey);
+//             }
+//         }else if (ySet.get(Xkey) === Xval){
+//             for (let i = 1; i <= Xval; i++) {
+//                 xResult.push(Xkey);
+//             }
+//         }
+//     })
+//     ySet.entries().forEach(([Ykey, Yval])=> {
+//         if (!xSet.has(Ykey)) {
+//             for (let i = 1; i <= Yval; i++) {
+//                 yResult.push(Ykey);
+//             }
+//         } else if (xSet.get(Ykey) < Yval){
+//             for (let i = 1; i <= Yval; i++) {
+//                 yResult.push(Ykey);
+//             }
+//         }else if (xSet.get(Ykey) === Yval){
+//             for (let i = 1; i <= Yval; i++) {
+//                 yResult.push(Ykey);
+//             }
+//         }
+//     })
+//     return {xResult,yResult}
+// }
+// console.log(min_count_remove(x, y))
+
+//-------------------------------------------------------
 const x = [1, 2, 3, 4, 4, 5, 5, 8, 10]
 const y = [4, 5, 5, 5, 6, 7, 8, 8, 10]
-
 function min_count_remove(x, y) {
-    const xSet = new Map();
-    const ySet = new Map();
-    const xResult = []
-    const yResult = []
-    x.forEach((num) => {
-        xSet.set(num, (xSet.get(num) || 0) + 1);
-    })
-    y.forEach((num) => {
-        ySet.set(num, (ySet.get(num) || 0) + 1);
-    })
-    xSet.entries().forEach(([Xkey, Xval]) => {
-        if (!ySet.has(Xkey)) {
-            for (let i = 1; i <= Xval; i++) {
-                xResult.push(Xkey);
-            }
-        } else if (ySet.get(Xkey) < Xval){
-            for (let i = 1; i <= Xval; i++) {
-                xResult.push(Xkey);
-            }
-        }else if (ySet.get(Xkey) === Xval){
-            for (let i = 1; i <= Xval; i++) {
-                xResult.push(Xkey);
-            }
+    function Count(arr) {
+        const map = new Map();
+        arr.forEach((num) => {
+            map.set(num, (map.get(num) || 0) + 1)
+        })
+        return map
+    }
+    const xCount = Count(x);
+    const yCount = Count(y);
+    let newX = [...x];
+    let newY = [...y];
+
+    for (let [key, Xval] of xCount.entries()) {
+        const Yval = yCount.get(key) || 0;
+        if (Xval > Yval) {
+            newY = newY.filter(num => num !== key);
+        } else if (Xval < Yval) {
+            newX = newX.filter(num => num !== key);
         }
-    })
-    ySet.entries().forEach(([Ykey, Yval])=> {
-        if (!xSet.has(Ykey)) {
-            for (let i = 1; i <= Yval; i++) {
-                yResult.push(Ykey);
-            }
-        } else if (xSet.get(Ykey) < Yval){
-            for (let i = 1; i <= Yval; i++) {
-                yResult.push(Ykey);
-            }
-        }else if (xSet.get(Ykey) === Yval){
-            for (let i = 1; i <= Yval; i++) {
-                yResult.push(Ykey);
-            }
-        }
-    })
-    return {xResult,yResult}
+    }
+    return { newX, newY }
 }
 console.log(min_count_remove(x, y))
-
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
