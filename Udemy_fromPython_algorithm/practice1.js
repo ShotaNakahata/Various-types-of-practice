@@ -926,22 +926,40 @@
 // minHeap.pop()
 // console.log(minHeap.heap)
 //-------------------------------------------------------
-const words = ["A", "B", "C", "A", "B", "A", "D", "D"]
-function count_top_n(arr, topNum) {
-    const result = {}
-    for (let word of arr) {
-        result[word] = (result[word] || 0) + 1
-    }
-    const sorted = Object.entries(result).sort((a, b) => b[1] - a[1])
-    let top3Arr = sorted.slice(0, topNum)
-    let output = []
-    top3Arr.forEach(([key,value])=>{
-        return output.push(key)
-    })
-    return output
+// const words = ["A", "B", "C", "A", "B", "A", "D", "D"]
+// function count_top_n(arr, topNum) {
+//     const result = {}
+//     for (let word of arr) {
+//         result[word] = (result[word] || 0) + 1
+//     }
+//     const sorted = Object.entries(result).sort((a, b) => b[1] - a[1])
+//     let top3Arr = sorted.slice(0, topNum)
+//     let output = []
+//     top3Arr.forEach(([key,value])=>{
+//         return output.push(key)
+//     })
+//     return output
 
-}
-console.log(count_top_n(words, 3))
+// }
+// console.log(count_top_n(words, 3))
 //-------------------------------------------------------
+//シンメトリック
+const input = [[1,2],[2,3],[3,5],[4,7],[5,3],[7,4]]
+// output = [[5,3],[7,4]]
+
+function symmetric(nums) {
+    const set = new Set();
+    let result = []
+    nums.forEach((num)=>{
+        let currentPair = `${num[0]},${num[1]}`
+        let symmetricPair = `${num[1]},${num[0]}`
+        if(set.has(symmetricPair)){
+            result.push([num[0],num[1]]);
+        }
+        set.add(currentPair)
+    })
+    return result
+}
+console.log(symmetric(input))
 //-------------------------------------------------------
 //-------------------------------------------------------
