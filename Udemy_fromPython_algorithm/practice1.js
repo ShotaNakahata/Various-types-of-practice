@@ -926,14 +926,19 @@
 // minHeap.pop()
 // console.log(minHeap.heap)
 //-------------------------------------------------------
-const words = ["A", "B", "C", "A", "B", "A"]
+const words = ["A", "B", "C", "A", "B", "A", "D", "D"]
 function count_top_n(arr, topNum) {
     const result = {}
     for (let word of arr) {
         result[word] = (result[word] || 0) + 1
     }
-    const sorted = Object.entries(result).sort((a,b)=>b[1]-a[1])
-    return sorted.slice(0,topNum)
+    const sorted = Object.entries(result).sort((a, b) => b[1] - a[1])
+    let top3Arr = sorted.slice(0, topNum)
+    let output = []
+    top3Arr.forEach(([key,value])=>{
+        return output.push(key)
+    })
+    return output
 
 }
 console.log(count_top_n(words, 3))
