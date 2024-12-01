@@ -962,18 +962,35 @@
 // }
 // console.log(symmetric(input))
 //-------------------------------------------------------
-const input = [[1, 2], [2, 3], [3, 5], [4, 7], [5, 3], [7, 4]]
-function symmetric(nums) {
+// const input = [[1, 2], [2, 3], [3, 5], [4, 7], [5, 3], [7, 4]]
+// function symmetric(nums) {
+//     const set = new Map();
+//     const result = []
+//     nums.forEach(([index0, index1]) => {
+//         if (set.has(index1) && set.get(index1) === index0){
+//             result.push([index0, index1]);
+//         }
+//         set.set(index0,index1)
+//     })
+//     return result
+// }
+// // symmetric(input)
+// console.log(symmetric(input))
+//-------------------------------------------------------
+const input = "This is a pen. This is an apple. Applepen"
+//output = ["p",6]
+function countStr(str) {
+    let LowStr = str.toLowerCase().split(" ").join("");
     const set = new Map();
-    const result = []
-    nums.forEach(([index0, index1]) => {
-        if (set.has(index1) && set.get(index1) === index0){
-            result.push([index0, index1]);
-        }
-        set.set(index0,index1)
-    })
-    return result
+    for (let char of LowStr) {
+        set.set(char, (set.get(char) || 0) + 1);
+    }
+    // set.sort((a,b)=>set[b]-set[a]);
+    const result = [...set.entries()].sort((a,b)=>b[1]-a[1]);
+    return result[0]
 }
-// symmetric(input)
-console.log(symmetric(input))
+console.log(countStr(input));
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
