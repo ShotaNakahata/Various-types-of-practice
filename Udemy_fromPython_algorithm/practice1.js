@@ -929,10 +929,12 @@
 const words = ["A", "B", "C", "A", "B", "A"]
 function count_top_n(arr, topNum) {
     const result = {}
-    for (let word of words) {
+    for (let word of arr) {
         result[word] = (result[word] || 0) + 1
     }
-    return result
+    const sorted = Object.entries(result).sort((a,b)=>b[1]-a[1])
+    return sorted.slice(0,topNum)
+
 }
 console.log(count_top_n(words, 3))
 //-------------------------------------------------------
