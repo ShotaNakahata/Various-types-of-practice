@@ -852,80 +852,89 @@
 // console.log(tree.getInOrder())
 
 //-------------------------------------------------------
-class Heap {
-    constructor() {
-        this.heap = [-Infinity]
-        this.currentSize = 0
-    }
-    parentIndex(index) {
-        return Math.floor(index / 2)
-    }
-    leftChildIndex(index) {
-        return index * 2
-    }
-    rightChildIndex(index) {
-        return (index * 2) + 1
-    }
-    insert(value) {
-        this.heap.push(value);
-        this.currentSize++
-        this.heapifyUp(this.currentSize)
-    }
-    heapifyUp(index) {
-        while (this.parentIndex(index) > 0) {
-            let parentIdx = this.parentIndex(index);
-            if (this.heap[parentIdx] > this.heap[index]) {
-                this.swap(parentIdx, index)
-            }
-            index = parentIdx;
-        }
-    }
-    swap(parentIdx, childIdx) {
-        [this.heap[parentIdx], this.heap[childIdx]] = [this.heap[childIdx], this.heap[parentIdx]]
-    }
-    pop() {
-        if (this.currentSize < 1) {
-            return null;
-        }
-        let root = this.heap[1]
-        let lastElement = this.heap.pop();
-        this.currentSize--
-        if (this.currentSize > 0) {
-            this.heap[1] = lastElement;
-            this.heapifyDown(1)
-        }
-        return root
-    }
-    heapifyDown(index) {
-        while (this.leftChildIndex(index) <= this.currentSize) {
-            const minChildIdx = this.minChildIndex(index)
-            if (this.heap[index] > this.heap[minChildIdx]) {
-                this.swap(index, minChildIdx)
-            }else{
-                break;
-            }
-            index = minChildIdx;
-        }
-    }
-    minChildIndex(index) {
-        const left = this.leftChildIndex(index);
-        const right = this.rightChildIndex(index);
-        if (right > this.currentSize) {
-            return left
-        }
-        return this.heap[left] < this.heap[right] ? left : right
-    }
-}
-const minHeap = new Heap();
-minHeap.insert(2)
-minHeap.insert(4)
-minHeap.insert(1)
-minHeap.insert(3)
-minHeap.insert(7)
-console.log(minHeap.heap)
-minHeap.pop()
-console.log(minHeap.heap)
+// class Heap {
+//     constructor() {
+//         this.heap = [-Infinity]
+//         this.currentSize = 0
+//     }
+//     parentIndex(index) {
+//         return Math.floor(index / 2)
+//     }
+//     leftChildIndex(index) {
+//         return index * 2
+//     }
+//     rightChildIndex(index) {
+//         return (index * 2) + 1
+//     }
+//     insert(value) {
+//         this.heap.push(value);
+//         this.currentSize++
+//         this.heapifyUp(this.currentSize)
+//     }
+//     heapifyUp(index) {
+//         while (this.parentIndex(index) > 0) {
+//             let parentIdx = this.parentIndex(index);
+//             if (this.heap[parentIdx] > this.heap[index]) {
+//                 this.swap(parentIdx, index)
+//             }
+//             index = parentIdx;
+//         }
+//     }
+//     swap(parentIdx, childIdx) {
+//         [this.heap[parentIdx], this.heap[childIdx]] = [this.heap[childIdx], this.heap[parentIdx]]
+//     }
+//     pop() {
+//         if (this.currentSize < 1) {
+//             return null;
+//         }
+//         let root = this.heap[1]
+//         let lastElement = this.heap.pop();
+//         this.currentSize--
+//         if (this.currentSize > 0) {
+//             this.heap[1] = lastElement;
+//             this.heapifyDown(1)
+//         }
+//         return root
+//     }
+//     heapifyDown(index) {
+//         while (this.leftChildIndex(index) <= this.currentSize) {
+//             const minChildIdx = this.minChildIndex(index)
+//             if (this.heap[index] > this.heap[minChildIdx]) {
+//                 this.swap(index, minChildIdx)
+//             }else{
+//                 break;
+//             }
+//             index = minChildIdx;
+//         }
+//     }
+//     minChildIndex(index) {
+//         const left = this.leftChildIndex(index);
+//         const right = this.rightChildIndex(index);
+//         if (right > this.currentSize) {
+//             return left
+//         }
+//         return this.heap[left] < this.heap[right] ? left : right
+//     }
+// }
+// const minHeap = new Heap();
+// minHeap.insert(2)
+// minHeap.insert(4)
+// minHeap.insert(1)
+// minHeap.insert(3)
+// minHeap.insert(7)
+// console.log(minHeap.heap)
+// minHeap.pop()
+// console.log(minHeap.heap)
 //-------------------------------------------------------
+const words = ["A", "B", "C", "A", "B", "A"]
+function count_top_n(arr, topNum) {
+    const result = {}
+    for (let word of words) {
+        result[word] = (result[word] || 0) + 1
+    }
+    return result
+}
+console.log(count_top_n(words, 3))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
