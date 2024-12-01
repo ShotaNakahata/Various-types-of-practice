@@ -743,115 +743,147 @@
 // // tree.printTree(); // ツリー全体を表示
 // console.log(tree.search(5))
 //-------------------------------------------------------
-class Node {
-    constructor(value) {
-        this.value = value; // ノードの値
-        this.left = null;   // 左の子ノード
-        this.right = null;  // 右の子ノード
-    }
-}
-class BinaryTree {
-    constructor() {
-        this.root = null;
-    }
-    insert(value) {
-        this.root = this.insertNode(this.root, value)
-    }
-    insertNode(node, value) {
-        if (node === null) {
-            return new Node(value);
-        }
-        if (value < node.value) {
-            node.left = this.insertNode(node.left, value); // 左に挿入
-        } else if (value > node.value) {
-            node.right = this.insertNode(node.right, value); // 右に挿入
-        }
-        return node
-    }
-    getInOrder(node = this.root, result = []) {
-        if (node === null) {
-            return result
-        }
-        this.getInOrder(node.left, result)
-        result.push(node.value)
-        this.getInOrder(node.right, result)
-        return result
-    }
-    printTree(node = this.root, level = 0) {
-        if (node === null) return;
-        this.printTree(node.right, level + 1); // 右の子を表示
-        console.log("  ".repeat(level) + node.value); // 現在のノードを表示
-        this.printTree(node.left, level + 1); // 左の子を表示
-    }
-    search(value, node = this.root) {
-        if (node === null) {
-            return false;
-        }
-        if (node.value === value) return node;
-        if (node.value > value) {
-            return this.search(value, node.left);
-        } else if (node.value < value) {
-            return this.search(value, node.right);
-        }
-    }
-    remove(value) {
-        this.root = this._removeNode(this.root, value)
-    }
-    _removeNode(node, value) {
-        if (node === null) {
-            return null
-        }
-        if (node.value > value) {
-            node.left = this._removeNode(node.left, value)
-        } else if (node.value < value) {
-            node.right = this._removeNode(node.right, value)
-        } else if (node.value === value) {
-            if (node.left === null && node.right === null) {
-                return null
-            } else if (node.left === null) {
-                return node.right
-            } else if (node.right === null) {
-                return node.left
-            } else {
-                const temp = this._minValue(node.right);
-                node.value = temp.value
-                node.right = this._removeNode(node.right, temp.value)
-            }
-        }
-        return node
-    }
-    _minValue(node) {
-        let current = node;
-        while (current.left !== null) {
-            current = current.left
-        }
-        return current
-    }
-}
-const tree = new BinaryTree();
-tree.insert(10);
-tree.insert(5);
-tree.insert(15);
-tree.insert(3);
-tree.insert(7);
-tree.insert(12);
-tree.insert(20);
+// class Node {
+//     constructor(value) {
+//         this.value = value; // ノードの値
+//         this.left = null;   // 左の子ノード
+//         this.right = null;  // 右の子ノード
+//     }
+// }
+// class BinaryTree {
+//     constructor() {
+//         this.root = null;
+//     }
+//     insert(value) {
+//         this.root = this.insertNode(this.root, value)
+//     }
+//     insertNode(node, value) {
+//         if (node === null) {
+//             return new Node(value);
+//         }
+//         if (value < node.value) {
+//             node.left = this.insertNode(node.left, value); // 左に挿入
+//         } else if (value > node.value) {
+//             node.right = this.insertNode(node.right, value); // 右に挿入
+//         }
+//         return node
+//     }
+//     getInOrder(node = this.root, result = []) {
+//         if (node === null) {
+//             return result
+//         }
+//         this.getInOrder(node.left, result)
+//         result.push(node.value)
+//         this.getInOrder(node.right, result)
+//         return result
+//     }
+//     printTree(node = this.root, level = 0) {
+//         if (node === null) return;
+//         this.printTree(node.right, level + 1); // 右の子を表示
+//         console.log("  ".repeat(level) + node.value); // 現在のノードを表示
+//         this.printTree(node.left, level + 1); // 左の子を表示
+//     }
+//     search(value, node = this.root) {
+//         if (node === null) {
+//             return false;
+//         }
+//         if (node.value === value) return node;
+//         if (node.value > value) {
+//             return this.search(value, node.left);
+//         } else if (node.value < value) {
+//             return this.search(value, node.right);
+//         }
+//     }
+//     remove(value) {
+//         this.root = this._removeNode(this.root, value)
+//     }
+//     _removeNode(node, value) {
+//         if (node === null) {
+//             return null
+//         }
+//         if (node.value > value) {
+//             node.left = this._removeNode(node.left, value)
+//         } else if (node.value < value) {
+//             node.right = this._removeNode(node.right, value)
+//         } else if (node.value === value) {
+//             if (node.left === null && node.right === null) {
+//                 return null
+//             } else if (node.left === null) {
+//                 return node.right
+//             } else if (node.right === null) {
+//                 return node.left
+//             } else {
+//                 const temp = this._minValue(node.right);
+//                 node.value = temp.value
+//                 node.right = this._removeNode(node.right, temp.value)
+//             }
+//         }
+//         return node
+//     }
+//     _minValue(node) {
+//         let current = node;
+//         while (current.left !== null) {
+//             current = current.left
+//         }
+//         return current
+//     }
+// }
+// const tree = new BinaryTree();
+// tree.insert(10);
+// tree.insert(5);
+// tree.insert(15);
+// tree.insert(3);
+// tree.insert(7);
+// tree.insert(12);
+// tree.insert(20);
 
-// // 削除前のツリー
-// console.log("Before Removal:");
-// tree.printTree();
+// // // 削除前のツリー
+// // console.log("Before Removal:");
+// // tree.printTree();
 
-// // ノードを削除
-// tree.remove(15); // ノード15を削除
-// tree.remove(5);  // ノード5を削除
-// tree.remove(25); // 存在しないノード25を削除（何もしない）
+// // // ノードを削除
+// // tree.remove(15); // ノード15を削除
+// // tree.remove(5);  // ノード5を削除
+// // tree.remove(25); // 存在しないノード25を削除（何もしない）
 
-// // 削除後のツリー
-// console.log("\nAfter Removal:");
-// tree.printTree();
-console.log(tree.getInOrder())
+// // // 削除後のツリー
+// // console.log("\nAfter Removal:");
+// // tree.printTree();
+// console.log(tree.getInOrder())
 
 //-------------------------------------------------------
+class Heap {
+    constructor() {
+        this.heap = [-Infinity]
+        this.currentSize = 0
+    }
+    parentIndex(index) {
+        return Math.floor(index / 2)
+    }
+    leftChildIndex(index) {
+        return index * 2
+    }
+    rightChildIndex(index) {
+        return (index * 2) + 1
+    }
+    insert(index) {
+        this.heap.push(index);
+        this.currentSize++
+        this.heapifyUp(currentSize)
+    }
+    heapifyUp(index) {
+        while (this.parentIndex(index) > 0) {
+            let parentIdx = this.parentIndex(index);
+            if (this.heap[parentIdx] > this.heap[index]) {
+                this.swap(parentIdx, index)
+            }
+            index = parentIdx;
+        }
+    }
+    swap(parentIdx, childIdx) {
+        [this.heap[parentIdx], this.heap[childIdx]] = [this.heap[childIdx], this.heap[parentIdx]]
+    }
+}
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
