@@ -977,20 +977,60 @@
 // // symmetric(input)
 // console.log(symmetric(input))
 //-------------------------------------------------------
-const input = "This is a pen. This is an apple. Applepen"
-//output = ["p",6]
-function countStr(str) {
-    let LowStr = str.toLowerCase().split(" ").join("");
-    const set = new Map();
-    for (let char of LowStr) {
-        set.set(char, (set.get(char) || 0) + 1);
-    }
-    // set.sort((a,b)=>set[b]-set[a]);
-    const result = [...set.entries()].sort((a,b)=>b[1]-a[1]);
-    return result[0]
-}
-console.log(countStr(input));
+// const input = "This is a pen. This is an apple. Applepen"
+// //output = ["p",6]
+// function countStr(str) {
+//     let LowStr = str.toLowerCase().split(" ").join("");
+//     const set = new Map();
+//     for (let char of LowStr) {
+//         set.set(char, (set.get(char) || 0) + 1);
+//     }
+//     // set.sort((a,b)=>set[b]-set[a]);
+//     const result = [...set.entries()].sort((a,b)=>b[1]-a[1]);
+//     return result[0]
+// }
+// console.log(countStr(input));
 //-------------------------------------------------------
+//Cash
+function longFunc(num) {
+    let r = 0;
+    for (let i = 0; i < 10000000; i++) {
+        r += num * i;
+    }
+    return r;
+}
+class Memoizer {
+    constructor() {
+        this.cash = new Map()
+    }
+    memoize(fn){
+        return (...args)=>{
+            const key = JSON.stringify(args);
+            if(this.cash.has(key)){
+                return this.cash.get(key);
+            }
+            const result = fn(...args);
+            this.cash.set(key,result);
+            return result
+        }
+    }
+}
+const memoizer = new Memoizer();
+const memoizedLongFunc =memoizer.memoize(longFunc)
+
+console.log("Initial Calls:");
+for (let i = 0; i < 10; i++) {
+    console.time(`Call ${i}`);
+    console.log(memoizedLongFunc(i)); // キャッシュがない場合
+    console.timeEnd(`Call ${i}`);
+}
+
+console.log("\nCached Calls:");
+for (let i = 0; i < 10; i++) {
+    console.time(`Cached Call ${i}`);
+    console.log(memoizedLongFunc(i)); // キャッシュが使われる場合
+    console.timeEnd(`Cached Call ${i}`);
+}
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
