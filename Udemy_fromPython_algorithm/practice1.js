@@ -1295,32 +1295,51 @@
 // }
 // console.log(singleArr(arr))
 //-------------------------------------------------------
-const arr = [1, 2, 3, 4]
-// const arr = [1, 2]
-// const arr = [1]
-// [1]
-function all_perms(elements) {
-    if (elements.length <= 1) {
-        return [elements]
-    }
-    const result = []
-    const firstElement = elements[0];
-    const remainElement = elements.slice(1);
-    console.log("remainElement : ", remainElement)
-    const perms = all_perms(remainElement);
-    console.log("perms : ",perms)
-    for (let perm of perms) {
-        for (let i = 0; i <= perm.length; i++) {
-            const newPerm = [...perm.slice(0, i), firstElement, ...perm.slice(i)]
-            result.push(newPerm);
+// const arr = [1, 2, 3, 4]
+// // const arr = [1, 2]
+// // const arr = [1]
+// // [1]
+// function all_perms(elements) {
+//     if (elements.length <= 1) {
+//         return [elements]
+//     }
+//     const result = []
+//     const firstElement = elements[0];
+//     const remainElement = elements.slice(1);
+//     console.log("remainElement : ", remainElement)
+//     const perms = all_perms(remainElement);
+//     console.log("perms : ",perms)
+//     for (let perm of perms) {
+//         for (let i = 0; i <= perm.length; i++) {
+//             const newPerm = [...perm.slice(0, i), firstElement, ...perm.slice(i)]
+//             result.push(newPerm);
+//         }
+//     }
+//     console.log("result : ",result)
+//     console.log(":::::::::::::")
+//     return result
+// }
+// console.log("final result : ", all_perms(arr))
+//-------------------------------------------------------
+const input = "abbbba"
+function checkParindrome(str) {
+    const midIdx = Math.floor(str.length  / 2)
+    let i = 0;
+    let j = str.length - 1;
+    let result = true;
+    //"abba"
+    while (i < midIdx) {
+        console.log("str[i]", str[i])
+        console.log("str[j]", str[j])
+        if (str[i] !== str[j]) {
+            return  false
         }
+        i++
+        j--
     }
-    console.log("result : ",result)
-    console.log(":::::::::::::")
     return result
 }
-console.log("final result : ", all_perms(arr))
-//-------------------------------------------------------
+console.log(checkParindrome(input))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
