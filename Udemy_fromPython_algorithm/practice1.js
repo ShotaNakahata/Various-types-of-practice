@@ -1144,48 +1144,110 @@
 // }
 // console.log(plus1([ 9, 9, 9]))
 //-------------------------------------------------------
-function removeZero(arr) {
-    while (arr[0] === 0) {
-        arr.shift();
-    }
-    return arr
-}
-//[1,2,2]
-function toInt(arr) {
-    let sum = 0
-    for (let i = arr.length - 1; i >= 0; i--) {
-        sum += arr[i] * (10 ** (arr.length - 1 - i))
-    }
-    return sum
-}
-function plusOne(arr) {
-    let i = arr.length - 1
-    console.log("i : ", i)
-    console.log("arr[i] : ",arr[i])
-    arr[i] += 1
-    console.log("arr[i] += 1 : ",arr[i])
+// function removeZero(arr) {
+//     while (arr[0] === 0) {
+//         arr.shift();
+//     }
+//     return arr
+// }
+// //[1,2,2]
+// function toInt(arr) {
+//     let sum = 0
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         sum += arr[i] * (10 ** (arr.length - 1 - i))
+//     }
+//     return sum
+// }
+// function plusOne(arr) {
+//     let i = arr.length - 1
+//     console.log("i : ", i)
+//     console.log("arr[i] : ",arr[i])
+//     arr[i] += 1
+//     console.log("arr[i] += 1 : ",arr[i])
 
-    while (i > 0) {
-        if (arr[i] !== 10) {
-            removeZero(arr)
-            break
-        } else {
-            arr[i] = 0;
-            // console.log(arr[i])
-            arr[i - 1] += 1
-            // console.log(arr[i - 1])
+//     while (i > 0) {
+//         if (arr[i] !== 10) {
+//             removeZero(arr)
+//             break
+//         } else {
+//             arr[i] = 0;
+//             // console.log(arr[i])
+//             arr[i - 1] += 1
+//             // console.log(arr[i - 1])
+//         }
+//         i--
+//     }
+//     if (arr[0] === 10) {
+//         arr[0] = 1
+//         arr.push(0);
+//     }
+//     return toInt(arr);
+// }
+// console.log(plusOne([0, 0, 7, 8, 9]))
+//-------------------------------------------------------
+// function snakeString(chars) {
+//     const result = [[], [], []];
+//     const resultIdx = new Set([0, 1, 2]);
+//     let insertIdx = 0;
+//     for (let i = 0; i < chars.length; i++) {
+//         const char = chars[i];
+//         if (i % 4 === 1) {
+//             insertIdx = 0
+//         } else if (i % 2 === 0) {
+//             insertIdx = 1
+//         }
+//         else{
+//             insertIdx = 2
+//         }
+//         result[insertIdx].push(char);
+//         for(restIsx of [...resultIdx].filter(index => index!==insertIdx)){
+//             result[restIsx].push(" ")
+//         }
+//     }
+//     return result
+// }
+// const numbers = Array.from({ length: 50 }, (_, i) => String(i % 10)).join("");
+
+// // 蛇形フォーマットを作成
+// const snakeResult = snakeString(numbers);
+
+// // 結果を出力
+// snakeResult.forEach((line) => {
+//     console.log(line.join(""));
+// });
+//-------------------------------------------------------
+function snakeString(chars, depth) {
+    const result = Array.from({ length: depth }, () => [])
+    const resultIdx = new Set(Array.from({ length: depth }, (_, i) => i))
+    let insertIdx = Math.floor(depth / 2);
+    const pos = (i) => i + 1;
+    const neg = (i) => i - 1;
+    let op = neg;
+    for (let char of chars) {
+        result[insertIdx].push(char);
+        for (let restIdx of [...resultIdx].filter((idx) => insertIdx !== idx)) {
+            result[restIdx].push(" ")
         }
-        i--
+        if (insertIdx <= 0) {
+            op = pos
+        } else if (insertIdx >= depth - 1) {
+            op = neg
+        }
+        insertIdx = op(insertIdx);
     }
-    if (arr[0] === 10) {
-        arr[0] = 1
-        arr.push(0);
-    }
-    return toInt(arr);
+    return result
 }
-console.log(plusOne([0, 0, 7, 8, 9]))
-//-------------------------------------------------------
-//-------------------------------------------------------
+// テストデータ
+const numbers = Array.from({ length: 50 }, (_, i) => String(i % 10)).join("");
+
+// 行数を指定して蛇形フォーマットを作成
+const depth = 5; // 行数を指定
+const snakeResult = snakeString(numbers, depth);
+
+// 結果を出力
+snakeResult.forEach((line) => {
+    console.log(line.join(""));
+});
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
