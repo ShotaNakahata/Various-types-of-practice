@@ -1382,22 +1382,37 @@
 // }
 // console.log(pailndorome(input))
 //-------------------------------------------------------
+// const input = [0, 1, 3, 4, 2, 4, 5, 1, 6, 9, 8];
+// function sepalate(arr) {
+//     let result = []
+//     let even = []
+//     let odd = []
+//     arr.forEach((num) => {
+//         if (num % 2 === 0) {
+//             even.push(num)
+//         } else {
+//             odd.push(num)
+//         }
+//     })
+//     return result = [...even,...odd]
+// }
+// console.log(sepalate(input))
+//-------------------------------------------------------
 const input = [0, 1, 3, 4, 2, 4, 5, 1, 6, 9, 8];
 function sepalate(arr) {
-    let result = []
-    let even = []
-    let odd = []
-    arr.forEach((num) => {
-        if (num % 2 === 0) {
-            even.push(num)
+    let i = 0;
+    let j = arr.length - 1
+    while (i < j) {
+        if (arr[i] % 2 === 0) {
+            i++
         } else {
-            odd.push(num)
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+            j--
         }
-    })
-    return result = [...even,...odd]
+    }
+    return arr
 }
 console.log(sepalate(input))
-//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
