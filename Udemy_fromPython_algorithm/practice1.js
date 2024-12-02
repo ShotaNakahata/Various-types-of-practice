@@ -1216,39 +1216,48 @@
 //     console.log(line.join(""));
 // });
 //-------------------------------------------------------
-function snakeString(chars, depth) {
-    const result = Array.from({ length: depth }, () => [])
-    const resultIdx = new Set(Array.from({ length: depth }, (_, i) => i))
-    let insertIdx = Math.floor(depth / 2);
-    const pos = (i) => i + 1;
-    const neg = (i) => i - 1;
-    let op = neg;
-    for (let char of chars) {
-        result[insertIdx].push(char);
-        for (let restIdx of [...resultIdx].filter((idx) => insertIdx !== idx)) {
-            result[restIdx].push(" ")
-        }
-        if (insertIdx <= 0) {
-            op = pos
-        } else if (insertIdx >= depth - 1) {
-            op = neg
-        }
-        insertIdx = op(insertIdx);
-    }
-    return result
-}
-// テストデータ
-const numbers = Array.from({ length: 50 }, (_, i) => String(i % 10)).join("");
+// function snakeString(chars, depth) {
+//     const result = Array.from({ length: depth }, () => [])
+//     const resultIdx = new Set(Array.from({ length: depth }, (_, i) => i))
+//     let insertIdx = Math.floor(depth / 2);
+//     const pos = (i) => i + 1;
+//     const neg = (i) => i - 1;
+//     let op = neg;
+//     for (let char of chars) {
+//         result[insertIdx].push(char);
+//         for (let restIdx of [...resultIdx].filter((idx) => insertIdx !== idx)) {
+//             result[restIdx].push(" ")
+//         }
+//         if (insertIdx <= 0) {
+//             op = pos
+//         } else if (insertIdx >= depth - 1) {
+//             op = neg
+//         }
+//         insertIdx = op(insertIdx);
+//     }
+//     return result
+// }
+// // テストデータ
+// const numbers = Array.from({ length: 50 }, (_, i) => String(i % 10)).join("");
 
-// 行数を指定して蛇形フォーマットを作成
-const depth = 5; // 行数を指定
-const snakeResult = snakeString(numbers, depth);
+// // 行数を指定して蛇形フォーマットを作成
+// const depth = 5; // 行数を指定
+// const snakeResult = snakeString(numbers, depth);
 
-// 結果を出力
-snakeResult.forEach((line) => {
-    console.log(line.join(""));
-});
+// // 結果を出力
+// snakeResult.forEach((line) => {
+//     console.log(line.join(""));
+// });
 //-------------------------------------------------------
+const arr = [1,3,3,5,5,7,7,7,10,12,12,15]
+function singleArr(arr) {
+    const set = new Set();
+    arr.forEach((num)=>{
+        set.add(num)
+    })
+    return Array.from(set)
+}
+console.log(singleArr(arr))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
