@@ -1321,26 +1321,33 @@
 // }
 // console.log("final result : ", all_perms(arr))
 //-------------------------------------------------------
-const input = "abbbba"
-function checkParindrome(str) {
-    const midIdx = Math.floor(str.length  / 2)
-    let i = 0;
-    let j = str.length - 1;
-    let result = true;
-    //"abba"
-    while (i < midIdx) {
-        console.log("str[i]", str[i])
-        console.log("str[j]", str[j])
-        if (str[i] !== str[j]) {
-            return  false
-        }
-        i++
-        j--
-    }
-    return result
-}
-console.log(checkParindrome(input))
+// const input = "abbbba"
+// function checkParindrome(str) {
+//     const midIdx = Math.floor(str.length  / 2)
+//     let i = 0;
+//     let j = str.length - 1;
+//     let result = true;
+//     //"abba"
+//     while (i < midIdx) {
+//         console.log("str[i]", str[i])
+//         console.log("str[j]", str[j])
+//         if (str[i] !== str[j]) {
+//             return  false
+//         }
+//         i++
+//         j--
+//     }
+//     return result
+// }
+// console.log(checkParindrome(input))
 //-------------------------------------------------------
+const input = "abbbba"
+const input1 = "input1"
+function pailndorome(input) {
+
+    return input === Array.from(input).reverse().join("")
+}
+console.log(pailndorome(input))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
