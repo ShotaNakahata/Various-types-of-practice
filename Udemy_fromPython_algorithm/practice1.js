@@ -1414,17 +1414,36 @@
 // }
 // console.log(sepalate(input))
 //-------------------------------------------------------
-const inputArr = ["h", "y", "n", "p", "t", "o"]
-const indexArr = [3, 1, 5, 0, 2, 4]
-function collect(inputArr, indexArr) {
-    const temp = {}
-    for (let i = 0; i < indexArr.length; i++) {
-        // console.log(inputArr[i])
-        temp[indexArr[i]]=inputArr[i]
-    }
-    const keys =Object.keys(temp)
-    return  keys.map((key)=>temp[key]).join("")
-}
-console.log(collect(inputArr, indexArr))
+// const inputArr = ["h", "y", "n", "p", "t", "o"]
+// const indexArr = [3, 1, 5, 0, 2, 4]
+// function collect(inputArr, indexArr) {
+//     const temp = {}
+//     for (let i = 0; i < indexArr.length; i++) {
+//         // console.log(inputArr[i])
+//         temp[indexArr[i]]=inputArr[i]
+//     }
+//     const keys =Object.keys(temp)
+//     return  keys.map((key)=>temp[key]).join("")
+// }
+// console.log(collect(inputArr, indexArr))
 //-------------------------------------------------------
+const inputArr = ["h", "y", "n", "p", "t", "o"];
+const indexArr = [3, 1, 5, 0, 2, 4];
+
+function collect(inputArr, indexArr) {
+    let i = 0;
+    while (i < indexArr.length) {
+        while (indexArr[i] !== i) {
+            const index = indexArr[i];
+            // indexArr と inputArr のスワップ
+            [indexArr[i], indexArr[index]] = [indexArr[index], indexArr[i]];
+            [inputArr[i], inputArr[index]] = [inputArr[index], inputArr[i]];
+        }
+        i++;
+    }
+    return inputArr.join("");
+}
+
+console.log(collect(inputArr, indexArr)); // "python"
+
 //-------------------------------------------------------
