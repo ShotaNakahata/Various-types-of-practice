@@ -1283,15 +1283,48 @@
 // }
 // console.log(singleArr(arr))
 //-------------------------------------------------------
-const arr = [1, 3, 3, 5, 5, 7, 7, 7, 10, 12, 12, 15]
-//[1,2,3]
-function singleArr(arr) {
-    for (let i = arr.length - 1; i >= 0; i--) {
-        if(arr[i]===arr[i-1]){
-            arr.splice(i,1)
+// const arr = [1, 3, 3, 5, 5, 7, 7, 7, 10, 12, 12, 15]
+// //[1,2,3]
+// function singleArr(arr) {
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         if(arr[i]===arr[i-1]){
+//             arr.splice(i,1)
+//         }
+//     }
+//     return arr
+// }
+// console.log(singleArr(arr))
+//-------------------------------------------------------
+const arr = [1, 2, 3, 4]
+// const arr = [1, 2]
+// const arr = [1]
+// [1]
+function all_perms(elements) {
+    if (elements.length <= 1) {
+        return [elements]
+    }
+    const result = []
+    const firstElement = elements[0];
+    const remainElement = elements.slice(1);
+    console.log("remainElement : ", remainElement)
+    const perms = all_perms(remainElement);
+    console.log("perms : ",perms)
+    for (let perm of perms) {
+        for (let i = 0; i <= perm.length; i++) {
+            const newPerm = [...perm.slice(0, i), firstElement, ...perm.slice(i)]
+            result.push(newPerm);
         }
     }
-    return arr
+    console.log("result : ",result)
+    console.log(":::::::::::::")
+    return result
 }
-console.log(singleArr(arr))
+console.log("final result : ", all_perms(arr))
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
