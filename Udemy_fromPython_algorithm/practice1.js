@@ -1341,14 +1341,34 @@
 // }
 // console.log(checkParindrome(input))
 //-------------------------------------------------------
-const input = "abbbba"
-const input1 = "input1"
-function pailndorome(input) {
+// const input = "abbbba"
+// const input1 = "input1"
+// function pailndorome(input) {
 
-    return input === Array.from(input).reverse().join("")
+//     return input === Array.from(input).reverse().join("")
+// }
+// console.log(pailndorome(input))
+//-------------------------------------------------------
+const input = "abcracecarbda"
+function pailndorome(str) {
+    const inputArry = Array.from(str);
+    console.log("inputArry : ",inputArry)
+    const result = []
+    for (let i = 1; i < inputArry.length - 1; i++) {
+        let k = 1
+        while(inputArry[i-k]===inputArry[i+k]){
+            console.log("i : ",i)
+            console.log("inputArry[i-k] : ",inputArry[i-k],"i-k : ",i-k)
+            console.log("inputArry[i+k] : ",inputArry[i+k],"i+k : ",i+k)
+            let temp = inputArry.slice(i-k,i+k+1).join("")
+            console.log(temp)
+            result.push(temp)
+            k++
+        }
+    }
+    return result
 }
 console.log(pailndorome(input))
-//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
