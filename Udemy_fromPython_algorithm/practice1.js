@@ -1259,17 +1259,28 @@
 // }
 // console.log(singleArr(arr))
 //-------------------------------------------------------
-const arr = [1,3,3,5,5,7,7,7,10,12,12,15]
-function singleArr(nums) {
-    let temp = []
-    for(let num of nums){
-        if(!temp.includes(num)){
-            temp.push(num)
+// const arr = [1,3,3,5,5,7,7,7,10,12,12,15]
+// function singleArr(nums) {
+//     let temp = []
+//     for(let num of nums){
+//         if(!temp.includes(num)){
+//             temp.push(num)
+//         }
+//     }
+//     return temp
+// }
+// console.log(singleArr(arr))
+//-------------------------------------------------------
+const arr = [1, 3, 3, 5, 5, 7, 7, 7, 10, 12, 12, 15]
+function singleArr(arr) {
+    let temp = [];
+    for (let i = 0; i <= arr.length - 1; i++) {
+        if (arr[i] !== arr[i + 1]) {
+            temp.push(arr[i])
         }
     }
     return temp
 }
 console.log(singleArr(arr))
-//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
