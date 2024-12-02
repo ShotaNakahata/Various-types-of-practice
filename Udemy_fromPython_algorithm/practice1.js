@@ -1349,39 +1349,54 @@
 // }
 // console.log(pailndorome(input))
 //-------------------------------------------------------
-const input = "abcracecarbdaa"
-function pailndorome(str) {
-    const inputArry = Array.from(str);
-    console.log("inputArry : ",inputArry)
-    const result = []
-    for (let i = 1; i < inputArry.length - 1; i++) {
-        let k = 1
-        while(inputArry[i-k]===inputArry[i+k]){
-            console.log("i : ",i)
-            console.log("inputArry[i-k] : ",inputArry[i-k],"i-k : ",i-k)
-            console.log("inputArry[i+k] : ",inputArry[i+k],"i+k : ",i+k)
-            let temp = inputArry.slice(i-k,i+k+1).join("")
-            console.log(temp)
-            result.push(temp)
-            k++
-        }
-    }
-    console.log("============")
-    console.log(result)
-    console.log("============")
-    for (let i = 0; i < inputArry.length - 1; i++) {
-        let k = 0;
-        while (inputArry[i - k] === inputArry[i + 1 + k]) {
-            let temp = inputArry.slice(i - k, i + 2 + k).join("");
-            result.push(temp);
-            k++;
-        }
-    }
-    
-    return result
-}
-console.log(pailndorome(input))
+// const input = "abcracecarbdaa"
+// function pailndorome(str) {
+//     const inputArry = Array.from(str);
+//     console.log("inputArry : ",inputArry)
+//     const result = []
+//     for (let i = 1; i < inputArry.length - 1; i++) {
+//         let k = 1
+//         while(inputArry[i-k]===inputArry[i+k]){
+//             console.log("i : ",i)
+//             console.log("inputArry[i-k] : ",inputArry[i-k],"i-k : ",i-k)
+//             console.log("inputArry[i+k] : ",inputArry[i+k],"i+k : ",i+k)
+//             let temp = inputArry.slice(i-k,i+k+1).join("")
+//             console.log(temp)
+//             result.push(temp)
+//             k++
+//         }
+//     }
+//     console.log("============")
+//     console.log(result)
+//     console.log("============")
+//     for (let i = 0; i < inputArry.length - 1; i++) {
+//         let k = 0;
+//         while (inputArry[i - k] === inputArry[i + 1 + k]) {
+//             let temp = inputArry.slice(i - k, i + 2 + k).join("");
+//             result.push(temp);
+//             k++;
+//         }
+//     }
+
+//     return result
+// }
+// console.log(pailndorome(input))
 //-------------------------------------------------------
+const input = [0, 1, 3, 4, 2, 4, 5, 1, 6, 9, 8];
+function sepalate(arr) {
+    let result = []
+    let even = []
+    let odd = []
+    arr.forEach((num) => {
+        if (num % 2 === 0) {
+            even.push(num)
+        } else {
+            odd.push(num)
+        }
+    })
+    return result = [...even,...odd]
+}
+console.log(sepalate(input))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
