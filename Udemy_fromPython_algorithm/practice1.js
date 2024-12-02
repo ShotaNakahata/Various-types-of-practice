@@ -1349,7 +1349,7 @@
 // }
 // console.log(pailndorome(input))
 //-------------------------------------------------------
-const input = "abcracecarbda"
+const input = "abcracecarbdaa"
 function pailndorome(str) {
     const inputArry = Array.from(str);
     console.log("inputArry : ",inputArry)
@@ -1366,6 +1366,18 @@ function pailndorome(str) {
             k++
         }
     }
+    console.log("============")
+    console.log(result)
+    console.log("============")
+    for (let i = 0; i < inputArry.length - 1; i++) {
+        let k = 0;
+        while (inputArry[i - k] === inputArry[i + 1 + k]) {
+            let temp = inputArry.slice(i - k, i + 2 + k).join("");
+            result.push(temp);
+            k++;
+        }
+    }
+    
     return result
 }
 console.log(pailndorome(input))
