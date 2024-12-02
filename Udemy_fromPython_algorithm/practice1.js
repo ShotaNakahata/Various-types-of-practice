@@ -1249,16 +1249,27 @@
 //     console.log(line.join(""));
 // });
 //-------------------------------------------------------
+// const arr = [1,3,3,5,5,7,7,7,10,12,12,15]
+// function singleArr(arr) {
+//     const set = new Set();
+//     arr.forEach((num)=>{
+//         set.add(num)
+//     })
+//     return Array.from(set)
+// }
+// console.log(singleArr(arr))
+//-------------------------------------------------------
 const arr = [1,3,3,5,5,7,7,7,10,12,12,15]
-function singleArr(arr) {
-    const set = new Set();
-    arr.forEach((num)=>{
-        set.add(num)
-    })
-    return Array.from(set)
+function singleArr(nums) {
+    let temp = []
+    for(let num of nums){
+        if(!temp.includes(num)){
+            temp.push(num)
+        }
+    }
+    return temp
 }
 console.log(singleArr(arr))
-//-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
