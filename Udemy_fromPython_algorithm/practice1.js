@@ -1398,21 +1398,33 @@
 // }
 // console.log(sepalate(input))
 //-------------------------------------------------------
-const input = [0, 1, 3, 4, 2, 4, 5, 1, 6, 9, 8];
-function sepalate(arr) {
-    let i = 0;
-    let j = arr.length - 1
-    while (i < j) {
-        if (arr[i] % 2 === 0) {
-            i++
-        } else {
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-            j--
-        }
-    }
-    return arr
-}
-console.log(sepalate(input))
+// const input = [0, 1, 3, 4, 2, 4, 5, 1, 6, 9, 8];
+// function sepalate(arr) {
+//     let i = 0;
+//     let j = arr.length - 1
+//     while (i < j) {
+//         if (arr[i] % 2 === 0) {
+//             i++
+//         } else {
+//             [arr[i], arr[j]] = [arr[j], arr[i]];
+//             j--
+//         }
+//     }
+//     return arr
+// }
+// console.log(sepalate(input))
 //-------------------------------------------------------
+const inputArr = ["h", "y", "n", "p", "t", "o"]
+const indexArr = [3, 1, 5, 0, 2, 4]
+function collect(inputArr, indexArr) {
+    const temp = {}
+    for (let i = 0; i < indexArr.length; i++) {
+        // console.log(inputArr[i])
+        temp[indexArr[i]]=inputArr[i]
+    }
+    const keys =Object.keys(temp)
+    return  keys.map((key)=>temp[key]).join("")
+}
+console.log(collect(inputArr, indexArr))
 //-------------------------------------------------------
 //-------------------------------------------------------
