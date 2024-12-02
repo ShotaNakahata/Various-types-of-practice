@@ -1108,42 +1108,82 @@
 // }
 // console.log(min_count_remove(x, y))
 //-------------------------------------------------------
+// function removeZero(arr) {
+//     while (arr[0] === 0) {
+//         arr.shift();
+//     }
+//     return arr
+// }
+// function toInt(arr) {
+//     const reversed = arr.reverse()
+//     let sum =0
+//     for (let i = 0; i <= reversed.length-1; i++){
+//         sum += reversed[i]*(10**i)
+//     }
+//     return sum
+// }
+// function plus1(arr) {
+//     const finalindex = arr.length - 1;
+//     for (let i = finalindex; i >= 0; i--) {
+//         if (arr[i] + 1 !== 10) {
+//             arr[i] += 1;
+//             break;
+//         } else if (i !== 0) {
+//             arr[i] = 0
+//             continue;
+//         } else {
+//             if (arr[i] + 1 === 10) {
+//                 arr[i] = 1
+//                 arr.push(0)
+//             }
+//         }
+//     }
+//     removeZero(arr)
+//     let sum = toInt(arr)
+//     return sum
+// }
+// console.log(plus1([ 9, 9, 9]))
+//-------------------------------------------------------
 function removeZero(arr) {
     while (arr[0] === 0) {
         arr.shift();
     }
     return arr
 }
+//[1,2,2]
 function toInt(arr) {
-    const reversed = arr.reverse()
-    let sum =0
-    for (let i = 0; i <= reversed.length-1; i++){
-        sum += reversed[i]*(10**i)
+    let sum = 0
+    for (let i = arr.length - 1; i >= 0; i--) {
+        sum += arr[i] * (10 ** (arr.length - 1 - i))
     }
     return sum
 }
-function plus1(arr) {
-    const finalindex = arr.length - 1;
-    for (let i = finalindex; i >= 0; i--) {
-        if (arr[i] + 1 !== 10) {
-            arr[i] += 1;
-            break;
-        } else if (i !== 0) {
-            arr[i] = 0
-            continue;
+function plusOne(arr) {
+    let i = arr.length - 1
+    console.log("i : ", i)
+    console.log("arr[i] : ",arr[i])
+    arr[i] += 1
+    console.log("arr[i] += 1 : ",arr[i])
+
+    while (i > 0) {
+        if (arr[i] !== 10) {
+            removeZero(arr)
+            break
         } else {
-            if (arr[i] + 1 === 10) {
-                arr[i] = 1
-                arr.push(0)
-            }
+            arr[i] = 0;
+            // console.log(arr[i])
+            arr[i - 1] += 1
+            // console.log(arr[i - 1])
         }
+        i--
     }
-    removeZero(arr)
-    let sum = toInt(arr)
-    return sum
+    if (arr[0] === 10) {
+        arr[0] = 1
+        arr.push(0);
+    }
+    return toInt(arr);
 }
-console.log(plus1([ 9, 9, 9]))
-//-------------------------------------------------------
+console.log(plusOne([0, 0, 7, 8, 9]))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
