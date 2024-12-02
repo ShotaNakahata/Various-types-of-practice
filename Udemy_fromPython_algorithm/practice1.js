@@ -1081,33 +1081,68 @@
 // console.log(min_count_remove(x, y))
 
 //-------------------------------------------------------
-const x = [1, 2, 3, 4, 4, 5, 5, 8, 10]
-const y = [4, 5, 5, 5, 6, 7, 8, 8, 10]
-function min_count_remove(x, y) {
-    function Count(arr) {
-        const map = new Map();
-        arr.forEach((num) => {
-            map.set(num, (map.get(num) || 0) + 1)
-        })
-        return map
-    }
-    const xCount = Count(x);
-    const yCount = Count(y);
-    let newX = [...x];
-    let newY = [...y];
+// const x = [1, 2, 3, 4, 4, 5, 5, 8, 10]
+// const y = [4, 5, 5, 5, 6, 7, 8, 8, 10]
+// function min_count_remove(x, y) {
+//     function Count(arr) {
+//         const map = new Map();
+//         arr.forEach((num) => {
+//             map.set(num, (map.get(num) || 0) + 1)
+//         })
+//         return map
+//     }
+//     const xCount = Count(x);
+//     const yCount = Count(y);
+//     let newX = [...x];
+//     let newY = [...y];
 
-    for (let [key, Xval] of xCount.entries()) {
-        const Yval = yCount.get(key) || 0;
-        if (Xval > Yval) {
-            newY = newY.filter(num => num !== key);
-        } else if (Xval < Yval) {
-            newX = newX.filter(num => num !== key);
+//     for (let [key, Xval] of xCount.entries()) {
+//         const Yval = yCount.get(key) || 0;
+//         if (Xval > Yval) {
+//             newY = newY.filter(num => num !== key);
+//         } else if (Xval < Yval) {
+//             newX = newX.filter(num => num !== key);
+//         }
+//     }
+//     return { newX, newY }
+// }
+// console.log(min_count_remove(x, y))
+//-------------------------------------------------------
+function removeZero(arr) {
+    while (arr[0] === 0) {
+        arr.shift();
+    }
+    return arr
+}
+function toInt(arr) {
+    const reversed = arr.reverse()
+    let sum =0
+    for (let i = 0; i <= reversed.length-1; i++){
+        sum += reversed[i]*(10**i)
+    }
+    return sum
+}
+function plus1(arr) {
+    const finalindex = arr.length - 1;
+    for (let i = finalindex; i >= 0; i--) {
+        if (arr[i] + 1 !== 10) {
+            arr[i] += 1;
+            break;
+        } else if (i !== 0) {
+            arr[i] = 0
+            continue;
+        } else {
+            if (arr[i] + 1 === 10) {
+                arr[i] = 1
+                arr.push(0)
+            }
         }
     }
-    return { newX, newY }
+    removeZero(arr)
+    let sum = toInt(arr)
+    return sum
 }
-console.log(min_count_remove(x, y))
-//-------------------------------------------------------
+console.log(plus1([ 9, 9, 9]))
 //-------------------------------------------------------
 //-------------------------------------------------------
 //-------------------------------------------------------
