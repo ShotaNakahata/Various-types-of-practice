@@ -1271,16 +1271,27 @@
 // }
 // console.log(singleArr(arr))
 //-------------------------------------------------------
+// const arr = [1, 3, 3, 5, 5, 7, 7, 7, 10, 12, 12, 15]
+// function singleArr(arr) {
+//     let temp = [];
+//     for (let i = 0; i <= arr.length - 1; i++) {
+//         if (arr[i] !== arr[i + 1]) {
+//             temp.push(arr[i])
+//         }
+//     }
+//     return temp
+// }
+// console.log(singleArr(arr))
+//-------------------------------------------------------
 const arr = [1, 3, 3, 5, 5, 7, 7, 7, 10, 12, 12, 15]
+//[1,2,3]
 function singleArr(arr) {
-    let temp = [];
-    for (let i = 0; i <= arr.length - 1; i++) {
-        if (arr[i] !== arr[i + 1]) {
-            temp.push(arr[i])
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if(arr[i]===arr[i-1]){
+            arr.splice(i,1)
         }
     }
-    return temp
+    return arr
 }
 console.log(singleArr(arr))
-//-------------------------------------------------------
 //-------------------------------------------------------
