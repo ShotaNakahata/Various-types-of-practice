@@ -1427,23 +1427,64 @@
 // }
 // console.log(collect(inputArr, indexArr))
 //-------------------------------------------------------
-const inputArr = ["h", "y", "n", "p", "t", "o"];
-const indexArr = [3, 1, 5, 0, 2, 4];
+// const inputArr = ["h", "y", "n", "p", "t", "o"];
+// const indexArr = [3, 1, 5, 0, 2, 4];
 
-function collect(inputArr, indexArr) {
-    let i = 0;
-    while (i < indexArr.length) {
-        while (indexArr[i] !== i) {
-            const index = indexArr[i];
-            // indexArr と inputArr のスワップ
-            [indexArr[i], indexArr[index]] = [indexArr[index], indexArr[i]];
-            [inputArr[i], inputArr[index]] = [inputArr[index], inputArr[i]];
+// function collect(inputArr, indexArr) {
+//     let i = 0;
+//     while (i < indexArr.length) {
+//         while (indexArr[i] !== i) {
+//             const index = indexArr[i];
+//             // indexArr と inputArr のスワップ
+//             [indexArr[i], indexArr[index]] = [indexArr[index], indexArr[i]];
+//             [inputArr[i], inputArr[index]] = [inputArr[index], inputArr[i]];
+//         }
+//         i++;
+//     }
+//     return inputArr.join("");
+// }
+
+// console.log(collect(inputArr, indexArr)); // "python"
+//-------------------------------------------------------
+const NUM_ALPHABET_MAPPING = {
+    0: "+",
+    1: "@",
+    2: "ABC",
+    3: "DEF",
+    4: "GHI",
+    5: "JKL",
+    6: "MNO",
+    7: "PQRS",
+    8: "TUV",
+    9: "WXYZ"
+};
+// const phoneNum = "568-379-8466"
+const phoneNum = "23"
+
+function phoneMemonic(phoneNum, ALPHABET) {
+    const phoneArr = phoneNum.replace(/-/g, "").split("");
+    let candidate = []
+    let temp = new Array(phoneArr.length).fill("");
+    function candidateFn(index =0) {
+        if(index===phoneArr.length){
+            candidate.push(temp.join(""))
+            console.log("candidate",candidate)
+        }else{
+            for (let char of ALPHABET[phoneArr[index]]) {
+                console.log("char",char)
+                temp[index] = char
+                console.log(temp)
+                candidateFn(index+1)
+            }
         }
-        i++;
     }
-    return inputArr.join("");
+    candidateFn();
+    return candidate
 }
+console.log("result : ",phoneMemonic(phoneNum, NUM_ALPHABET_MAPPING));
 
-console.log(collect(inputArr, indexArr)); // "python"
-
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
+//-------------------------------------------------------
 //-------------------------------------------------------
