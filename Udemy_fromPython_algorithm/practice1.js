@@ -1458,8 +1458,8 @@ const NUM_ALPHABET_MAPPING = {
     8: "TUV",
     9: "WXYZ"
 };
-// const phoneNum = "568-379-8466"
-const phoneNum = "23"
+const phoneNum = "568-379-8466"
+// const phoneNum = "23"
 
 function phoneMemonic(phoneNum, ALPHABET) {
     const phoneArr = phoneNum.replace(/-/g, "").split("");
@@ -1468,18 +1468,24 @@ function phoneMemonic(phoneNum, ALPHABET) {
     function candidateFn(index =0) {
         if(index===phoneArr.length){
             candidate.push(temp.join(""))
-            console.log("candidate",candidate)
+            // console.log("candidate",candidate)
         }else{
             for (let char of ALPHABET[phoneArr[index]]) {
-                console.log("char",char)
+                // console.log("char",char)
                 temp[index] = char
-                console.log(temp)
+                // console.log(temp)
                 candidateFn(index+1)
             }
         }
     }
     candidateFn();
-    return candidate
+    for(let item of candidate){
+        if(item==="LOVEPYTHON"){
+            console.log("found")
+            return item
+        }
+    }
+    return item
 }
 console.log("result : ",phoneMemonic(phoneNum, NUM_ALPHABET_MAPPING));
 
