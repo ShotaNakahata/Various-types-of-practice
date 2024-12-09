@@ -30,25 +30,46 @@
 //     }
 // }
 // -----------------------------------------------
+// function caesarCipher(text, shift) {
+//     const upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     const lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
+//     let result = ""
+//     for (let char of text) {
+//         if (upperAlphabet.includes(char)) {
+//             let index = (upperAlphabet.indexOf(char) + shift) % upperAlphabet.length
+//             result+=upperAlphabet[index];
+//         }else if(lowerAlphabet.includes(char)) {
+//             let index = (lowerAlphabet.indexOf(char) + shift) % lowerAlphabet.length
+//             result+=lowerAlphabet[index];
+//         }else{
+//             result += char
+//         }
+//     }
+//     return result
+// }
+// console.log(caesarCipher("ATTACK SILICON VALLEY by engineer", 3));
+// -----------------------------------------------
 function caesarCipher(text, shift) {
-    const upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    let result = ""
+    const lenAlphabet = 26; // アルファベットの長さ
+    let result = "";
     for (let char of text) {
-        if (upperAlphabet.includes(char)) {
-            let index = (upperAlphabet.indexOf(char) + shift) % upperAlphabet.length
-            result+=upperAlphabet[index];
-        }else if(lowerAlphabet.includes(char)) {
-            let index = (lowerAlphabet.indexOf(char) + shift) % lowerAlphabet.length
-            result+=lowerAlphabet[index];
-        }else{
+        if (char >= "A" && char <= "Z") {
+            const charCode = ((char.charCodeAt(0) - "A".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "A".charCodeAt(0);
+            result += String.fromCharCode(charCode);
+        } else if (char >= "a" && char <= "z") {
+            const charCode = ((char.charCodeAt(0) - "a".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "a".charCodeAt(0);
+            result += String.fromCharCode(charCode);
+        } else {
             result += char
         }
     }
     return result
 }
-console.log(caesarCipher("ATTACK SILICON VALLEY by engineer", 3));
-// -----------------------------------------------
+
+const encrypted = caesarCipher("ATTACK SILICON VALLY by engineer", 3);
+console.log(encrypted); // 暗号化された文字列
+const decrypted = caesarCipher(encrypted, -3);
+console.log(decrypted); // 復号化された文字列
 // -----------------------------------------------
 // -----------------------------------------------
 // -----------------------------------------------
