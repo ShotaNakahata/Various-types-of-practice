@@ -49,28 +49,57 @@
 // }
 // console.log(caesarCipher("ATTACK SILICON VALLEY by engineer", 3));
 // -----------------------------------------------
-function caesarCipher(text, shift) {
-    const lenAlphabet = 26; // アルファベットの長さ
-    let result = "";
-    for (let char of text) {
-        if (char >= "A" && char <= "Z") {
-            const charCode = ((char.charCodeAt(0) - "A".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "A".charCodeAt(0);
-            result += String.fromCharCode(charCode);
-        } else if (char >= "a" && char <= "z") {
-            const charCode = ((char.charCodeAt(0) - "a".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "a".charCodeAt(0);
-            result += String.fromCharCode(charCode);
+// function caesarCipher(text, shift) {
+//     const lenAlphabet = 26; // アルファベットの長さ
+//     let result = "";
+//     for (let char of text) {
+//         if (char >= "A" && char <= "Z") {
+//             const charCode = ((char.charCodeAt(0) - "A".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "A".charCodeAt(0);
+//             result += String.fromCharCode(charCode);
+//         } else if (char >= "a" && char <= "z") {
+//             const charCode = ((char.charCodeAt(0) - "a".charCodeAt(0) + shift) % lenAlphabet + lenAlphabet) % lenAlphabet + "a".charCodeAt(0);
+//             result += String.fromCharCode(charCode);
+//         } else {
+//             result += char
+//         }
+//     }
+//     return result
+// }
+
+// const encrypted = caesarCipher("ATTACK SILICON VALLY by engineer", 3);
+// console.log(encrypted); // 暗号化された文字列
+// const decrypted = caesarCipher(encrypted, -3);
+// console.log(decrypted); // 復号化された文字列
+// -----------------------------------------------
+function vigenereCipher(text, key, encrypt = true) {
+    const lenAlphabet = 26;
+    const NewKey = key.repeat(Math.ceil(text.length / key.length)).slice(0, text.length);
+    let result = ""
+    for (let i = 0; i < text.length; i++) {
+        let charText = text[i]
+        let charKey = NewKey[i]
+        if ((charText >= "A" && charText <= "Z") || (charText >= "a" && charText <= "z")) {
+            const baseChar = charText >= "A" && charText <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
+            const baseKey = charKey >= "A" && charKey <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
+            const charIdx = charText.charCodeAt(0) - baseChar
+            const keyIdx = charKey.charCodeAt(0) - baseKey
+            let newIndex;
+            if (encrypt) {
+                newIndex = (charIdx + keyIdx) % lenAlphabet
+            } else {
+                newIndex = (charIdx - keyIdx + lenAlphabet) % lenAlphabet
+            }
+            result += String.fromCharCode(newIndex+baseChar)
         } else {
-            result += char
+            result += charText
         }
     }
     return result
 }
 
-const encrypted = caesarCipher("ATTACK SILICON VALLY by engineer", 3);
-console.log(encrypted); // 暗号化された文字列
-const decrypted = caesarCipher(encrypted, -3);
-console.log(decrypted); // 復号化された文字列
-// -----------------------------------------------
+const encrypted = vigenereCipher("Hello, World!", "KeY", true);
+console.log("Encrypted:", encrypted);
+
 // -----------------------------------------------
 // -----------------------------------------------
 // -----------------------------------------------
