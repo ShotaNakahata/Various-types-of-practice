@@ -11,12 +11,29 @@
       要素1
     </div>
     <div style="background-color: green; height: 100px">要素2</div> -->
-    <div style="background-color: gray; height: 100px; position: relative; top: 50px;">
+    <!-- <div style="background-color: gray; height: 100px; position: relative; top: 50px;">
         要素1
       </div>
       <div style="background-color: green; height: 100px;">
         要素2
-      </div>
+      </div> -->
+      <!-- 親要素1 -->
+<div style="width: 200px; height: 200px; background-color: gray; position: relative; z-index: 1; top: 50px;">
+    <!-- 子要素1 -->
+    <div style="width: 100px; height: 100px; background-color: red; position: absolute; z-index: 10;">
+      子要素1
+    </div>
+    <!-- 子要素2 -->
+    <div style="width: 100px; height: 100px; background-color: blue; position: absolute; z-index: 5;">
+      子要素2
+    </div>
+  </div>
+  
+  <!-- 親要素2 -->
+  <div style="width: 200px; height: 200px; background-color: green; position: relative; z-index: 2;">
+    親要素2
+  </div>
+  
       
       
   </body>
