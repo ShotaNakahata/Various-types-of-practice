@@ -7,33 +7,19 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- <div style="background-color: gray; height: 100px; margin-top: 50px">
-      要素1
-    </div>
-    <div style="background-color: green; height: 100px">要素2</div> -->
-    <!-- <div style="background-color: gray; height: 100px; position: relative; top: 50px;">
-        要素1
-      </div>
-      <div style="background-color: green; height: 100px;">
-        要素2
+    <!-- <div class="parent">
+        <div class="child">要素</div>
       </div> -->
-      <!-- 親要素1 -->
-<div style="width: 200px; height: 200px; background-color: gray; position: relative; z-index: 1; top: 50px;">
-    <!-- 子要素1 -->
-    <div style="width: 100px; height: 100px; background-color: red; position: absolute; z-index: 10;">
-      子要素1
-    </div>
-    <!-- 子要素2 -->
-    <div style="width: 100px; height: 100px; background-color: blue; position: absolute; z-index: 5;">
-      子要素2
-    </div>
-  </div>
-  
-  <!-- 親要素2 -->
-  <div style="width: 200px; height: 200px; background-color: green; position: relative; z-index: 2;">
-    親要素2
-  </div>
-  
+
+      <!-- <div style="width: 100%; text-align: justify; background-color: lightgray;">
+        このテキストは左端と右端が均等に揃えられ、単語間のスペースが調整されます。
+      </div> -->
+
+      <div style="display: flex; justify-content: center; align-items: center; width: 300px; height: 200px; background-color: lightgray;">
+        <p style="text-align: justify; width: 100%;">
+          このテキストはFlexboxの中央揃えの影響を受けつつ、左右端が均等に揃えられます。
+        </p>
+      </div>
       
       
   </body>

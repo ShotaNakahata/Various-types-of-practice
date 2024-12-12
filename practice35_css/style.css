@@ -1,0 +1,17 @@
+/* .parent{
+    background-color: antiquewhite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.child{
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    text-align: center;
+    /* align-items: center;なぜこれじゃダメ？ */
+    line-height: 100px;
+    
+    
+} */
