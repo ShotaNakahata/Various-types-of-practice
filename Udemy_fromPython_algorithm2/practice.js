@@ -101,14 +101,28 @@
 // console.log("Encrypted:", encrypted);
 
 // -----------------------------------------------
-function hanoi(diskNum, start, end, center) {
-    if (diskNum < 1) return;
-    hanoi(diskNum - 1, start, center, end);
-    console.log(`diskNum ${diskNum} move from ${start} to ${end}`)
-    hanoi(diskNum-1,center,end,start);
-}
-hanoi(4, "A", "C", "B");
+// function hanoi(diskNum, start, end, center) {
+//     if (diskNum < 1) return;
+//     hanoi(diskNum - 1, start, center, end);
+//     console.log(`diskNum ${diskNum} move from ${start} to ${end}`)
+//     hanoi(diskNum-1,center,end,start);
+// }
+// hanoi(4, "A", "C", "B");
 // -----------------------------------------------
+function generatePascalTriangle(depth) {
+    const data = []
+    for (let i = 0; i < depth; i++) {
+        data.push(new Array(i + 1).fill(1))
+    }
+    for (let i = 2; i < depth; i++) {
+        for (let j = 1; j < data[i].length-1; j++) {
+            data[i][j] = data[i - 1][j - 1] + data[i - 1][j]
+        }
+    }
+    return data
+}
+console.log(generatePascalTriangle(5))
+
 // -----------------------------------------------
 // -----------------------------------------------
 // -----------------------------------------------
