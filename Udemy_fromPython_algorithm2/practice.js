@@ -71,36 +71,43 @@
 // const decrypted = caesarCipher(encrypted, -3);
 // console.log(decrypted); // 復号化された文字列
 // -----------------------------------------------
-function vigenereCipher(text, key, encrypt = true) {
-    const lenAlphabet = 26;
-    const NewKey = key.repeat(Math.ceil(text.length / key.length)).slice(0, text.length);
-    let result = ""
-    for (let i = 0; i < text.length; i++) {
-        let charText = text[i]
-        let charKey = NewKey[i]
-        if ((charText >= "A" && charText <= "Z") || (charText >= "a" && charText <= "z")) {
-            const baseChar = charText >= "A" && charText <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
-            const baseKey = charKey >= "A" && charKey <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
-            const charIdx = charText.charCodeAt(0) - baseChar
-            const keyIdx = charKey.charCodeAt(0) - baseKey
-            let newIndex;
-            if (encrypt) {
-                newIndex = (charIdx + keyIdx) % lenAlphabet
-            } else {
-                newIndex = (charIdx - keyIdx + lenAlphabet) % lenAlphabet
-            }
-            result += String.fromCharCode(newIndex+baseChar)
-        } else {
-            result += charText
-        }
-    }
-    return result
-}
+// function vigenereCipher(text, key, encrypt = true) {
+//     const lenAlphabet = 26;
+//     const NewKey = key.repeat(Math.ceil(text.length / key.length)).slice(0, text.length);
+//     let result = ""
+//     for (let i = 0; i < text.length; i++) {
+//         let charText = text[i]
+//         let charKey = NewKey[i]
+//         if ((charText >= "A" && charText <= "Z") || (charText >= "a" && charText <= "z")) {
+//             const baseChar = charText >= "A" && charText <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
+//             const baseKey = charKey >= "A" && charKey <= "Z" ? "A".charCodeAt(0) : "a".charCodeAt(0)
+//             const charIdx = charText.charCodeAt(0) - baseChar
+//             const keyIdx = charKey.charCodeAt(0) - baseKey
+//             let newIndex;
+//             if (encrypt) {
+//                 newIndex = (charIdx + keyIdx) % lenAlphabet
+//             } else {
+//                 newIndex = (charIdx - keyIdx + lenAlphabet) % lenAlphabet
+//             }
+//             result += String.fromCharCode(newIndex+baseChar)
+//         } else {
+//             result += charText
+//         }
+//     }
+//     return result
+// }
 
-const encrypted = vigenereCipher("Hello, World!", "KeY", true);
-console.log("Encrypted:", encrypted);
+// const encrypted = vigenereCipher("Hello, World!", "KeY", true);
+// console.log("Encrypted:", encrypted);
 
 // -----------------------------------------------
+function hanoi(diskNum, start, end, center) {
+    if (diskNum < 1) return;
+    hanoi(diskNum - 1, start, center, end);
+    console.log(`diskNum ${diskNum} move from ${start} to ${end}`)
+    hanoi(diskNum-1,center,end,start);
+}
+hanoi(4, "A", "C", "B");
 // -----------------------------------------------
 // -----------------------------------------------
 // -----------------------------------------------
